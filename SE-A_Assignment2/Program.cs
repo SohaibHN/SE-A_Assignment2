@@ -16,7 +16,22 @@ namespace SE_A_Assignment2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.Run(new AddUser());
+           
+
+            // this is done to allow the login form to be closed (not hidden) after a sucessful login.
+            loginform fLogin = new loginform();
+            if (fLogin.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new MainApp());
+
+            }
+            else
+            {
+                Application.Exit();
+            }
+           
+
         }
     }
 }

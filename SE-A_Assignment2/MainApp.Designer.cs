@@ -1,6 +1,6 @@
 ﻿namespace SE_A_Assignment2
 {
-    partial class Form1
+    partial class MainApp
     {
         /// <summary>
         /// Required designer variable.
@@ -30,10 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.Text = "MainApp";
         }
 
         #endregion
     }
 }
-

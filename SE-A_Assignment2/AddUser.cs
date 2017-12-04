@@ -17,6 +17,7 @@ namespace SE_A_Assignment2
         public AddUser()
         {
             InitializeComponent();
+            this.Text = "Add New User - Bug Tracker";
 
         }
 

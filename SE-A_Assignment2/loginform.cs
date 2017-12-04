@@ -14,17 +14,20 @@ namespace SE_A_Assignment2
     public partial class loginform : Form
     {
         SqlConnection mySqlConnection;
+        public static String LoggedInUser;
+        public static String LoggedInCategory;
         public loginform()
         {
             InitializeComponent();
-            String[] myData = new String[100];
+            this.Text = "Login - Bug Tracker";
+
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             mySqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\source\repos\SE-A_Assignment2\SE-A_Assignment2\database\BugTracker.mdf;Integrated Security=True;Connect Timeout=30");
-            SqlCommand cmd = new SqlCommand("select username, passwordhash from users where username=@username", mySqlConnection);
+            SqlCommand cmd = new SqlCommand("select username, passwordhash, category from users where username=@username", mySqlConnection);
             cmd.Parameters.AddWithValue("@username", textBox1.Text);
             mySqlConnection.Open();
 
@@ -36,7 +39,8 @@ namespace SE_A_Assignment2
                     if (BCrypt.Net.BCrypt.Verify(textBox2.Text, reader.GetString(1)))
                     {
                         //login
-                        MessageBox.Show("Works");
+                        LoggedInUser = textBox1.Text;
+                        LoggedInCategory = reader.GetString(2);
                         DialogResult = System.Windows.Forms.DialogResult.OK;
                     }
                     else
@@ -50,32 +54,13 @@ namespace SE_A_Assignment2
                 }
             }
             mySqlConnection.Close();
-            /*
-            //cmd.Parameters.AddWithValue("@password", textBox2.Text);
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            
+        }
 
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            mySqlConnection.Open();
-            int i = cmd.ExecuteNonQuery();
-            mySqlConnection.Close();
-
-            if (dt.Rows.Count > 0)
-            {
-                MainApp settingsForm = new MainApp();
-                //this.Visible = false;
-                //settingsForm.Show();
-                //this.Close();
-                DialogResult = System.Windows.Forms.DialogResult.OK;
-            }
-
-            else
-            {
-
-                MessageBox.Show("Please enter Correct Username and Password");
-            }
-            */
+        private void New_User_Click(object sender, EventArgs e)
+        {
+            AddUser RegisterForm = new AddUser();
+            //this.Visible = false;
+            RegisterForm.Show();
         }
     }
 }

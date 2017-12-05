@@ -20,8 +20,7 @@ namespace SE_A_Assignment2
         {
             InitializeComponent();
             this.Text = "Login - Bug Tracker";
-
-
+       
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -45,7 +44,7 @@ namespace SE_A_Assignment2
                     }
                     else
                     {
-                        MessageBox.Show("Please enter Correct Username and Password");
+                        MessageBox.Show("Incorrect Username or Password");
                     }
 
 

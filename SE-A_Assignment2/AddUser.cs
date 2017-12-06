@@ -14,6 +14,7 @@ namespace SE_A_Assignment2
     public partial class AddUser : Form
     {
         SqlConnection mySqlConnection;
+        int i = 0;
         public AddUser()
         {
             InitializeComponent();
@@ -35,18 +36,24 @@ namespace SE_A_Assignment2
             cmd.Parameters.AddWithValue("@password", hashedPassword);
             cmd.Parameters.AddWithValue("@category", textBox3.Text);
             mySqlConnection.Open();
-            int i = cmd.ExecuteNonQuery();
+            try
+            {
+                int i = cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                MessageBox.Show("User exists, please choose another");
+            }
 
             mySqlConnection.Close();
 
             if (i != 0)
             {
-                MessageBox.Show(i + "Data Saved");
+                MessageBox.Show("New User Added");
+                this.Close();
             }
 
-            MessageBox.Show(myPassword);
-            MessageBox.Show(hashedPassword);
-            if (validPassword) { MessageBox.Show("works"); }
+            if (validPassword) {  }
         }
     }
 }

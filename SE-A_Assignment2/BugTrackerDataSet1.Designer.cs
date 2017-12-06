@@ -20,9 +20,9 @@ namespace SE_A_Assignment2 {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("BugTrackerDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("BugTrackerDataSet1")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class BugTrackerDataSet : global::System.Data.DataSet {
+    public partial class BugTrackerDataSet1 : global::System.Data.DataSet {
         
         private ticketsDataTable tabletickets;
         
@@ -30,7 +30,7 @@ namespace SE_A_Assignment2 {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public BugTrackerDataSet() {
+        public BugTrackerDataSet1() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace SE_A_Assignment2 {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        protected BugTrackerDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected BugTrackerDataSet1(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -127,7 +127,7 @@ namespace SE_A_Assignment2 {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            BugTrackerDataSet cln = ((BugTrackerDataSet)(base.Clone()));
+            BugTrackerDataSet1 cln = ((BugTrackerDataSet1)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -199,9 +199,9 @@ namespace SE_A_Assignment2 {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "BugTrackerDataSet";
+            this.DataSetName = "BugTrackerDataSet1";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/BugTrackerDataSet.xsd";
+            this.Namespace = "http://tempuri.org/BugTrackerDataSet1.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tabletickets = new ticketsDataTable();
@@ -225,7 +225,7 @@ namespace SE_A_Assignment2 {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            BugTrackerDataSet ds = new BugTrackerDataSet();
+            BugTrackerDataSet1 ds = new BugTrackerDataSet1();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -429,10 +429,10 @@ namespace SE_A_Assignment2 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ticketsRow AddticketsRow(int Id, string User, string Description, string Project, string Status, string Severity, System.DateTime Date_Logged, System.DateTime Deadline) {
+            public ticketsRow AddticketsRow(string User, string Description, string Project, string Status, string Severity, System.DateTime Date_Logged, System.DateTime Deadline) {
                 ticketsRow rowticketsRow = ((ticketsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Id,
+                        null,
                         User,
                         Description,
                         Project,
@@ -500,7 +500,11 @@ namespace SE_A_Assignment2 {
                 base.Columns.Add(this.columnDeadline);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
                 this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
                 this.columnUser.MaxLength = 2147483647;
                 this.columnDescription.MaxLength = 2147483647;
@@ -574,7 +578,7 @@ namespace SE_A_Assignment2 {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                BugTrackerDataSet ds = new BugTrackerDataSet();
+                BugTrackerDataSet1 ds = new BugTrackerDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -890,7 +894,7 @@ namespace SE_A_Assignment2 {
         }
     }
 }
-namespace SE_A_Assignment2.BugTrackerDataSetTableAdapters {
+namespace SE_A_Assignment2.BugTrackerDataSet1TableAdapters {
     
     
     /// <summary>
@@ -1037,10 +1041,9 @@ namespace SE_A_Assignment2.BugTrackerDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Deadline", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deadline", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[tickets] ([Id], [User], [Description], [Project], [Status], [Severity], [Date Logged], [Deadline]) VALUES (@Id, @User, @Description, @Project, @Status, @Severity, @Date_Logged, @Deadline);
-SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadline FROM tickets WHERE (Id = @Id)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[tickets] ([User], [Description], [Project], [Status], [Severity], [Date Logged], [Deadline]) VALUES (@User, @Description, @Project, @Status, @Severity, @Date_Logged, @Deadline);
+SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadline FROM tickets WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@User", global::System.Data.SqlDbType.Text, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.Text, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Project", global::System.Data.SqlDbType.Text, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Project", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1050,10 +1053,9 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Deadline", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deadline", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[tickets] SET [Id] = @Id, [User] = @User, [Description] = @Description, [Project] = @Project, [Status] = @Status, [Severity] = @Severity, [Date Logged] = @Date_Logged, [Deadline] = @Deadline WHERE (([Id] = @Original_Id) AND ((@IsNull_Date_Logged = 1 AND [Date Logged] IS NULL) OR ([Date Logged] = @Original_Date_Logged)) AND ((@IsNull_Deadline = 1 AND [Deadline] IS NULL) OR ([Deadline] = @Original_Deadline)));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[tickets] SET [User] = @User, [Description] = @Description, [Project] = @Project, [Status] = @Status, [Severity] = @Severity, [Date Logged] = @Date_Logged, [Deadline] = @Deadline WHERE (([Id] = @Original_Id) AND ((@IsNull_Date_Logged = 1 AND [Date Logged] IS NULL) OR ([Date Logged] = @Original_Date_Logged)) AND ((@IsNull_Deadline = 1 AND [Deadline] IS NULL) OR ([Deadline] = @Original_Deadline)));
 SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadline FROM tickets WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@User", global::System.Data.SqlDbType.Text, 0, global::System.Data.ParameterDirection.Input, 0, 0, "User", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.Text, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Project", global::System.Data.SqlDbType.Text, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Project", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1066,13 +1068,14 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Date_Logged", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Date Logged", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Deadline", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deadline", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Deadline", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Deadline", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::SE_A_Assignment2.Properties.Settings.Default.BugTrackerConnectionString;
+            this._connection.ConnectionString = global::SE_A_Assignment2.Properties.Settings.Default.BugTrackerConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1090,7 +1093,7 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(BugTrackerDataSet.ticketsDataTable dataTable) {
+        public virtual int Fill(BugTrackerDataSet1.ticketsDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1103,9 +1106,9 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual BugTrackerDataSet.ticketsDataTable GetData() {
+        public virtual BugTrackerDataSet1.ticketsDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            BugTrackerDataSet.ticketsDataTable dataTable = new BugTrackerDataSet.ticketsDataTable();
+            BugTrackerDataSet1.ticketsDataTable dataTable = new BugTrackerDataSet1.ticketsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1113,14 +1116,14 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(BugTrackerDataSet.ticketsDataTable dataTable) {
+        public virtual int Update(BugTrackerDataSet1.ticketsDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(BugTrackerDataSet dataSet) {
+        public virtual int Update(BugTrackerDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "tickets");
         }
         
@@ -1181,49 +1184,48 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Id, string User, string Description, string Project, string Status, string Severity, global::System.Nullable<global::System.DateTime> Date_Logged, global::System.Nullable<global::System.DateTime> Deadline) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Id));
+        public virtual int Insert(string User, string Description, string Project, string Status, string Severity, global::System.Nullable<global::System.DateTime> Date_Logged, global::System.Nullable<global::System.DateTime> Deadline) {
             if ((User == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(User));
+            }
+            if ((Description == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(User));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Description));
             }
-            if ((Description == null)) {
+            if ((Project == null)) {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Description));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Project));
             }
-            if ((Project == null)) {
+            if ((Status == null)) {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Project));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Status));
             }
-            if ((Status == null)) {
+            if ((Severity == null)) {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(Status));
-            }
-            if ((Severity == null)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Severity));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(Severity));
             }
             if ((Date_Logged.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(Date_Logged.Value));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(Date_Logged.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((Deadline.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(Deadline.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((Deadline.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((System.DateTime)(Deadline.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1245,67 +1247,67 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Id, string User, string Description, string Project, string Status, string Severity, global::System.Nullable<global::System.DateTime> Date_Logged, global::System.Nullable<global::System.DateTime> Deadline, int Original_Id, global::System.Nullable<global::System.DateTime> Original_Date_Logged, global::System.Nullable<global::System.DateTime> Original_Deadline) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Id));
+        public virtual int Update(string User, string Description, string Project, string Status, string Severity, global::System.Nullable<global::System.DateTime> Date_Logged, global::System.Nullable<global::System.DateTime> Deadline, int Original_Id, global::System.Nullable<global::System.DateTime> Original_Date_Logged, global::System.Nullable<global::System.DateTime> Original_Deadline, int Id) {
             if ((User == null)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(User));
+            }
+            if ((Description == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(User));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Description));
             }
-            if ((Description == null)) {
+            if ((Project == null)) {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Description));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Project));
             }
-            if ((Project == null)) {
+            if ((Status == null)) {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Project));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Status));
             }
-            if ((Status == null)) {
+            if ((Severity == null)) {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Status));
-            }
-            if ((Severity == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Severity));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Severity));
             }
             if ((Date_Logged.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(Date_Logged.Value));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(Date_Logged.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((Deadline.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(Deadline.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            if ((Deadline.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Deadline.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
             if ((Original_Date_Logged.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(Original_Date_Logged.Value));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_Date_Logged.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             if ((Original_Deadline.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((System.DateTime)(Original_Deadline.Value));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(Original_Deadline.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1327,7 +1329,7 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string User, string Description, string Project, string Status, string Severity, global::System.Nullable<global::System.DateTime> Date_Logged, global::System.Nullable<global::System.DateTime> Deadline, int Original_Id, global::System.Nullable<global::System.DateTime> Original_Date_Logged, global::System.Nullable<global::System.DateTime> Original_Deadline) {
-            return this.Update(Original_Id, User, Description, Project, Status, Severity, Date_Logged, Deadline, Original_Id, Original_Date_Logged, Original_Deadline);
+            return this.Update(User, Description, Project, Status, Severity, Date_Logged, Deadline, Original_Id, Original_Date_Logged, Original_Deadline, Original_Id);
         }
     }
     
@@ -1422,7 +1424,7 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private int UpdateUpdatedRows(BugTrackerDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(BugTrackerDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._ticketsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tickets.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
@@ -1441,7 +1443,7 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private int UpdateInsertedRows(BugTrackerDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(BugTrackerDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._ticketsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.tickets.Select(null, null, global::System.Data.DataViewRowState.Added);
@@ -1459,7 +1461,7 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private int UpdateDeletedRows(BugTrackerDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(BugTrackerDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             if ((this._ticketsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tickets.Select(null, null, global::System.Data.DataViewRowState.Deleted);
@@ -1501,7 +1503,7 @@ SELECT Id, [User], Description, Project, Status, Severity, [Date Logged], Deadli
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public virtual int UpdateAll(BugTrackerDataSet dataSet) {
+        public virtual int UpdateAll(BugTrackerDataSet1 dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

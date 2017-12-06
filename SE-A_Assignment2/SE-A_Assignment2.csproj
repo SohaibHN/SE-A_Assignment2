@@ -11,6 +11,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +24,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -72,10 +72,16 @@
     <Compile Include="AddUser.Designer.cs">
       <DependentUpon>AddUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="BugTrackerDataSet.Designer.cs">
+    <Compile Include="BugTrackerDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BugTrackerDataSet.xsd</DependentUpon>
+      <DependentUpon>BugTrackerDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="CodeDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CodeDetails.Designer.cs">
+      <DependentUpon>CodeDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="loginform.cs">
       <SubType>Form</SubType>
@@ -91,8 +97,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\HotKeyManager.cs" />
+    <Compile Include="Utils\SearchManager.cs" />
     <EmbeddedResource Include="AddUser.resx">
       <DependentUpon>AddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeDetails.resx">
+      <DependentUpon>CodeDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="loginform.resx">
       <DependentUpon>loginform.cs</DependentUpon>
@@ -110,16 +121,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="BugTrackerDataSet.xsc">
-      <DependentUpon>BugTrackerDataSet.xsd</DependentUpon>
+    <None Include="BugTrackerDataSet1.xsc">
+      <DependentUpon>BugTrackerDataSet1.xsd</DependentUpon>
     </None>
-    <None Include="BugTrackerDataSet.xsd">
+    <None Include="BugTrackerDataSet1.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BugTrackerDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>BugTrackerDataSet1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="BugTrackerDataSet.xss">
-      <DependentUpon>BugTrackerDataSet.xsd</DependentUpon>
+    <None Include="BugTrackerDataSet1.xss">
+      <DependentUpon>BugTrackerDataSet1.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -136,13 +147,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BugTracker.mdf">
+    <Content Include="database\BugTracker.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="BugTracker_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="database\BugTracker_log.ldf">
       <DependentUpon>BugTracker.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="database\dbo.Tickets.sql" />
+    <Content Include="database\dbo.Userstable.sql" />
     <Content Include="LICENSE.txt" />
     <None Include="Resources\test.png" />
   </ItemGroup>
@@ -158,5 +171,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

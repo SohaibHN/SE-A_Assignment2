@@ -29,49 +29,54 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button1 = new System.Windows.Forms.Button();
             this.ManageUsers = new System.Windows.Forms.Button();
             this.ViewBugs = new System.Windows.Forms.Button();
             this.Line1 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.userDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.severityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateLoggedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deadlineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ticketsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bugTrackerDataSet = new SE_A_Assignment2.BugTrackerDataSet();
-            this.ticketsTableAdapter = new SE_A_Assignment2.BugTrackerDataSetTableAdapters.ticketsTableAdapter();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Logout = new System.Windows.Forms.Button();
+            this.bugTrackerDataSet1 = new SE_A_Assignment2.BugTrackerDataSet1();
+            this.ticketsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.ticketsTableAdapter1 = new SE_A_Assignment2.BugTrackerDataSet1TableAdapters.ticketsTableAdapter();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.SaveBug = new System.Windows.Forms.Button();
+            this.BugDesc = new System.Windows.Forms.TextBox();
+            this.BugProject = new System.Windows.Forms.TextBox();
+            this.BugSteps = new System.Windows.Forms.TextBox();
+            this.BugID = new System.Windows.Forms.TextBox();
+            this.BugName = new System.Windows.Forms.TextBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ticketsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bugTrackerDataSet)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bugTrackerDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ticketsBindingSource1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Image = global::SE_A_Assignment2.Properties.Resources.test;
-            this.button1.Location = new System.Drawing.Point(2, 164);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 116);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ManageUsers
             // 
-            this.ManageUsers.Location = new System.Drawing.Point(2, 132);
+            this.ManageUsers.Location = new System.Drawing.Point(644, 8);
             this.ManageUsers.Name = "ManageUsers";
             this.ManageUsers.Size = new System.Drawing.Size(93, 26);
             this.ManageUsers.TabIndex = 2;
@@ -92,107 +97,44 @@
             // Line1
             // 
             this.Line1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Line1.Location = new System.Drawing.Point(6, 36);
+            this.Line1.Location = new System.Drawing.Point(-14, 23);
             this.Line1.Name = "Line1";
             this.Line1.Size = new System.Drawing.Size(800, 3);
             this.Line1.TabIndex = 1000;
             // 
-            // label1
-            // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(95, -55);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(2, 550);
-            this.label1.TabIndex = 1001;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn,
-            this.userDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn,
-            this.projectDataGridViewTextBoxColumn,
-            this.statusDataGridViewTextBoxColumn,
-            this.severityDataGridViewTextBoxColumn,
-            this.dateLoggedDataGridViewTextBoxColumn,
-            this.deadlineDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.ticketsBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(103, 28);
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8});
+            this.dataGridView1.DataSource = this.ticketsBindingSource1;
+            this.dataGridView1.Location = new System.Drawing.Point(7, 145);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(626, 413);
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(722, 296);
             this.dataGridView1.TabIndex = 1002;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            // 
-            // userDataGridViewTextBoxColumn
-            // 
-            this.userDataGridViewTextBoxColumn.DataPropertyName = "User";
-            this.userDataGridViewTextBoxColumn.HeaderText = "User";
-            this.userDataGridViewTextBoxColumn.Name = "userDataGridViewTextBoxColumn";
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            // 
-            // projectDataGridViewTextBoxColumn
-            // 
-            this.projectDataGridViewTextBoxColumn.DataPropertyName = "Project";
-            this.projectDataGridViewTextBoxColumn.HeaderText = "Project";
-            this.projectDataGridViewTextBoxColumn.Name = "projectDataGridViewTextBoxColumn";
-            // 
-            // statusDataGridViewTextBoxColumn
-            // 
-            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
-            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
-            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
-            // 
-            // severityDataGridViewTextBoxColumn
-            // 
-            this.severityDataGridViewTextBoxColumn.DataPropertyName = "Severity";
-            this.severityDataGridViewTextBoxColumn.HeaderText = "Severity";
-            this.severityDataGridViewTextBoxColumn.Name = "severityDataGridViewTextBoxColumn";
-            // 
-            // dateLoggedDataGridViewTextBoxColumn
-            // 
-            this.dateLoggedDataGridViewTextBoxColumn.DataPropertyName = "Date Logged";
-            this.dateLoggedDataGridViewTextBoxColumn.HeaderText = "Date Logged";
-            this.dateLoggedDataGridViewTextBoxColumn.Name = "dateLoggedDataGridViewTextBoxColumn";
-            // 
-            // deadlineDataGridViewTextBoxColumn
-            // 
-            this.deadlineDataGridViewTextBoxColumn.DataPropertyName = "Deadline";
-            this.deadlineDataGridViewTextBoxColumn.HeaderText = "Deadline";
-            this.deadlineDataGridViewTextBoxColumn.Name = "deadlineDataGridViewTextBoxColumn";
-            // 
-            // ticketsBindingSource
-            // 
-            this.ticketsBindingSource.DataMember = "tickets";
-            this.ticketsBindingSource.DataSource = this.bugTrackerDataSet;
-            // 
-            // bugTrackerDataSet
-            // 
-            this.bugTrackerDataSet.DataSetName = "BugTrackerDataSet";
-            this.bugTrackerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // ticketsTableAdapter
-            // 
-            this.ticketsTableAdapter.ClearBeforeFill = true;
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(1, 2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Location = new System.Drawing.Point(1, -1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(751, 508);
@@ -202,8 +144,6 @@
             // 
             this.tabPage1.Controls.Add(this.ManageUsers);
             this.tabPage1.Controls.Add(this.dataGridView1);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.ViewBugs);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -215,7 +155,20 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.radioButton3);
+            this.tabPage2.Controls.Add(this.radioButton2);
+            this.tabPage2.Controls.Add(this.radioButton1);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.label2);
+            this.tabPage2.Controls.Add(this.SaveBug);
+            this.tabPage2.Controls.Add(this.BugDesc);
+            this.tabPage2.Controls.Add(this.BugProject);
+            this.tabPage2.Controls.Add(this.BugSteps);
+            this.tabPage2.Controls.Add(this.BugID);
+            this.tabPage2.Controls.Add(this.BugName);
             this.tabPage2.Controls.Add(this.Line1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -225,45 +178,278 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // tabPage3
             // 
-            this.textBox1.Location = new System.Drawing.Point(7, 54);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(721, 387);
-            this.textBox1.TabIndex = 1001;
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(743, 482);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(743, 482);
+            this.tabPage4.TabIndex = 5;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(743, 482);
+            this.tabPage5.TabIndex = 6;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // Logout
+            // 
+            this.Logout.Location = new System.Drawing.Point(670, -1);
+            this.Logout.Name = "Logout";
+            this.Logout.Size = new System.Drawing.Size(75, 21);
+            this.Logout.TabIndex = 1003;
+            this.Logout.Text = "Logout";
+            this.Logout.UseVisualStyleBackColor = true;
+            this.Logout.Click += new System.EventHandler(this.Logout_Click);
+            // 
+            // bugTrackerDataSet1
+            // 
+            this.bugTrackerDataSet1.DataSetName = "BugTrackerDataSet1";
+            this.bugTrackerDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // ticketsBindingSource1
+            // 
+            this.ticketsBindingSource1.DataMember = "tickets";
+            this.ticketsBindingSource1.DataSource = this.bugTrackerDataSet1;
+            // 
+            // ticketsTableAdapter1
+            // 
+            this.ticketsTableAdapter1.ClearBeforeFill = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "User";
+            this.dataGridViewTextBoxColumn2.HeaderText = "User";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Project";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Project";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Status";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Status";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Severity";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Severity";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "Date Logged";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Date Logged";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Deadline";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Deadline";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(526, 41);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(43, 13);
+            this.label6.TabIndex = 1027;
+            this.label6.Text = "Bug ID:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(41, 103);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 1026;
+            this.label5.Text = "Project:";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(41, 265);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 40);
+            this.label4.TabIndex = 1025;
+            this.label4.Text = "Reproduction Steps:";
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(41, 147);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 39);
+            this.label3.TabIndex = 1024;
+            this.label3.Text = "Description of Bug:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(41, 73);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 1023;
+            this.label2.Text = "Name:";
+            // 
+            // SaveBug
+            // 
+            this.SaveBug.Location = new System.Drawing.Point(635, 445);
+            this.SaveBug.Name = "SaveBug";
+            this.SaveBug.Size = new System.Drawing.Size(59, 23);
+            this.SaveBug.TabIndex = 1022;
+            this.SaveBug.Text = "Save Bug";
+            this.SaveBug.UseVisualStyleBackColor = true;
+            // 
+            // BugDesc
+            // 
+            this.BugDesc.Location = new System.Drawing.Point(127, 147);
+            this.BugDesc.Multiline = true;
+            this.BugDesc.Name = "BugDesc";
+            this.BugDesc.Size = new System.Drawing.Size(206, 86);
+            this.BugDesc.TabIndex = 1020;
+            // 
+            // BugProject
+            // 
+            this.BugProject.Location = new System.Drawing.Point(127, 103);
+            this.BugProject.Name = "BugProject";
+            this.BugProject.Size = new System.Drawing.Size(206, 20);
+            this.BugProject.TabIndex = 1019;
+            // 
+            // BugSteps
+            // 
+            this.BugSteps.Location = new System.Drawing.Point(127, 265);
+            this.BugSteps.Multiline = true;
+            this.BugSteps.Name = "BugSteps";
+            this.BugSteps.Size = new System.Drawing.Size(398, 120);
+            this.BugSteps.TabIndex = 1018;
+            // 
+            // BugID
+            // 
+            this.BugID.Location = new System.Drawing.Point(575, 38);
+            this.BugID.Name = "BugID";
+            this.BugID.ReadOnly = true;
+            this.BugID.Size = new System.Drawing.Size(153, 20);
+            this.BugID.TabIndex = 1017;
+            // 
+            // BugName
+            // 
+            this.BugName.Location = new System.Drawing.Point(127, 70);
+            this.BugName.Name = "BugName";
+            this.BugName.Size = new System.Drawing.Size(206, 20);
+            this.BugName.TabIndex = 1016;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(127, 405);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(85, 17);
+            this.radioButton1.TabIndex = 1029;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "radioButton1";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(231, 405);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(85, 17);
+            this.radioButton2.TabIndex = 1030;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "radioButton2";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(335, 405);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(85, 17);
+            this.radioButton3.TabIndex = 1031;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "radioButton3";
+            this.radioButton3.UseVisualStyleBackColor = true;
             // 
             // MainApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 501);
+            this.Controls.Add(this.Logout);
             this.Controls.Add(this.tabControl1);
             this.Name = "MainApp";
             this.Text = "MainApp";
             this.Load += new System.EventHandler(this.MainApp_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ticketsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bugTrackerDataSet)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bugTrackerDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ticketsBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button ManageUsers;
         private System.Windows.Forms.Button ViewBugs;
         private System.Windows.Forms.Label Line1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private BugTrackerDataSet bugTrackerDataSet;
-        private System.Windows.Forms.BindingSource ticketsBindingSource;
-        private BugTrackerDataSetTableAdapters.ticketsTableAdapter ticketsTableAdapter;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button Logout;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn userDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
@@ -272,9 +458,30 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn severityDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateLoggedDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn deadlineDataGridViewTextBoxColumn;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox textBox1;
+        private BugTrackerDataSet1 bugTrackerDataSet1;
+        private System.Windows.Forms.BindingSource ticketsBindingSource1;
+        private BugTrackerDataSet1TableAdapters.ticketsTableAdapter ticketsTableAdapter1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button SaveBug;
+        private System.Windows.Forms.TextBox BugDesc;
+        private System.Windows.Forms.TextBox BugProject;
+        private System.Windows.Forms.TextBox BugSteps;
+        private System.Windows.Forms.TextBox BugID;
+        private System.Windows.Forms.TextBox BugName;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

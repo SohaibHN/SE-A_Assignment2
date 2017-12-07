@@ -15,16 +15,14 @@ using ScintillaNET.Demo.Utils;
 
 namespace SE_A_Assignment2
 {
-    public partial class CodeDetails : Form
+    public partial class BugDetails : Form
     {
         ScintillaNET.Scintilla TextArea;
         SqlConnection mySqlConnection;
         public String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BugTrackerDB"].ConnectionString;
-        
-        public CodeDetails()
+        public BugDetails()
         {
             InitializeComponent();
-
             TextArea = new ScintillaNET.Scintilla();
             CodeBox.Controls.Add(TextArea);
             //TextArea.Text = contents;
@@ -44,22 +42,69 @@ namespace SE_A_Assignment2
 
             // INIT HOTKEYS
             InitHotkeys();
+
+
         }
 
-        private void CodeDetails_Load(object sender, EventArgs e)
+        private void BugDetails_Load(object sender, EventArgs e)
         {
-
+            LoadTicketData();
+            LoadCodeData();
         }
 
-        private void GenerateCode_Click(object sender, EventArgs e)
+        private void LoadTicketData()
         {
-            string contents;
-            TextArea.Clear();
-            using (var wc1 = new System.Net.WebClient())
-                contents = wc1.DownloadString(URL.Text);
-            //MessageBox.Show(contents);
-            TextArea.Text = contents;
+            mySqlConnection = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM tickets WHERE [ID] = @BUGID", mySqlConnection);
+
+            cmd.Parameters.AddWithValue("@BUGID", _theValue);
+
+
+            mySqlConnection.Open();
+
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    BugCreatedBy.Text = reader["user"].ToString();
+                    BugDesc.Text = reader["description"].ToString();
+                    DeadlineDate.Text = reader["deadline"].ToString();
+                    DateCreated.Text = reader["datelogged"].ToString();
+                    BugStatus.Text = reader["status"].ToString();
+                    BugProject.Text = reader["project"].ToString();
+                }
+                
+            }
+            mySqlConnection.Close();
         }
+
+        private void LoadCodeData()
+        {
+            mySqlConnection = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM code_data WHERE [FK_TICKET_ID] = @BUGID", mySqlConnection);
+
+            cmd.Parameters.AddWithValue("@BUGID", _theValue);
+
+
+            mySqlConnection.Open();
+
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    TextArea.Text = reader["code"].ToString();
+                    CodeVersion.Text = reader["version"].ToString();
+                    CodeMethods.Text = reader["methods"].ToString();
+                    CodeClass.Text = reader["class"].ToString();
+                    CodeSource.Text = reader["URL"].ToString();
+                    CodeLines.Text = reader["Lines"].ToString();
+                    CodeAuthor.Text = reader["Author"].ToString();
+                }
+
+            }
+            mySqlConnection.Close();
+        }
+
 
         private string _theValue;
         public string TheValue
@@ -71,47 +116,12 @@ namespace SE_A_Assignment2
             set
             {
                 _theValue = value;
-                BugID.Text = value;
-
+                BugIDTest.Text = value;
                 // do something with _theValue so that it
                 // appears in the UI
 
             }
-        }
 
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            mySqlConnection = new SqlConnection(connectionString);
-            // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-            SqlCommand cmd = new SqlCommand("INSERT INTO code_data (FK_Ticket_ID, [Code], [Version], [Class], [Methods], [Lines], [URL], [Author], [Date]) VALUES (@BUGID, @Code, @Version, @Class, @Methods, @Lines, @Source, @Author, @Date)", mySqlConnection);
-
-            cmd.Parameters.AddWithValue("@Code", TextArea.Text);
-            cmd.Parameters.AddWithValue("@Version", BugVersion.Text);
-            cmd.Parameters.AddWithValue("@Methods", BugMethods.Text);
-            cmd.Parameters.AddWithValue("@Class", BugClass.Text);
-            cmd.Parameters.AddWithValue("@Lines", BugLines.Text);
-            cmd.Parameters.AddWithValue("@Source", URL.Text);
-            cmd.Parameters.AddWithValue("@Author", BugAuthor.Text);
-            cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
-            cmd.Parameters.AddWithValue("@BUGID", _theValue);
-
-            mySqlConnection.Open();
-            try
-            {
-                int i = cmd.ExecuteNonQuery();
-
-                if (i != 0)
-                {
-                    MessageBox.Show("Extra Details have been added");
-                    this.Close();
-                }
-            }
-            catch (SqlException f)
-            {
-                MessageBox.Show(f.Message);
-            }
-
-            mySqlConnection.Close();
         }
 
         private void InitColors()
@@ -404,7 +414,6 @@ namespace SE_A_Assignment2
         }
 
         #endregion
-
-
     }
 }
+

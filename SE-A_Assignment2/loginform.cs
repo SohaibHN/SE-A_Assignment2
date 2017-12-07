@@ -16,6 +16,7 @@ namespace SE_A_Assignment2
         SqlConnection mySqlConnection;
         public static String LoggedInUser;
         public static String LoggedInCategory;
+        public String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BugTrackerDB"].ConnectionString;
         public loginform()
         {
             InitializeComponent();
@@ -29,10 +30,8 @@ namespace SE_A_Assignment2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int maxId;
 
-            mySqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\source\repos\SE-A_Assignment2\SE-A_Assignment2\database\BugTracker.mdf;Integrated Security=True;Connect Timeout=30");
-
+            mySqlConnection = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("select username, passwordhash, category from users where username=@username", mySqlConnection);
             cmd.Parameters.AddWithValue("@username", textBox1.Text);
             mySqlConnection.Open();
@@ -58,10 +57,11 @@ namespace SE_A_Assignment2
                         }
                         else
                         {
-                            MessageBox.Show("Incorrect Username or Password");
+                            MessageBox.Show("Incorrect Password");
                         }
 
                     }
+                    if (!reader.HasRows) { MessageBox.Show("Username does not exist"); }
                 }
                 mySqlConnection.Close();
             }

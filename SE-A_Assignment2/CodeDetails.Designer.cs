@@ -31,11 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CodeDetails));
             this.label1 = new System.Windows.Forms.Label();
             this.URL = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.BugID = new System.Windows.Forms.TextBox();
+            this.BugAuthor = new System.Windows.Forms.TextBox();
+            this.BugClass = new System.Windows.Forms.TextBox();
+            this.BugMethods = new System.Windows.Forms.TextBox();
+            this.BugLines = new System.Windows.Forms.TextBox();
             this.GenerateCode = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,6 +50,9 @@
             this.BtnClearSearch = new System.Windows.Forms.Button();
             this.TxtSearch = new System.Windows.Forms.TextBox();
             this.CodeBox = new System.Windows.Forms.Panel();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.BugVersion = new System.Windows.Forms.TextBox();
             this.PanelSearch.SuspendLayout();
             this.CodeBox.SuspendLayout();
             this.SuspendLayout();
@@ -67,49 +70,50 @@
             this.URL.Location = new System.Drawing.Point(76, 41);
             this.URL.Name = "URL";
             this.URL.Size = new System.Drawing.Size(153, 20);
-            this.URL.TabIndex = 1003;
+            this.URL.TabIndex = 0;
             // 
-            // textBox2
+            // BugID
             // 
-            this.textBox2.Location = new System.Drawing.Point(416, 41);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(153, 20);
-            this.textBox2.TabIndex = 1004;
+            this.BugID.Location = new System.Drawing.Point(416, 41);
+            this.BugID.Name = "BugID";
+            this.BugID.ReadOnly = true;
+            this.BugID.Size = new System.Drawing.Size(153, 20);
+            this.BugID.TabIndex = 4;
             // 
-            // textBox3
+            // BugAuthor
             // 
-            this.textBox3.Location = new System.Drawing.Point(416, 67);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(153, 20);
-            this.textBox3.TabIndex = 1005;
+            this.BugAuthor.Location = new System.Drawing.Point(416, 67);
+            this.BugAuthor.Name = "BugAuthor";
+            this.BugAuthor.Size = new System.Drawing.Size(153, 20);
+            this.BugAuthor.TabIndex = 5;
             // 
-            // textBox4
+            // BugClass
             // 
-            this.textBox4.Location = new System.Drawing.Point(76, 98);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(153, 20);
-            this.textBox4.TabIndex = 1006;
+            this.BugClass.Location = new System.Drawing.Point(76, 98);
+            this.BugClass.Name = "BugClass";
+            this.BugClass.Size = new System.Drawing.Size(153, 20);
+            this.BugClass.TabIndex = 2;
             // 
-            // textBox5
+            // BugMethods
             // 
-            this.textBox5.Location = new System.Drawing.Point(76, 124);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(153, 20);
-            this.textBox5.TabIndex = 1007;
+            this.BugMethods.Location = new System.Drawing.Point(76, 124);
+            this.BugMethods.Name = "BugMethods";
+            this.BugMethods.Size = new System.Drawing.Size(153, 20);
+            this.BugMethods.TabIndex = 3;
             // 
-            // textBox6
+            // BugLines
             // 
-            this.textBox6.Location = new System.Drawing.Point(416, 95);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(153, 20);
-            this.textBox6.TabIndex = 1008;
+            this.BugLines.Location = new System.Drawing.Point(416, 95);
+            this.BugLines.Name = "BugLines";
+            this.BugLines.Size = new System.Drawing.Size(153, 20);
+            this.BugLines.TabIndex = 6;
             // 
             // GenerateCode
             // 
             this.GenerateCode.Location = new System.Drawing.Point(170, 64);
             this.GenerateCode.Name = "GenerateCode";
             this.GenerateCode.Size = new System.Drawing.Size(59, 23);
-            this.GenerateCode.TabIndex = 1009;
+            this.GenerateCode.TabIndex = 1;
             this.GenerateCode.Text = "Generate";
             this.GenerateCode.UseVisualStyleBackColor = true;
             this.GenerateCode.Click += new System.EventHandler(this.GenerateCode_Click);
@@ -157,7 +161,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(43, 13);
             this.label6.TabIndex = 1014;
-            this.label6.Text = "Project:";
+            this.label6.Text = "Bug ID:";
             // 
             // label7
             // 
@@ -255,13 +259,42 @@
             this.CodeBox.Location = new System.Drawing.Point(12, 181);
             this.CodeBox.Name = "CodeBox";
             this.CodeBox.Size = new System.Drawing.Size(580, 276);
-            this.CodeBox.TabIndex = 1019;
+            this.CodeBox.TabIndex = 8;
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Location = new System.Drawing.Point(525, 463);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(59, 23);
+            this.SaveButton.TabIndex = 9;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(365, 127);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(45, 13);
+            this.label9.TabIndex = 1022;
+            this.label9.Text = "Version:";
+            // 
+            // BugVersion
+            // 
+            this.BugVersion.Location = new System.Drawing.Point(416, 124);
+            this.BugVersion.Name = "BugVersion";
+            this.BugVersion.Size = new System.Drawing.Size(153, 20);
+            this.BugVersion.TabIndex = 7;
             // 
             // CodeDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(601, 492);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.BugVersion);
+            this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -270,11 +303,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.GenerateCode);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.BugLines);
+            this.Controls.Add(this.BugMethods);
+            this.Controls.Add(this.BugClass);
+            this.Controls.Add(this.BugAuthor);
+            this.Controls.Add(this.BugID);
             this.Controls.Add(this.URL);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CodeBox);
@@ -293,11 +326,11 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox URL;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox BugID;
+        private System.Windows.Forms.TextBox BugAuthor;
+        private System.Windows.Forms.TextBox BugClass;
+        private System.Windows.Forms.TextBox BugMethods;
+        private System.Windows.Forms.TextBox BugLines;
         private System.Windows.Forms.Button GenerateCode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -312,5 +345,8 @@
         private System.Windows.Forms.Button BtnClearSearch;
         private System.Windows.Forms.TextBox TxtSearch;
         private System.Windows.Forms.Panel CodeBox;
+        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox BugVersion;
     }
 }

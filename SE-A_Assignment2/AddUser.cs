@@ -14,6 +14,7 @@ namespace SE_A_Assignment2
     public partial class AddUser : Form
     {
         SqlConnection mySqlConnection;
+        public String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BugTrackerDB"].ConnectionString;
         int i = 0;
         public AddUser()
         {
@@ -25,7 +26,7 @@ namespace SE_A_Assignment2
         private void button1_Click(object sender, EventArgs e)
         {
             //SqlConnection con = new SqlConnection("Data Source=NiluNilesh;Integrated Security=True");  
-            mySqlConnection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\source\repos\SE-A_Assignment2\SE-A_Assignment2\database\BugTracker.mdf;Integrated Security=True;Connect Timeout=30");
+            mySqlConnection = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("INSERT INTO users (username, passwordhash, category) VALUES (@username, @password, @category)", mySqlConnection);
             string myPassword = textBox2.Text;
 
@@ -39,6 +40,12 @@ namespace SE_A_Assignment2
             try
             {
                 int i = cmd.ExecuteNonQuery();
+
+                if (i != 0)
+                {
+                    MessageBox.Show("New User Added");
+                    this.Close();
+                }
             }
             catch
             {
@@ -47,11 +54,7 @@ namespace SE_A_Assignment2
 
             mySqlConnection.Close();
 
-            if (i != 0)
-            {
-                MessageBox.Show("New User Added");
-                this.Close();
-            }
+
 
             if (validPassword) {  }
         }

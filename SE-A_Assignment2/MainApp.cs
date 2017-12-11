@@ -19,6 +19,7 @@ namespace SE_A_Assignment2
         public String MainLoggedInUser;
         public String MainLoggedInCategory;
         public String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BugTrackerDB"].ConnectionString;
+
         SqlConnection mySqlConnection;
 
         public MainApp()
@@ -31,8 +32,7 @@ namespace SE_A_Assignment2
 
             MainLoggedInUser = loginform.LoggedInUser;
             MainLoggedInCategory = loginform.LoggedInCategory;
-
-
+            
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
         }
 
@@ -40,34 +40,78 @@ namespace SE_A_Assignment2
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])//your specific tabname
             {
-                int maxId;
-                mySqlConnection = new SqlConnection(connectionString);
-                using (SqlCommand dataCommand =
-                        new SqlCommand("Select IDENT_CURRENT('tickets')", mySqlConnection))
-                {
-                    //Select IDENT_CURRENT('tickets')
-                    mySqlConnection.Open();
-                    maxId = Convert.ToInt32(dataCommand.ExecuteScalar());
-                }
-
-                mySqlConnection.Close();
-                BugID.Text = maxId.ToString();
-                BugDeadlineDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
-
-
+                BugDataInital();
             }
         }
 
-
-
-        private void MainApp_Load(object sender, EventArgs e)
+        private void BugDataInital()
         {
-            // TODO: This line of code loads data into the 'bugTrackerDataSet.tickets' table. You can move, or remove it, as needed.
-            this.ticketsTableAdapter.Fill(this.bugTrackerDataSet.tickets);
-            // TODO: This line of code loads data into the 'bugTrackerDataSet1.tickets' table. You can move, or remove it, as needed.
-            //this.ticketsTableAdapter1.Fill(this.bugTrackerDataSet1.tickets);
-            if (MainLoggedInCategory != "Admin") { ManageUsers.Visible = false; tabControl1.TabPages.Remove(tabPage5); }
+            int maxId;
+            mySqlConnection = new SqlConnection(connectionString);
+            using (SqlCommand dataCommand =
+                    new SqlCommand("Select IDENT_CURRENT('tickets')", mySqlConnection))
+            {
+                //Select IDENT_CURRENT('tickets')
+                mySqlConnection.Open();
+                maxId = 1 + Convert.ToInt32(dataCommand.ExecuteScalar());
+            }
 
+            mySqlConnection.Close();
+            BugID.Text = maxId.ToString();
+            BugDeadlineDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+        }
+
+            private void MainApp_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'bugTrackerDataSetMain.tickets' table. You can move, or remove it, as needed.
+            this.ticketsTableAdapter2.Fill(this.bugTrackerDataSetMain.tickets);
+            // 
+            if (MainLoggedInCategory != "Admin") { ManageUsers.Visible = false; tabControl1.TabPages.Remove(tabPage5); }
+            GridViewData();
+
+            this.dataGridView1.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridView1_RowPrePaint);
+
+        }
+
+        private void GridViewData()
+        {
+            DataSet ds = new DataSet();
+            SqlDataAdapter daTickets = new SqlDataAdapter();
+            mySqlConnection = new SqlConnection(connectionString);
+            SqlCommand selTickets = new SqlCommand("SELECT * FROM tickets", mySqlConnection);
+            daTickets.SelectCommand = selTickets;
+            daTickets.Fill(ds, "tickets");
+
+            BindingSource bs = new BindingSource();
+            bs.DataSource = ds.Tables["tickets"];
+            dataGridView1.DataSource = ds.Tables["tickets"];
+        }
+
+        private void dataGridView1_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (dataGridView1.Rows[e.RowIndex].Cells[4].Value == dataGridView1.Rows[e.RowIndex].Cells[4].Value)
+            {
+              // dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Beige;
+            }
+
+            if (e.RowIndex < 0 )
+                return;
+            //Compare value and change color
+            DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[5];
+            String value = cell.Value == null ? string.Empty : cell.Value.ToString();
+
+            if (value.Equals("Broken") == true)
+            {
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Tomato;
+            }
+            else if (value.Equals("Fixed") == true)
+            {
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Green;
+            }
+            else
+            {
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightBlue;
+            }
         }
 
         private void ViewBugs_Click(object sender, EventArgs e)
@@ -252,9 +296,9 @@ namespace SE_A_Assignment2
                 if (i != 0)
                 {
                     MessageBox.Show("New Bug reported");
-                    this.ticketsTableAdapter.Fill(this.bugTrackerDataSet.tickets);
-                    dataGridView1.Update();
+                    GridViewData();
                     dataGridView1.Refresh();
+                    BugDataInital();
 
                 }
             }
@@ -266,5 +310,10 @@ namespace SE_A_Assignment2
             mySqlConnection.Close();
         }
 
+        private void SearchData_TextChanged(object sender, EventArgs e)
+        {
+             (this.dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Description] LIKE '%{0}%' OR [Severity] LIKE '%{0}%' OR [Project] LIKE '%{0}%'", SearchData.Text);
+            
+        }
     }
 }

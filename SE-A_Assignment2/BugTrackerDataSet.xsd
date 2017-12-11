@@ -79,7 +79,17 @@ SELECT Id, [User], Description, ReproductionSteps, Project, Status, Severity, Da
               <Mapping SourceColumn="DateLogged" DataSetColumn="DateLogged" />
               <Mapping SourceColumn="Deadline" DataSetColumn="Deadline" />
             </Mappings>
-            <Sources />
+            <Sources>
+              <DbSource ConnectionRef="BugTrackerConnectionString1 (Settings)" DbObjectName="dbo.tickets" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillAll" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillAll" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillAll">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT        Id, [User], Description, ReproductionSteps, Project, Status, Severity, DateLogged, Deadline
+FROM            tickets</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
           </TableAdapter>
         </Tables>
         <Sources />
@@ -89,7 +99,7 @@ SELECT Id, [User], Description, ReproductionSteps, Project, Status, Severity, Da
   <xs:element name="BugTrackerDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="BugTrackerDataSet" msprop:Generator_UserDSName="BugTrackerDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="tickets" msprop:Generator_TableClassName="ticketsDataTable" msprop:Generator_TableVarName="tabletickets" msprop:Generator_TablePropName="tickets" msprop:Generator_RowDeletingName="ticketsRowDeleting" msprop:Generator_RowChangingName="ticketsRowChanging" msprop:Generator_RowEvHandlerName="ticketsRowChangeEventHandler" msprop:Generator_RowDeletedName="ticketsRowDeleted" msprop:Generator_UserTableName="tickets" msprop:Generator_RowChangedName="ticketsRowChanged" msprop:Generator_RowEvArgName="ticketsRowChangeEvent" msprop:Generator_RowClassName="ticketsRow">
+        <xs:element name="tickets" msprop:Generator_TableClassName="ticketsDataTable" msprop:Generator_TableVarName="tabletickets" msprop:Generator_RowChangedName="ticketsRowChanged" msprop:Generator_TablePropName="tickets" msprop:Generator_RowDeletingName="ticketsRowDeleting" msprop:Generator_RowChangingName="ticketsRowChanging" msprop:Generator_RowEvHandlerName="ticketsRowChangeEventHandler" msprop:Generator_RowDeletedName="ticketsRowDeleted" msprop:Generator_RowClassName="ticketsRow" msprop:Generator_UserTableName="tickets" msprop:Generator_RowEvArgName="ticketsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />

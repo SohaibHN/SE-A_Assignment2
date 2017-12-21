@@ -1,32 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using ScintillaNET;
 using System.IO;
 using System.Configuration;
 using ScintillaNET.Demo.Utils;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace SE_A_Assignment2
 {
-    public partial class BugDetails : Form
+    class ScinPublicClass
     {
         ScintillaNET.Scintilla TextArea;
-        SqlConnection mySqlConnection;
-        public String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BugTrackerDB"].ConnectionString;
-        //private readonly MainApp mainapp; //readonly is optional (For safety purposes)
-        public BugDetails()
+
+        public void ScinMain()
         {
-            InitializeComponent();
             TextArea = new ScintillaNET.Scintilla();
-            CodeBox.Controls.Add(TextArea);
-            //TextArea.Text = contents;
 
             // BASIC CONFIG
             TextArea.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -42,92 +34,6 @@ namespace SE_A_Assignment2
             InitNumberMargin();
 
             // INIT HOTKEYS
-            InitHotkeys();
-
-
-
-
-        }
-
-        private void BugDetails_Load(object sender, EventArgs e)
-        {
-            LoadTicketData();
-            LoadCodeData();
-            BugSeverity.SelectedIndex = 1;
-            //Status.SelectedIndex = 0;
-
-        }
-
-        private void LoadTicketData()
-        {
-            mySqlConnection = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT * FROM tickets WHERE [ID] = @BUGID", mySqlConnection);
-
-            cmd.Parameters.AddWithValue("@BUGID", _theValue);
-
-
-            mySqlConnection.Open();
-
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    BugCreatedBy.Text = reader["user"].ToString();
-                    BugDesc.Text = reader["description"].ToString();
-                    DeadlineDate.Text = reader["deadline"].ToString();
-                    DateCreated.Text = reader["datelogged"].ToString();
-                    Status.Text = reader["status"].ToString();
-                    BugProject.Text = reader["project"].ToString();
-                }
-
-            }
-            mySqlConnection.Close();
-        }
-
-        private void LoadCodeData()
-        {
-            mySqlConnection = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT * FROM code_data WHERE [FK_TICKET_ID] = @BUGID", mySqlConnection);
-
-            cmd.Parameters.AddWithValue("@BUGID", _theValue);
-
-
-            mySqlConnection.Open();
-
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    TextArea.Text = reader["code"].ToString();
-                    BugVersion.Text = reader["version"].ToString();
-                    BugMethods.Text = reader["methods"].ToString();
-                    BugClass.Text = reader["class"].ToString();
-                    BugSource.Text = reader["URL"].ToString();
-                    BugLines.Text = reader["Lines"].ToString();
-                    CodeAuthor.Text = reader["Author"].ToString();
-                }
-
-            }
-            mySqlConnection.Close();
-        }
-
-
-        private string _theValue;
-        public string TheValue
-        {
-            get
-            {
-                return _theValue;
-            }
-            set
-            {
-                _theValue = value;
-                BugIDTest.Text = value;
-                // do something with _theValue so that it
-                // appears in the UI
-
-            }
-
         }
 
         private void InitColors()
@@ -135,27 +41,6 @@ namespace SE_A_Assignment2
             TextArea.SetSelectionBackColor(true, IntToColor(0x114D9C));
         }
 
-        private void InitHotkeys()
-        {
-            // register the hotkeys with the form
-            HotKeyManager.AddHotKey(this, OpenSearch, Keys.F, true);
-            HotKeyManager.AddHotKey(this, OpenFindDialog, Keys.F, true, false, true);
-            HotKeyManager.AddHotKey(this, OpenReplaceDialog, Keys.R, true);
-            HotKeyManager.AddHotKey(this, OpenReplaceDialog, Keys.H, true);
-            HotKeyManager.AddHotKey(this, Uppercase, Keys.U, true);
-            HotKeyManager.AddHotKey(this, Lowercase, Keys.L, true);
-            HotKeyManager.AddHotKey(this, ZoomIn, Keys.Oemplus, true);
-            HotKeyManager.AddHotKey(this, ZoomOut, Keys.OemMinus, true);
-            HotKeyManager.AddHotKey(this, ZoomDefault, Keys.D0, true);
-            HotKeyManager.AddHotKey(this, CloseSearch, Keys.Escape);
-
-            // remove conflicting hotkeys from scintilla
-            TextArea.ClearCmdKey(Keys.Control | Keys.F);
-            TextArea.ClearCmdKey(Keys.Control | Keys.R);
-            TextArea.ClearCmdKey(Keys.Control | Keys.H);
-            TextArea.ClearCmdKey(Keys.Control | Keys.L);
-            TextArea.ClearCmdKey(Keys.Control | Keys.U);
-        }
 
         private void InitSyntaxColoring()
         {
@@ -315,49 +200,6 @@ namespace SE_A_Assignment2
 
         #region Quick Search Bar
 
-        bool SearchIsOpen = false;
-
-        private void OpenSearch()
-        {
-
-            SearchManager.SearchBox = TxtSearch;
-            SearchManager.TextArea = TextArea;
-
-            if (!SearchIsOpen)
-            {
-                SearchIsOpen = true;
-                InvokeIfNeeded(delegate () {
-                    PanelSearch.Visible = true;
-                    TxtSearch.Text = SearchManager.LastSearch;
-                    TxtSearch.Focus();
-                    TxtSearch.SelectAll();
-                });
-            }
-            else
-            {
-                InvokeIfNeeded(delegate () {
-                    TxtSearch.Focus();
-                    TxtSearch.SelectAll();
-                });
-            }
-        }
-        private void CloseSearch()
-        {
-            if (SearchIsOpen)
-            {
-                SearchIsOpen = false;
-                InvokeIfNeeded(delegate () {
-                    PanelSearch.Visible = false;
-                    //CurBrowser.GetBrowser().StopFinding(true);
-                });
-            }
-        }
-
-        private void BtnClearSearch_Click(object sender, EventArgs e)
-        {
-            CloseSearch();
-        }
-
         private void BtnPrevSearch_Click(object sender, EventArgs e)
         {
             SearchManager.Find(false, false);
@@ -409,91 +251,9 @@ namespace SE_A_Assignment2
 
         public void InvokeIfNeeded(Action action)
         {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke(action);
-            }
-            else
-            {
-                action.Invoke();
-            }
+
         }
 
         #endregion
-
-        private void UpdateButton_Click(object sender, EventArgs e)
-        {
-
-            // UPDATES DATA IN CODE TABLE
-
-            mySqlConnection = new SqlConnection(connectionString);
-            // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-            SqlCommand cmd = new SqlCommand("UPDATE code_data SET [Code] = @Code, [Version] = @Version, [Class] = @Class, [Methods] = @Methods, [Lines] = @Lines, [URL] = @Source, [Date] = @Date WHERE [FK_Ticket_ID]=@BUGID", mySqlConnection);
-            //SqlCommand cmd2 = new SqlCommand("UPDATE users SET passwordhash =@password WHERE username = @usernamesearch", mySqlConnection);
-
-            cmd.Parameters.AddWithValue("@Code", TextArea.Text);
-            cmd.Parameters.AddWithValue("@Version", BugVersion.Text);
-            cmd.Parameters.AddWithValue("@Methods", BugMethods.Text);
-            cmd.Parameters.AddWithValue("@Class", BugClass.Text);
-            cmd.Parameters.AddWithValue("@Lines", BugLines.Text);
-            cmd.Parameters.AddWithValue("@Source", BugSource.Text);
-            cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
-            cmd.Parameters.AddWithValue("@BUGID", BugIDTest.Text);
-
-            mySqlConnection.Open();
-            try
-            {
-                int i = cmd.ExecuteNonQuery();
-
-                if (i != 0)
-                {
-                    MessageBox.Show("Bug has been updated");
-                    //this.Close();
-                }
-            }
-            catch (SqlException f)
-            {
-                MessageBox.Show(f.Message);
-            }
-
-            mySqlConnection.Close();
-
-
-            // UPDATE DATA IN TICKETS TABLE
-
-            mySqlConnection = new SqlConnection(connectionString);
-           // cmd = new SqlCommand("INSERT INTO tickets ([user], description, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-            cmd = new SqlCommand("UPDATE tickets SET [description] = @description, [project] = @project, [status] = @status, [severity] = @severity, [deadline] = @deadline WHERE [ID]=@BUGID", mySqlConnection);
-
-
-            cmd.Parameters.AddWithValue("@description", BugDesc.Text);
-            cmd.Parameters.AddWithValue("@project", BugProject.Text);
-            cmd.Parameters.AddWithValue("@status", Status.Text);
-            cmd.Parameters.AddWithValue("@severity", BugSeverity.Text);
-            //cmd.Parameters.AddWithValue("@deadline", DeadlineDate.Text);
-            cmd.Parameters.AddWithValue("@deadline", DateTime.Now.ToString("yyyy-MM-dd"));
-
-            cmd.Parameters.AddWithValue("@BUGID", BugIDTest.Text);
-
-
-            mySqlConnection.Open();
-            try
-            {
-                int i = cmd.ExecuteNonQuery();
-
-                if (i != 0)
-                {
-                    MessageBox.Show("Ticket info has been updated");
-                    // mainapp.GridViewData();
-                    this.Close();
-                }
-            }
-            catch (SqlException f)
-            {
-                MessageBox.Show(f.Message);
-            }
-
-            mySqlConnection.Close();
-        }
     }
 }

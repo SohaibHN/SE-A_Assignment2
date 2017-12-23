@@ -33,6 +33,16 @@
             this.ViewBugs = new System.Windows.Forms.Button();
             this.Line1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reproductionStepsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Assgined = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ticketsBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.bugTrackerDataSetMain = new SE_A_Assignment2.BugTrackerDataSetMain();
             this.ticketsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -42,6 +52,28 @@
             this.label11 = new System.Windows.Forms.Label();
             this.SearchData = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Severity = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.BugVersion = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.GenerateCode = new System.Windows.Forms.Button();
+            this.BugLines = new System.Windows.Forms.TextBox();
+            this.BugMethods = new System.Windows.Forms.TextBox();
+            this.BugClass = new System.Windows.Forms.TextBox();
+            this.BugAuthor = new System.Windows.Forms.TextBox();
+            this.URL = new System.Windows.Forms.TextBox();
+            this.CodeBox = new System.Windows.Forms.Panel();
+            this.PanelSearch = new System.Windows.Forms.Panel();
+            this.BtnNextSearch = new System.Windows.Forms.Button();
+            this.BtnPrevSearch = new System.Windows.Forms.Button();
+            this.BtnClearSearch = new System.Windows.Forms.Button();
+            this.TxtSearch = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.BugDeadlineDate = new System.Windows.Forms.TextBox();
@@ -73,38 +105,7 @@
             this.bugTrackerDataSet = new SE_A_Assignment2.BugTrackerDataSet();
             this.ticketsTableAdapter = new SE_A_Assignment2.BugTrackerDataSetTableAdapters.ticketsTableAdapter();
             this.ticketsTableAdapter2 = new SE_A_Assignment2.BugTrackerDataSetMainTableAdapters.ticketsTableAdapter();
-            this.label12 = new System.Windows.Forms.Label();
-            this.BugVersion = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.GenerateCode = new System.Windows.Forms.Button();
-            this.BugLines = new System.Windows.Forms.TextBox();
-            this.BugMethods = new System.Windows.Forms.TextBox();
-            this.BugClass = new System.Windows.Forms.TextBox();
-            this.BugAuthor = new System.Windows.Forms.TextBox();
-            this.URL = new System.Windows.Forms.TextBox();
-            this.CodeBox = new System.Windows.Forms.Panel();
-            this.PanelSearch = new System.Windows.Forms.Panel();
-            this.BtnNextSearch = new System.Windows.Forms.Button();
-            this.BtnPrevSearch = new System.Windows.Forms.Button();
-            this.BtnClearSearch = new System.Windows.Forms.Button();
-            this.TxtSearch = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.Severity = new System.Windows.Forms.ComboBox();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reproductionStepsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Assgined = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label15 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ticketsBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bugTrackerDataSetMain)).BeginInit();
@@ -113,11 +114,11 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.CodeBox.SuspendLayout();
+            this.PanelSearch.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ticketsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bugTrackerDataSet)).BeginInit();
-            this.CodeBox.SuspendLayout();
-            this.PanelSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // ViewBugs
@@ -161,6 +162,71 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(830, 419);
             this.dataGridView1.TabIndex = 1002;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Project";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Project";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 65;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // reproductionStepsDataGridViewTextBoxColumn
+            // 
+            this.reproductionStepsDataGridViewTextBoxColumn.DataPropertyName = "ReproductionSteps";
+            this.reproductionStepsDataGridViewTextBoxColumn.HeaderText = "ReproductionSteps";
+            this.reproductionStepsDataGridViewTextBoxColumn.Name = "reproductionStepsDataGridViewTextBoxColumn";
+            this.reproductionStepsDataGridViewTextBoxColumn.Width = 5;
+            // 
+            // Assgined
+            // 
+            this.Assgined.DataPropertyName = "Assgined";
+            this.Assgined.HeaderText = "Assgined";
+            this.Assgined.Name = "Assgined";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Status";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Status";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "User";
+            this.dataGridViewTextBoxColumn2.HeaderText = "User";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Severity";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Severity";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "DateLogged";
+            this.dataGridViewTextBoxColumn7.HeaderText = "DateLogged";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Deadline";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Deadline";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             // 
             // ticketsBindingSource2
             // 
@@ -230,6 +296,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.BugSteps);
             this.tabPage2.Controls.Add(this.Severity);
             this.tabPage2.Controls.Add(this.Line1);
             this.tabPage2.Controls.Add(this.label20);
@@ -259,7 +327,6 @@
             this.tabPage2.Controls.Add(this.SaveBug);
             this.tabPage2.Controls.Add(this.BugDesc);
             this.tabPage2.Controls.Add(this.BugProject);
-            this.tabPage2.Controls.Add(this.BugSteps);
             this.tabPage2.Controls.Add(this.BugID);
             this.tabPage2.Controls.Add(this.BugName);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -270,255 +337,25 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label10
+            // Severity
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(20, 442);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(48, 13);
-            this.label10.TabIndex = 1034;
-            this.label10.Text = "Severity:";
+            this.Severity.FormattingEnabled = true;
+            this.Severity.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High"});
+            this.Severity.Location = new System.Drawing.Point(106, 442);
+            this.Severity.Name = "Severity";
+            this.Severity.Size = new System.Drawing.Size(144, 21);
+            this.Severity.TabIndex = 1053;
             // 
-            // label9
+            // label20
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(20, 134);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(78, 13);
-            this.label9.TabIndex = 1033;
-            this.label9.Text = "Deadline Date:";
-            // 
-            // BugDeadlineDate
-            // 
-            this.BugDeadlineDate.Location = new System.Drawing.Point(106, 134);
-            this.BugDeadlineDate.Name = "BugDeadlineDate";
-            this.BugDeadlineDate.Size = new System.Drawing.Size(206, 20);
-            this.BugDeadlineDate.TabIndex = 2;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(20, 44);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 13);
-            this.label6.TabIndex = 1027;
-            this.label6.Text = "Bug ID:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(20, 103);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 1026;
-            this.label5.Text = "Project:";
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(20, 286);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 40);
-            this.label4.TabIndex = 1025;
-            this.label4.Text = "Steps to Reproduce Bug:";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(20, 166);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 39);
-            this.label3.TabIndex = 1024;
-            this.label3.Text = "Description: (Expected vs Actual Results)";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 73);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 1023;
-            this.label2.Text = "Bug Name:";
-            // 
-            // SaveBug
-            // 
-            this.SaveBug.Location = new System.Drawing.Point(560, 552);
-            this.SaveBug.Name = "SaveBug";
-            this.SaveBug.Size = new System.Drawing.Size(59, 23);
-            this.SaveBug.TabIndex = 8;
-            this.SaveBug.Text = "Save Bug";
-            this.SaveBug.UseVisualStyleBackColor = true;
-            this.SaveBug.Click += new System.EventHandler(this.SaveBug_Click);
-            // 
-            // BugDesc
-            // 
-            this.BugDesc.Location = new System.Drawing.Point(106, 166);
-            this.BugDesc.Multiline = true;
-            this.BugDesc.Name = "BugDesc";
-            this.BugDesc.Size = new System.Drawing.Size(353, 102);
-            this.BugDesc.TabIndex = 3;
-            // 
-            // BugProject
-            // 
-            this.BugProject.Location = new System.Drawing.Point(106, 103);
-            this.BugProject.Name = "BugProject";
-            this.BugProject.Size = new System.Drawing.Size(206, 20);
-            this.BugProject.TabIndex = 1;
-            // 
-            // BugSteps
-            // 
-            this.BugSteps.Location = new System.Drawing.Point(106, 286);
-            this.BugSteps.Multiline = true;
-            this.BugSteps.Name = "BugSteps";
-            this.BugSteps.Size = new System.Drawing.Size(396, 133);
-            this.BugSteps.TabIndex = 4;
-            // 
-            // BugID
-            // 
-            this.BugID.Location = new System.Drawing.Point(106, 41);
-            this.BugID.Name = "BugID";
-            this.BugID.ReadOnly = true;
-            this.BugID.Size = new System.Drawing.Size(206, 20);
-            this.BugID.TabIndex = 1017;
-            // 
-            // BugName
-            // 
-            this.BugName.Location = new System.Drawing.Point(106, 70);
-            this.BugName.Name = "BugName";
-            this.BugName.Size = new System.Drawing.Size(206, 20);
-            this.BugName.TabIndex = 0;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(743, 482);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.NewPass2);
-            this.tabPage4.Controls.Add(this.label1);
-            this.tabPage4.Controls.Add(this.ChangePass);
-            this.tabPage4.Controls.Add(this.NewPass1);
-            this.tabPage4.Controls.Add(this.CurrentPass);
-            this.tabPage4.Controls.Add(this.label7);
-            this.tabPage4.Controls.Add(this.label8);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(743, 482);
-            this.tabPage4.TabIndex = 5;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // NewPass2
-            // 
-            this.NewPass2.Location = new System.Drawing.Point(120, 96);
-            this.NewPass2.Name = "NewPass2";
-            this.NewPass2.Size = new System.Drawing.Size(100, 20);
-            this.NewPass2.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 96);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "New Password:";
-            // 
-            // ChangePass
-            // 
-            this.ChangePass.Location = new System.Drawing.Point(84, 141);
-            this.ChangePass.Name = "ChangePass";
-            this.ChangePass.Size = new System.Drawing.Size(75, 23);
-            this.ChangePass.TabIndex = 3;
-            this.ChangePass.Text = "Change Password";
-            this.ChangePass.UseVisualStyleBackColor = true;
-            this.ChangePass.Click += new System.EventHandler(this.ChangePass_Click);
-            // 
-            // NewPass1
-            // 
-            this.NewPass1.Location = new System.Drawing.Point(120, 66);
-            this.NewPass1.Name = "NewPass1";
-            this.NewPass1.Size = new System.Drawing.Size(100, 20);
-            this.NewPass1.TabIndex = 1;
-            this.NewPass1.UseSystemPasswordChar = true;
-            // 
-            // CurrentPass
-            // 
-            this.CurrentPass.Location = new System.Drawing.Point(120, 35);
-            this.CurrentPass.Name = "CurrentPass";
-            this.CurrentPass.Size = new System.Drawing.Size(100, 20);
-            this.CurrentPass.TabIndex = 0;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(23, 66);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(81, 13);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "New Password:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Cursor = System.Windows.Forms.Cursors.SizeNESW;
-            this.label8.Location = new System.Drawing.Point(23, 35);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(93, 13);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Current Password:";
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(743, 482);
-            this.tabPage5.TabIndex = 6;
-            this.tabPage5.Text = "tabPage5";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // Logout
-            // 
-            this.Logout.Location = new System.Drawing.Point(1153, -1);
-            this.Logout.Name = "Logout";
-            this.Logout.Size = new System.Drawing.Size(75, 21);
-            this.Logout.TabIndex = 1003;
-            this.Logout.Text = "Logout";
-            this.Logout.UseVisualStyleBackColor = true;
-            this.Logout.Click += new System.EventHandler(this.Logout_Click);
-            // 
-            // ticketsTableAdapter1
-            // 
-            this.ticketsTableAdapter1.ClearBeforeFill = true;
-            // 
-            // ticketsBindingSource
-            // 
-            this.ticketsBindingSource.DataMember = "tickets";
-            this.ticketsBindingSource.DataSource = this.bugTrackerDataSet;
-            // 
-            // bugTrackerDataSet
-            // 
-            this.bugTrackerDataSet.DataSetName = "BugTrackerDataSet";
-            this.bugTrackerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // ticketsTableAdapter
-            // 
-            this.ticketsTableAdapter.ClearBeforeFill = true;
-            // 
-            // ticketsTableAdapter2
-            // 
-            this.ticketsTableAdapter2.ClearBeforeFill = true;
+            this.label20.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label20.Location = new System.Drawing.Point(588, 23);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(3, 508);
+            this.label20.TabIndex = 1052;
             // 
             // label12
             // 
@@ -539,7 +376,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(662, 180);
+            this.label13.Location = new System.Drawing.Point(633, 192);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(328, 13);
             this.label13.TabIndex = 1050;
@@ -584,7 +421,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(633, 44);
+            this.label19.Location = new System.Drawing.Point(627, 47);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(29, 13);
             this.label19.TabIndex = 1044;
@@ -712,90 +549,265 @@
             this.TxtSearch.Size = new System.Drawing.Size(189, 25);
             this.TxtSearch.TabIndex = 6;
             // 
-            // label20
+            // label10
             // 
-            this.label20.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label20.Location = new System.Drawing.Point(588, 23);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(3, 508);
-            this.label20.TabIndex = 1052;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(20, 445);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(52, 13);
+            this.label10.TabIndex = 1034;
+            this.label10.Text = "Severity:*";
             // 
-            // Severity
+            // label9
             // 
-            this.Severity.FormattingEnabled = true;
-            this.Severity.Items.AddRange(new object[] {
-            "Low",
-            "Medium",
-            "High"});
-            this.Severity.Location = new System.Drawing.Point(106, 442);
-            this.Severity.Name = "Severity";
-            this.Severity.Size = new System.Drawing.Size(144, 21);
-            this.Severity.TabIndex = 1053;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(20, 134);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(82, 13);
+            this.label9.TabIndex = 1033;
+            this.label9.Text = "Deadline Date:*";
             // 
-            // dataGridViewTextBoxColumn1
+            // BugDeadlineDate
             // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.BugDeadlineDate.Location = new System.Drawing.Point(106, 134);
+            this.BugDeadlineDate.Name = "BugDeadlineDate";
+            this.BugDeadlineDate.Size = new System.Drawing.Size(206, 20);
+            this.BugDeadlineDate.TabIndex = 2;
             // 
-            // dataGridViewTextBoxColumn4
+            // label6
             // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Project";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Project";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 65;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(20, 44);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.TabIndex = 1027;
+            this.label6.Text = "Bug ID:*";
             // 
-            // dataGridViewTextBoxColumn3
+            // label5
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(20, 103);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 13);
+            this.label5.TabIndex = 1026;
+            this.label5.Text = "Project:*";
             // 
-            // reproductionStepsDataGridViewTextBoxColumn
+            // label4
             // 
-            this.reproductionStepsDataGridViewTextBoxColumn.DataPropertyName = "ReproductionSteps";
-            this.reproductionStepsDataGridViewTextBoxColumn.HeaderText = "ReproductionSteps";
-            this.reproductionStepsDataGridViewTextBoxColumn.Name = "reproductionStepsDataGridViewTextBoxColumn";
-            this.reproductionStepsDataGridViewTextBoxColumn.Width = 5;
+            this.label4.Location = new System.Drawing.Point(20, 286);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 40);
+            this.label4.TabIndex = 1025;
+            this.label4.Text = "Steps to Reproduce Bug:*";
             // 
-            // Assgined
+            // label3
             // 
-            this.Assgined.DataPropertyName = "Assgined";
-            this.Assgined.HeaderText = "Assgined";
-            this.Assgined.Name = "Assgined";
+            this.label3.Location = new System.Drawing.Point(20, 166);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 39);
+            this.label3.TabIndex = 1024;
+            this.label3.Text = "Description: (Expected vs Actual Results)*";
             // 
-            // dataGridViewTextBoxColumn5
+            // label2
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Status";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Status";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 73);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.TabIndex = 1023;
+            this.label2.Text = "Bug Name:*";
             // 
-            // dataGridViewTextBoxColumn2
+            // SaveBug
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "User";
-            this.dataGridViewTextBoxColumn2.HeaderText = "User";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.SaveBug.Location = new System.Drawing.Point(560, 552);
+            this.SaveBug.Name = "SaveBug";
+            this.SaveBug.Size = new System.Drawing.Size(59, 23);
+            this.SaveBug.TabIndex = 8;
+            this.SaveBug.Text = "Save Bug";
+            this.SaveBug.UseVisualStyleBackColor = true;
+            this.SaveBug.Click += new System.EventHandler(this.SaveBug_Click);
             // 
-            // dataGridViewTextBoxColumn6
+            // BugDesc
             // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Severity";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Severity";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.BugDesc.Location = new System.Drawing.Point(106, 166);
+            this.BugDesc.Multiline = true;
+            this.BugDesc.Name = "BugDesc";
+            this.BugDesc.Size = new System.Drawing.Size(353, 102);
+            this.BugDesc.TabIndex = 3;
             // 
-            // dataGridViewTextBoxColumn7
+            // BugProject
             // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "DateLogged";
-            this.dataGridViewTextBoxColumn7.HeaderText = "DateLogged";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.BugProject.Location = new System.Drawing.Point(106, 103);
+            this.BugProject.Name = "BugProject";
+            this.BugProject.Size = new System.Drawing.Size(206, 20);
+            this.BugProject.TabIndex = 1;
             // 
-            // dataGridViewTextBoxColumn8
+            // BugSteps
             // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "Deadline";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Deadline";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.BugSteps.Location = new System.Drawing.Point(106, 286);
+            this.BugSteps.Multiline = true;
+            this.BugSteps.Name = "BugSteps";
+            this.BugSteps.Size = new System.Drawing.Size(396, 133);
+            this.BugSteps.TabIndex = 4;
+            // 
+            // BugID
+            // 
+            this.BugID.Location = new System.Drawing.Point(106, 41);
+            this.BugID.Name = "BugID";
+            this.BugID.ReadOnly = true;
+            this.BugID.Size = new System.Drawing.Size(206, 20);
+            this.BugID.TabIndex = 1017;
+            // 
+            // BugName
+            // 
+            this.BugName.Location = new System.Drawing.Point(106, 70);
+            this.BugName.Name = "BugName";
+            this.BugName.Size = new System.Drawing.Size(206, 20);
+            this.BugName.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1222, 584);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.NewPass2);
+            this.tabPage4.Controls.Add(this.label1);
+            this.tabPage4.Controls.Add(this.ChangePass);
+            this.tabPage4.Controls.Add(this.NewPass1);
+            this.tabPage4.Controls.Add(this.CurrentPass);
+            this.tabPage4.Controls.Add(this.label7);
+            this.tabPage4.Controls.Add(this.label8);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1222, 584);
+            this.tabPage4.TabIndex = 5;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // NewPass2
+            // 
+            this.NewPass2.Location = new System.Drawing.Point(120, 96);
+            this.NewPass2.Name = "NewPass2";
+            this.NewPass2.Size = new System.Drawing.Size(100, 20);
+            this.NewPass2.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 96);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "New Password:";
+            // 
+            // ChangePass
+            // 
+            this.ChangePass.Location = new System.Drawing.Point(84, 141);
+            this.ChangePass.Name = "ChangePass";
+            this.ChangePass.Size = new System.Drawing.Size(75, 23);
+            this.ChangePass.TabIndex = 3;
+            this.ChangePass.Text = "Change Password";
+            this.ChangePass.UseVisualStyleBackColor = true;
+            this.ChangePass.Click += new System.EventHandler(this.ChangePass_Click);
+            // 
+            // NewPass1
+            // 
+            this.NewPass1.Location = new System.Drawing.Point(120, 66);
+            this.NewPass1.Name = "NewPass1";
+            this.NewPass1.Size = new System.Drawing.Size(100, 20);
+            this.NewPass1.TabIndex = 1;
+            this.NewPass1.UseSystemPasswordChar = true;
+            // 
+            // CurrentPass
+            // 
+            this.CurrentPass.Location = new System.Drawing.Point(120, 35);
+            this.CurrentPass.Name = "CurrentPass";
+            this.CurrentPass.Size = new System.Drawing.Size(100, 20);
+            this.CurrentPass.TabIndex = 0;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(23, 66);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(81, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "New Password:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Cursor = System.Windows.Forms.Cursors.SizeNESW;
+            this.label8.Location = new System.Drawing.Point(23, 35);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(93, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Current Password:";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1222, 584);
+            this.tabPage5.TabIndex = 6;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // Logout
+            // 
+            this.Logout.Location = new System.Drawing.Point(1153, -1);
+            this.Logout.Name = "Logout";
+            this.Logout.Size = new System.Drawing.Size(75, 21);
+            this.Logout.TabIndex = 1003;
+            this.Logout.Text = "Logout";
+            this.Logout.UseVisualStyleBackColor = true;
+            this.Logout.Click += new System.EventHandler(this.Logout_Click);
+            // 
+            // ticketsTableAdapter1
+            // 
+            this.ticketsTableAdapter1.ClearBeforeFill = true;
+            // 
+            // ticketsBindingSource
+            // 
+            this.ticketsBindingSource.DataMember = "tickets";
+            this.ticketsBindingSource.DataSource = this.bugTrackerDataSet;
+            // 
+            // bugTrackerDataSet
+            // 
+            this.bugTrackerDataSet.DataSetName = "BugTrackerDataSet";
+            this.bugTrackerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // ticketsTableAdapter
+            // 
+            this.ticketsTableAdapter.ClearBeforeFill = true;
+            // 
+            // ticketsTableAdapter2
+            // 
+            this.ticketsTableAdapter2.ClearBeforeFill = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(4, 5);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(220, 13);
+            this.label15.TabIndex = 1054;
+            this.label15.Text = "Fields marked with an asterisk (*) are required";
             // 
             // MainApp
             // 
@@ -817,13 +829,13 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.CodeBox.ResumeLayout(false);
+            this.PanelSearch.ResumeLayout(false);
+            this.PanelSearch.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ticketsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bugTrackerDataSet)).EndInit();
-            this.CodeBox.ResumeLayout(false);
-            this.PanelSearch.ResumeLayout(false);
-            this.PanelSearch.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -912,5 +924,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.Label label15;
     }
 }

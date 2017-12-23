@@ -46,7 +46,21 @@ namespace SE_A_Assignment2
 
 
 
+        }
 
+        public void GridViewData()
+        {
+            DataSet ds = new DataSet();
+            SqlDataAdapter daAudit = new SqlDataAdapter();
+            mySqlConnection = new SqlConnection(connectionString);
+            SqlCommand selAudit = new SqlCommand("SELECT * FROM auditlog WHERE FK_BUGID = @BUGID", mySqlConnection);
+            selAudit.Parameters.AddWithValue("@BUGID", BugIDTest.Text);
+            daAudit.SelectCommand = selAudit;
+            daAudit.Fill(ds, "auditlog");
+
+            BindingSource bs = new BindingSource();
+            bs.DataSource = ds.Tables["auditlog"];
+            dataGridView1.DataSource = ds.Tables["auditlog"];
         }
 
         private void BugDetails_Load(object sender, EventArgs e)
@@ -55,6 +69,11 @@ namespace SE_A_Assignment2
             LoadCodeData();
             BugSeverity.SelectedIndex = 1;
             //Status.SelectedIndex = 0;
+            GridViewData();
+            dataGridView1.Columns[0].Visible = false;
+            dataGridView1.Columns[1].Visible = false;
+            dataGridView1.RowHeadersVisible = false;
+
 
         }
 
@@ -64,7 +83,6 @@ namespace SE_A_Assignment2
             SqlCommand cmd = new SqlCommand("SELECT * FROM tickets WHERE [ID] = @BUGID", mySqlConnection);
 
             cmd.Parameters.AddWithValue("@BUGID", _theValue);
-
 
             mySqlConnection.Open();
 

@@ -68,8 +68,10 @@
             this.BugAssigned = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.DeadlineDate = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.CodeBox.SuspendLayout();
             this.PanelSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label7
@@ -157,9 +159,9 @@
             // label1
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(4, 39);
+            this.label1.Location = new System.Drawing.Point(4, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1000, 2);
+            this.label1.Size = new System.Drawing.Size(1500, 2);
             this.label1.TabIndex = 1020;
             // 
             // CodeBox
@@ -351,7 +353,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(443, 265);
+            this.label14.Location = new System.Drawing.Point(443, 316);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(45, 13);
             this.label14.TabIndex = 1052;
@@ -359,14 +361,14 @@
             // 
             // BugVersion
             // 
-            this.BugVersion.Location = new System.Drawing.Point(507, 262);
+            this.BugVersion.Location = new System.Drawing.Point(507, 313);
             this.BugVersion.Name = "BugVersion";
             this.BugVersion.Size = new System.Drawing.Size(153, 20);
             this.BugVersion.TabIndex = 7;
             // 
             // UpdateButton
             // 
-            this.UpdateButton.Location = new System.Drawing.Point(521, 652);
+            this.UpdateButton.Location = new System.Drawing.Point(276, 655);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(132, 23);
             this.UpdateButton.TabIndex = 1053;
@@ -410,7 +412,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(443, 296);
+            this.label17.Location = new System.Drawing.Point(443, 264);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(53, 13);
             this.label17.TabIndex = 1059;
@@ -418,7 +420,7 @@
             // 
             // BugAssigned
             // 
-            this.BugAssigned.Location = new System.Drawing.Point(507, 293);
+            this.BugAssigned.Location = new System.Drawing.Point(507, 261);
             this.BugAssigned.Name = "BugAssigned";
             this.BugAssigned.Size = new System.Drawing.Size(153, 20);
             this.BugAssigned.TabIndex = 1058;
@@ -439,11 +441,23 @@
             this.DeadlineDate.Size = new System.Drawing.Size(121, 20);
             this.DeadlineDate.TabIndex = 1062;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(717, 99);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(478, 550);
+            this.dataGridView1.TabIndex = 1063;
+            // 
             // BugDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(682, 685);
+            this.ClientSize = new System.Drawing.Size(1223, 685);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.DeadlineDate);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label17);
@@ -484,6 +498,7 @@
             this.CodeBox.ResumeLayout(false);
             this.PanelSearch.ResumeLayout(false);
             this.PanelSearch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -530,5 +545,6 @@
         private System.Windows.Forms.TextBox BugAssigned;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox DeadlineDate;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

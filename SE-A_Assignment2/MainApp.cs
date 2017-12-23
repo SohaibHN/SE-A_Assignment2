@@ -56,9 +56,9 @@ namespace SE_A_Assignment2
             using (SqlCommand dataCommand =
                     new SqlCommand("Select IDENT_CURRENT('tickets')", mySqlConnection))
             {
-                //Select IDENT_CURRENT('tickets')
-                mySqlConnection.Open();
-                maxId = 1 + Convert.ToInt32(dataCommand.ExecuteScalar());
+              mySqlConnection.Open();
+              maxId = 1 + Convert.ToInt32(dataCommand.ExecuteScalar());
+
             }
 
             mySqlConnection.Close();
@@ -291,42 +291,85 @@ namespace SE_A_Assignment2
         private void SaveBug_Click(object sender, EventArgs e)
         {
             mySqlConnection = new SqlConnection(connectionString);
-           // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-            SqlCommand cmd = new SqlCommand("INSERT INTO tickets ([user], description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-            //String Severity;
-
-
-            cmd.Parameters.AddWithValue("@username", MainLoggedInUser);
-            cmd.Parameters.AddWithValue("@description", BugDesc.Text);
-            cmd.Parameters.AddWithValue("@reproductionsteps", BugSteps.Text);
-            cmd.Parameters.AddWithValue("@project", BugProject.Text);
-            cmd.Parameters.AddWithValue("@status", "Broken");
-            cmd.Parameters.AddWithValue("@severity", Severity.Text);
-            cmd.Parameters.AddWithValue("@datelogged", DateTime.Now.ToString("yyyy-MM-dd"));
-            cmd.Parameters.AddWithValue("@deadline", BugDeadlineDate.Text);
-
-
-
-            mySqlConnection.Open();
-            try
+            Int32 newId  = 0; MessageBox.Show(newId.ToString());
+            if (!string.IsNullOrWhiteSpace(BugDesc.Text) && !string.IsNullOrWhiteSpace(BugSteps.Text) && !string.IsNullOrWhiteSpace(BugProject.Text))
             {
-                int i = cmd.ExecuteNonQuery();
+                // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
+                SqlCommand cmd = new SqlCommand("INSERT INTO tickets ([user], description, reproductionsteps, project, status, severity, datelogged, deadline) OUTPUT INSERTED.ID VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
+                //String Severity;
 
-                if (i != 0)
+                cmd.Parameters.AddWithValue("@username", MainLoggedInUser);
+                cmd.Parameters.AddWithValue("@description", BugDesc.Text);
+                cmd.Parameters.AddWithValue("@reproductionsteps", BugSteps.Text);
+                cmd.Parameters.AddWithValue("@project", BugProject.Text);
+                cmd.Parameters.AddWithValue("@status", "Broken");
+                cmd.Parameters.AddWithValue("@severity", Severity.Text);
+                cmd.Parameters.AddWithValue("@datelogged", DateTime.Now.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@deadline", BugDeadlineDate.Text);
+
+                mySqlConnection.Open();
+                try
                 {
-                    MessageBox.Show("New Bug reported");
-                    GridViewData();
-                    dataGridView1.Refresh();
-                    BugDataInital();
+                    //int i = cmd.ExecuteNonQuery();
+                    newId = (Int32)cmd.ExecuteScalar(); // GETS BUGID THAT IS JUST INSERTED USED FOR INSERTING INTO CODE TABLE
+                    if (newId != 0)
+                    {
+                        MessageBox.Show("New Bug reported");
+                       // newId = (Int32)cmd.ExecuteScalar(); 
+                        MessageBox.Show(newId.ToString());
 
+                    }
+                }
+                catch (SqlException f)
+                {
+                    MessageBox.Show(f.Message);
+                }
+
+                mySqlConnection.Close();
+                MessageBox.Show(newId.ToString());
+
+                if (newId != 0 && !string.IsNullOrWhiteSpace(TextArea.Text))
+                {
+                    // INSERT INTO CODE TABLE
+                    cmd = new SqlCommand("INSERT INTO code_data (FK_Ticket_ID, [Code], [Version], [Class], [Methods], [Lines], [URL], [Author], [Date]) VALUES (@BUGID, @Code, @Version, @Class, @Methods, @Lines, @Source, @Author, @Date)", mySqlConnection);
+                    MessageBox.Show(newId.ToString());
+
+                    cmd.Parameters.AddWithValue("@Code", TextArea.Text);
+                    cmd.Parameters.AddWithValue("@Version", BugVersion.Text);
+                    cmd.Parameters.AddWithValue("@Methods", BugMethods.Text);
+                    cmd.Parameters.AddWithValue("@Class", BugClass.Text);
+                    cmd.Parameters.AddWithValue("@Lines", BugLines.Text);
+                    cmd.Parameters.AddWithValue("@Source", URL.Text);
+                    cmd.Parameters.AddWithValue("@Author", BugAuthor.Text);
+                    cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
+                    cmd.Parameters.AddWithValue("@BUGID", newId);
+
+                    mySqlConnection.Open();
+                    try
+                    {
+                        int i = cmd.ExecuteNonQuery();
+
+                        if (i != 0)
+                        {
+                            MessageBox.Show("Code inserted");
+                            //this.Close();
+                        }
+                    }
+                    catch (SqlException f)
+                    {
+                        MessageBox.Show(f.Message);
+                    }
+
+                    mySqlConnection.Close();
                 }
             }
-            catch (SqlException f)
+            else
             {
-                MessageBox.Show(f.Message);
+                MessageBox.Show("Fields cannot be left blank");
             }
-
-            mySqlConnection.Close();
+            GridViewData();
+            dataGridView1.Refresh();
+            BugDataInital();
         }
 
         private void SearchData_TextChanged(object sender, EventArgs e)
@@ -630,10 +673,20 @@ namespace SE_A_Assignment2
         {
             string contents;
             TextArea.Clear();
-            using (var wc1 = new System.Net.WebClient())
-                contents = wc1.DownloadString(URL.Text);
-            //MessageBox.Show(contents);
-            TextArea.Text = contents;
+            if (!string.IsNullOrWhiteSpace(URL.Text)) // checks if url is entered
+            {
+                using (var wc1 = new System.Net.WebClient())
+                    try // checks for valid urls/404 errors etc and gives suitable error message to user
+                    {
+                        contents = wc1.DownloadString(URL.Text);
+                        TextArea.Text = contents;
+                    }
+                    catch (System.Net.WebException w)
+                    {
+                        MessageBox.Show(w.Message);
+                        TextArea.Clear();
+                    }
+            }
         }
 
         private void label11_Click(object sender, EventArgs e)

@@ -65,10 +65,13 @@
             this.label16 = new System.Windows.Forms.Label();
             this.Status = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.BugAssigned = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.DeadlineDate = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.BugAssigned = new System.Windows.Forms.ComboBox();
+            this.DeadlineDate = new System.Windows.Forms.DateTimePicker();
+            this.Commit = new System.Windows.Forms.Button();
+            this.Audit = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.CodeBox.SuspendLayout();
             this.PanelSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -368,11 +371,11 @@
             // 
             // UpdateButton
             // 
-            this.UpdateButton.Location = new System.Drawing.Point(276, 655);
+            this.UpdateButton.Location = new System.Drawing.Point(528, 663);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(132, 23);
             this.UpdateButton.TabIndex = 1053;
-            this.UpdateButton.Text = "Update Bug";
+            this.UpdateButton.Text = "Save and Close";
             this.UpdateButton.UseVisualStyleBackColor = true;
             this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
             // 
@@ -418,13 +421,6 @@
             this.label17.TabIndex = 1059;
             this.label17.Text = "Assigned:";
             // 
-            // BugAssigned
-            // 
-            this.BugAssigned.Location = new System.Drawing.Point(507, 261);
-            this.BugAssigned.Name = "BugAssigned";
-            this.BugAssigned.Size = new System.Drawing.Size(153, 20);
-            this.BugAssigned.TabIndex = 1058;
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -433,13 +429,6 @@
             this.label12.Size = new System.Drawing.Size(78, 13);
             this.label12.TabIndex = 1061;
             this.label12.Text = "Deadline Date:";
-            // 
-            // DeadlineDate
-            // 
-            this.DeadlineDate.Location = new System.Drawing.Point(539, 162);
-            this.DeadlineDate.Name = "DeadlineDate";
-            this.DeadlineDate.Size = new System.Drawing.Size(121, 20);
-            this.DeadlineDate.TabIndex = 1062;
             // 
             // dataGridView1
             // 
@@ -452,16 +441,69 @@
             this.dataGridView1.Size = new System.Drawing.Size(478, 550);
             this.dataGridView1.TabIndex = 1063;
             // 
+            // BugAssigned
+            // 
+            this.BugAssigned.FormattingEnabled = true;
+            this.BugAssigned.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High"});
+            this.BugAssigned.Location = new System.Drawing.Point(507, 261);
+            this.BugAssigned.Name = "BugAssigned";
+            this.BugAssigned.Size = new System.Drawing.Size(152, 21);
+            this.BugAssigned.TabIndex = 1064;
+            // 
+            // DeadlineDate
+            // 
+            this.DeadlineDate.CustomFormat = "dd-MM-yyyy";
+            this.DeadlineDate.Location = new System.Drawing.Point(527, 162);
+            this.DeadlineDate.MinDate = new System.DateTime(2017, 1, 1, 0, 0, 0, 0);
+            this.DeadlineDate.Name = "DeadlineDate";
+            this.DeadlineDate.Size = new System.Drawing.Size(133, 20);
+            this.DeadlineDate.TabIndex = 1065;
+            // 
+            // Commit
+            // 
+            this.Commit.Location = new System.Drawing.Point(390, 663);
+            this.Commit.Name = "Commit";
+            this.Commit.Size = new System.Drawing.Size(132, 23);
+            this.Commit.TabIndex = 1066;
+            this.Commit.Text = "Commit Code";
+            this.Commit.UseVisualStyleBackColor = true;
+            this.Commit.Click += new System.EventHandler(this.Commit_Click);
+            // 
+            // Audit
+            // 
+            this.Audit.AutoSize = true;
+            this.Audit.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Audit.Location = new System.Drawing.Point(711, 64);
+            this.Audit.Name = "Audit";
+            this.Audit.Size = new System.Drawing.Size(182, 31);
+            this.Audit.TabIndex = 1067;
+            this.Audit.Text = "Audit History";
+            // 
+            // label18
+            // 
+            this.label18.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label18.Location = new System.Drawing.Point(682, 35);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(3, 666);
+            this.label18.TabIndex = 1068;
+            // 
             // BugDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1223, 685);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(1223, 698);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.Audit);
+            this.Controls.Add(this.Commit);
             this.Controls.Add(this.DeadlineDate);
+            this.Controls.Add(this.BugAssigned);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label17);
-            this.Controls.Add(this.BugAssigned);
             this.Controls.Add(this.Status);
             this.Controls.Add(this.BugSeverity);
             this.Controls.Add(this.label16);
@@ -490,7 +532,6 @@
             this.Controls.Add(this.BugMethods);
             this.Controls.Add(this.BugClass);
             this.Controls.Add(this.BugSource);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.CodeBox);
             this.Name = "BugDetails";
             this.Text = "BugDetails";
@@ -542,9 +583,12 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox Status;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox BugAssigned;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox DeadlineDate;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ComboBox BugAssigned;
+        private System.Windows.Forms.DateTimePicker DeadlineDate;
+        private System.Windows.Forms.Button Commit;
+        private System.Windows.Forms.Label Audit;
+        private System.Windows.Forms.Label label18;
     }
 }

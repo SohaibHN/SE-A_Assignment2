@@ -33,16 +33,6 @@
             this.ViewBugs = new System.Windows.Forms.Button();
             this.Line1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reproductionStepsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Assgined = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ticketsBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.bugTrackerDataSetMain = new SE_A_Assignment2.BugTrackerDataSetMain();
             this.ticketsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -52,6 +42,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.SearchData = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.BugSteps = new System.Windows.Forms.TextBox();
             this.Severity = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -76,7 +68,6 @@
             this.TxtSearch = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.BugDeadlineDate = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -85,7 +76,6 @@
             this.SaveBug = new System.Windows.Forms.Button();
             this.BugDesc = new System.Windows.Forms.TextBox();
             this.BugProject = new System.Windows.Forms.TextBox();
-            this.BugSteps = new System.Windows.Forms.TextBox();
             this.BugID = new System.Windows.Forms.TextBox();
             this.BugName = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -105,7 +95,19 @@
             this.bugTrackerDataSet = new SE_A_Assignment2.BugTrackerDataSet();
             this.ticketsTableAdapter = new SE_A_Assignment2.BugTrackerDataSetTableAdapters.ticketsTableAdapter();
             this.ticketsTableAdapter2 = new SE_A_Assignment2.BugTrackerDataSetMainTableAdapters.ticketsTableAdapter();
-            this.label15 = new System.Windows.Forms.Label();
+            this.BugDeadlineDate = new System.Windows.Forms.DateTimePicker();
+            this.BugAssigned = new System.Windows.Forms.ComboBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reproductionStepsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Assigned = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ticketsBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bugTrackerDataSetMain)).BeginInit();
@@ -149,7 +151,7 @@
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn3,
             this.reproductionStepsDataGridViewTextBoxColumn,
-            this.Assgined,
+            this.Assigned,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn6,
@@ -162,71 +164,6 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(830, 419);
             this.dataGridView1.TabIndex = 1002;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Project";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Project";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 65;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // reproductionStepsDataGridViewTextBoxColumn
-            // 
-            this.reproductionStepsDataGridViewTextBoxColumn.DataPropertyName = "ReproductionSteps";
-            this.reproductionStepsDataGridViewTextBoxColumn.HeaderText = "ReproductionSteps";
-            this.reproductionStepsDataGridViewTextBoxColumn.Name = "reproductionStepsDataGridViewTextBoxColumn";
-            this.reproductionStepsDataGridViewTextBoxColumn.Width = 5;
-            // 
-            // Assgined
-            // 
-            this.Assgined.DataPropertyName = "Assgined";
-            this.Assgined.HeaderText = "Assgined";
-            this.Assgined.Name = "Assgined";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Status";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Status";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "User";
-            this.dataGridViewTextBoxColumn2.HeaderText = "User";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Severity";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Severity";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "DateLogged";
-            this.dataGridViewTextBoxColumn7.HeaderText = "DateLogged";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "Deadline";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Deadline";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             // 
             // ticketsBindingSource2
             // 
@@ -296,6 +233,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label21);
+            this.tabPage2.Controls.Add(this.BugAssigned);
+            this.tabPage2.Controls.Add(this.BugDeadlineDate);
             this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.BugSteps);
             this.tabPage2.Controls.Add(this.Severity);
@@ -318,7 +258,6 @@
             this.tabPage2.Controls.Add(this.CodeBox);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.BugDeadlineDate);
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label4);
@@ -336,6 +275,24 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(4, 5);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(220, 13);
+            this.label15.TabIndex = 1054;
+            this.label15.Text = "Fields marked with an asterisk (*) are required";
+            // 
+            // BugSteps
+            // 
+            this.BugSteps.Location = new System.Drawing.Point(106, 286);
+            this.BugSteps.Multiline = true;
+            this.BugSteps.Name = "BugSteps";
+            this.BugSteps.Size = new System.Drawing.Size(396, 133);
+            this.BugSteps.TabIndex = 4;
             // 
             // Severity
             // 
@@ -567,13 +524,6 @@
             this.label9.TabIndex = 1033;
             this.label9.Text = "Deadline Date:*";
             // 
-            // BugDeadlineDate
-            // 
-            this.BugDeadlineDate.Location = new System.Drawing.Point(106, 134);
-            this.BugDeadlineDate.Name = "BugDeadlineDate";
-            this.BugDeadlineDate.Size = new System.Drawing.Size(206, 20);
-            this.BugDeadlineDate.TabIndex = 2;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -641,14 +591,6 @@
             this.BugProject.Name = "BugProject";
             this.BugProject.Size = new System.Drawing.Size(206, 20);
             this.BugProject.TabIndex = 1;
-            // 
-            // BugSteps
-            // 
-            this.BugSteps.Location = new System.Drawing.Point(106, 286);
-            this.BugSteps.Multiline = true;
-            this.BugSteps.Name = "BugSteps";
-            this.BugSteps.Size = new System.Drawing.Size(396, 133);
-            this.BugSteps.TabIndex = 4;
             // 
             // BugID
             // 
@@ -799,15 +741,101 @@
             // 
             this.ticketsTableAdapter2.ClearBeforeFill = true;
             // 
-            // label15
+            // BugDeadlineDate
             // 
-            this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.Color.Red;
-            this.label15.Location = new System.Drawing.Point(4, 5);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(220, 13);
-            this.label15.TabIndex = 1054;
-            this.label15.Text = "Fields marked with an asterisk (*) are required";
+            this.BugDeadlineDate.CustomFormat = "dd-MM-yyyy";
+            this.BugDeadlineDate.Location = new System.Drawing.Point(106, 134);
+            this.BugDeadlineDate.MinDate = new System.DateTime(2017, 1, 1, 0, 0, 0, 0);
+            this.BugDeadlineDate.Name = "BugDeadlineDate";
+            this.BugDeadlineDate.Size = new System.Drawing.Size(206, 20);
+            this.BugDeadlineDate.TabIndex = 1055;
+            this.BugDeadlineDate.ValueChanged += new System.EventHandler(this.DeadlineDate_ValueChanged);
+            // 
+            // BugAssigned
+            // 
+            this.BugAssigned.FormattingEnabled = true;
+            this.BugAssigned.Items.AddRange(new object[] {
+            "Low",
+            "Medium",
+            "High"});
+            this.BugAssigned.Location = new System.Drawing.Point(106, 484);
+            this.BugAssigned.Name = "BugAssigned";
+            this.BugAssigned.Size = new System.Drawing.Size(144, 21);
+            this.BugAssigned.TabIndex = 1056;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(20, 487);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(57, 13);
+            this.label21.TabIndex = 1057;
+            this.label21.Text = "Assigned:*";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Project";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Project";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 65;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // reproductionStepsDataGridViewTextBoxColumn
+            // 
+            this.reproductionStepsDataGridViewTextBoxColumn.DataPropertyName = "ReproductionSteps";
+            this.reproductionStepsDataGridViewTextBoxColumn.HeaderText = "ReproductionSteps";
+            this.reproductionStepsDataGridViewTextBoxColumn.Name = "reproductionStepsDataGridViewTextBoxColumn";
+            this.reproductionStepsDataGridViewTextBoxColumn.Width = 5;
+            // 
+            // Assigned
+            // 
+            this.Assigned.DataPropertyName = "Assigned";
+            this.Assigned.HeaderText = "Assgined";
+            this.Assigned.Name = "Assigned";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Status";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Status";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "User";
+            this.dataGridViewTextBoxColumn2.HeaderText = "User";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Severity";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Severity";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "DateLogged";
+            this.dataGridViewTextBoxColumn7.HeaderText = "DateLogged";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Deadline";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Deadline";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             // 
             // MainApp
             // 
@@ -883,7 +911,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox BugDeadlineDate;
         private BugTrackerDataSet bugTrackerDataSet;
         private System.Windows.Forms.BindingSource ticketsBindingSource;
         private BugTrackerDataSetTableAdapters.ticketsTableAdapter ticketsTableAdapter;
@@ -914,16 +941,19 @@
         private System.Windows.Forms.Button BtnClearSearch;
         private System.Windows.Forms.TextBox TxtSearch;
         private System.Windows.Forms.ComboBox Severity;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.DateTimePicker BugDeadlineDate;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox BugAssigned;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn reproductionStepsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Assgined;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Assigned;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.Label label15;
     }
 }

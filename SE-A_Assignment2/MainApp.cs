@@ -63,14 +63,23 @@ namespace SE_A_Assignment2
 
             mySqlConnection.Close();
             BugID.Text = maxId.ToString();
-            BugDeadlineDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            BugDeadlineDate.Text = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
             Severity.SelectedIndex = 1;
 
-            CodeBox.Controls.Add(TextArea);
+            // Custom formats for date picker
+            this.BugDeadlineDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.BugDeadlineDate.CustomFormat = " dd/MM/yyyy ";
+            this.BugDeadlineDate.Value = DateTime.Now;
+
+            // Sets default for drop down to unassigned instead of first user in table
+            BugAssigned.SelectedItem = null;
+            BugAssigned.Text = "";
+            BugAssigned.SelectedText = "Unassigned";
+
 
             // BASIC CONFIG FOR CODE BOX
             TextArea.Dock = System.Windows.Forms.DockStyle.Fill;
-            //TextArea.TextChanged += (this.OnTextChanged);
+            CodeBox.Controls.Add(TextArea);
 
             // INITIAL VIEW CONFIG
             TextArea.WrapMode = WrapMode.None;
@@ -83,6 +92,7 @@ namespace SE_A_Assignment2
 
             // INIT HOTKEYS
             InitHotkeys();
+
 
         }
 
@@ -112,6 +122,19 @@ namespace SE_A_Assignment2
             BindingSource bs = new BindingSource();
             bs.DataSource = ds.Tables["tickets"];
             dataGridView1.DataSource = ds.Tables["tickets"];
+
+            SqlDataAdapter daUsers = new SqlDataAdapter();
+            mySqlConnection = new SqlConnection(connectionString);
+            SqlCommand selUsers = new SqlCommand("SELECT username FROM USERS WHERE category!=@category ", mySqlConnection);
+            selUsers.Parameters.AddWithValue("@category", "Tester");
+            daUsers.SelectCommand = selUsers;
+            daUsers.Fill(ds, "users");
+
+            BindingSource bs2 = new BindingSource();
+            bs2.DataSource = ds.Tables["users"];
+            BugAssigned.DataSource = ds.Tables["users"];
+            BugAssigned.DisplayMember = "username"; // This is text displayed
+            BugAssigned.ValueMember = "username"; // This is the value returned
         }
 
         private void dataGridView1_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
@@ -295,7 +318,7 @@ namespace SE_A_Assignment2
             if (!string.IsNullOrWhiteSpace(BugDesc.Text) && !string.IsNullOrWhiteSpace(BugSteps.Text) && !string.IsNullOrWhiteSpace(BugProject.Text))
             {
                 // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-                SqlCommand cmd = new SqlCommand("INSERT INTO tickets ([user], description, reproductionsteps, project, status, severity, datelogged, deadline) OUTPUT INSERTED.ID VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
+                SqlCommand cmd = new SqlCommand("INSERT INTO tickets ([user], description, reproductionsteps, project, status, severity, datelogged, deadline, assigned) OUTPUT INSERTED.ID VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline, @assigned)", mySqlConnection);
                 //String Severity;
 
                 cmd.Parameters.AddWithValue("@username", MainLoggedInUser);
@@ -305,7 +328,8 @@ namespace SE_A_Assignment2
                 cmd.Parameters.AddWithValue("@status", "Broken");
                 cmd.Parameters.AddWithValue("@severity", Severity.Text);
                 cmd.Parameters.AddWithValue("@datelogged", DateTime.Now.ToString("yyyy-MM-dd"));
-                cmd.Parameters.AddWithValue("@deadline", BugDeadlineDate.Text);
+                cmd.Parameters.AddWithValue("@deadline", BugDeadlineDate.Value.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("@assigned", BugAssigned.Text); 
 
                 mySqlConnection.Open();
                 try
@@ -315,8 +339,7 @@ namespace SE_A_Assignment2
                     if (newId != 0)
                     {
                         MessageBox.Show("New Bug reported");
-                       // newId = (Int32)cmd.ExecuteScalar(); 
-                        MessageBox.Show(newId.ToString());
+                        MessageBox.Show(BugAssigned.Text);
 
                     }
                 }
@@ -326,13 +349,11 @@ namespace SE_A_Assignment2
                 }
 
                 mySqlConnection.Close();
-                MessageBox.Show(newId.ToString());
 
                 if (newId != 0 && !string.IsNullOrWhiteSpace(TextArea.Text))
                 {
                     // INSERT INTO CODE TABLE
                     cmd = new SqlCommand("INSERT INTO code_data (FK_Ticket_ID, [Code], [Version], [Class], [Methods], [Lines], [URL], [Author], [Date]) VALUES (@BUGID, @Code, @Version, @Class, @Methods, @Lines, @Source, @Author, @Date)", mySqlConnection);
-                    MessageBox.Show(newId.ToString());
 
                     cmd.Parameters.AddWithValue("@Code", TextArea.Text);
                     cmd.Parameters.AddWithValue("@Version", BugVersion.Text);
@@ -692,6 +713,11 @@ namespace SE_A_Assignment2
         private void label11_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DeadlineDate_ValueChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }

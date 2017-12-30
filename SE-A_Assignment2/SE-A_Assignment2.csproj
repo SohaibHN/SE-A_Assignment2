@@ -199,9 +199,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="database\BugTracker.mdf" />
+    <Content Include="database\BugTracker.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="database\BugTracker_log.ldf">
       <DependentUpon>BugTracker.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="database\dbo.Tickets.sql" />
     <Content Include="database\dbo.Userstable.sql" />

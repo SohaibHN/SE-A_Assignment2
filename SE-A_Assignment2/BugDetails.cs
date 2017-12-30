@@ -484,6 +484,8 @@ namespace SE_A_Assignment2
             cmd.Parameters.AddWithValue("@Source", BugSource.Text);
             cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
             cmd.Parameters.AddWithValue("@BUGID", BugIDTest.Text);
+            cmd.Parameters.AddWithValue("@Author", CodeAuthor.Text);
+
 
             mySqlConnection.Open();
             try
@@ -543,8 +545,9 @@ namespace SE_A_Assignment2
 
         private void Commit_Click(object sender, EventArgs e)
         {
-            username = "cc71de38d5a843f3d5c875d3ac459a0ee557aabb";
-            // auth code in username to commit, was changed need to gen new one
+            username = "9f2c4ef23777765951e109defbaa98ef07a50864";
+            // auth code in username
+            // need to be removed whenever committing to github
             password = string.Empty;
             String gitRepoUrl = "https://github.com/SohaibHN/Test.git";
             String localFolder = "C:\\Users\\Admin\\source\\repos\\Test";

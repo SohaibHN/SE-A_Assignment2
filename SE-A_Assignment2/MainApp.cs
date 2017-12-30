@@ -339,7 +339,6 @@ namespace SE_A_Assignment2
                     if (newId != 0)
                     {
                         MessageBox.Show("New Bug reported");
-                        MessageBox.Show(BugAssigned.Text);
 
                     }
                 }
@@ -372,7 +371,6 @@ namespace SE_A_Assignment2
 
                         if (i != 0)
                         {
-                            MessageBox.Show("Code inserted");
                             //this.Close();
                         }
                     }

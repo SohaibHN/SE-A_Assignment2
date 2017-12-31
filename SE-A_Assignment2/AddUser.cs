@@ -25,17 +25,32 @@ namespace SE_A_Assignment2
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            if (string.IsNullOrWhiteSpace(Username.Text) || string.IsNullOrEmpty(Password.Text) || string.IsNullOrEmpty(Category.Text)) // values required
+            {
+
+            }
+            else
+            {
+                string OrigPassword = Password.Text;
+                string User = Username.Text;
+                string Cate = Category.Text;
+                register(User, OrigPassword, Cate);
+            }
+        }
+        public bool register(String Username, String Password, String Category)
+        {
             //SqlConnection con = new SqlConnection("Data Source=NiluNilesh;Integrated Security=True");  
             mySqlConnection = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("INSERT INTO users (username, passwordhash, category) VALUES (@username, @password, @category)", mySqlConnection);
-            string myPassword = textBox2.Text;
+            string myPassword = this.Password.Text;
 
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(myPassword);
             bool validPassword = BCrypt.Net.BCrypt.Verify(myPassword, hashedPassword);
 
-            cmd.Parameters.AddWithValue("@username", textBox1.Text);
+            cmd.Parameters.AddWithValue("@username", Username);
             cmd.Parameters.AddWithValue("@password", hashedPassword);
-            cmd.Parameters.AddWithValue("@category", textBox3.Text);
+            cmd.Parameters.AddWithValue("@category", Category);
             mySqlConnection.Open();
             try
             {
@@ -45,18 +60,17 @@ namespace SE_A_Assignment2
                 {
                     MessageBox.Show("New User Added");
                     this.Close();
+                    return true;
                 }
             }
             catch
             {
                 MessageBox.Show("User exists, please choose another");
+                return false;
             }
-
+            return false;
             mySqlConnection.Close();
-
-
-
-            if (validPassword) {  }
         }
+
     }
 }

@@ -110,7 +110,7 @@ namespace SE_A_Assignment2
 
         }
 
-        public void GridViewData()
+        public int GridViewData()
         {
             DataSet ds = new DataSet();
             SqlDataAdapter daTickets = new SqlDataAdapter();
@@ -135,6 +135,10 @@ namespace SE_A_Assignment2
             BugAssigned.DataSource = ds.Tables["users"];
             BugAssigned.DisplayMember = "username"; // This is text displayed
             BugAssigned.ValueMember = "username"; // This is the value returned
+
+            int count = ds.Tables["tickets"].Rows.Count;
+            return count;
+
         }
 
         private void dataGridView1_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
@@ -233,13 +237,13 @@ namespace SE_A_Assignment2
 
         private void ChangePass_Click(object sender, EventArgs e)
         {
-            bool verifyeduser = false;
-            mySqlConnection = new SqlConnection(connectionString);
+            bool verifyeduser = false; // forces user to login again for verification
+            mySqlConnection = new SqlConnection(connectionString); //sql connection
             SqlCommand cmd = new SqlCommand("select username, passwordhash, category from users where username=@username", mySqlConnection);
-            cmd.Parameters.AddWithValue("@username", MainLoggedInUser);
+            cmd.Parameters.AddWithValue("@username", MainLoggedInUser); // adds username from the login variable set previously
             mySqlConnection.Open();
 
-            if (string.IsNullOrWhiteSpace(NewPass1.Text) || string.IsNullOrEmpty(NewPass2.Text))
+            if (string.IsNullOrWhiteSpace(NewPass1.Text) || string.IsNullOrEmpty(NewPass2.Text)) // values required
             {
                 MessageBox.Show("New Details can't be empty");
             }
@@ -251,7 +255,7 @@ namespace SE_A_Assignment2
                     while (reader.Read())
                     {
 
-                        if (BCrypt.Net.BCrypt.Verify(CurrentPass.Text, reader.GetString(1)))
+                        if (BCrypt.Net.BCrypt.Verify(CurrentPass.Text, reader.GetString(1))) //verify password hash with bycrypt
                         {
                             verifyeduser = true;
                             MessageBox.Show(reader.GetString(1));
@@ -277,7 +281,7 @@ namespace SE_A_Assignment2
 
                             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(myPassword);
                             MessageBox.Show(hashedPassword);
-                            bool validPassword = BCrypt.Net.BCrypt.Verify(myPassword, hashedPassword);
+                            bool validPassword = BCrypt.Net.BCrypt.Verify(myPassword, hashedPassword); // sets password to hash with bcrypt
 
                             cmd2.Parameters.AddWithValue("@usernamesearch", MainLoggedInUser);
                             cmd2.Parameters.AddWithValue("@password", hashedPassword);
@@ -314,7 +318,7 @@ namespace SE_A_Assignment2
         private void SaveBug_Click(object sender, EventArgs e)
         {
             mySqlConnection = new SqlConnection(connectionString);
-            Int32 newId  = 0; MessageBox.Show(newId.ToString());
+            Int32 newId  = 0; 
             if (!string.IsNullOrWhiteSpace(BugDesc.Text) && !string.IsNullOrWhiteSpace(BugSteps.Text) && !string.IsNullOrWhiteSpace(BugProject.Text))
             {
                 // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
@@ -706,16 +710,6 @@ namespace SE_A_Assignment2
                         TextArea.Clear();
                     }
             }
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DeadlineDate_ValueChanged(object sender, EventArgs e)
-        {
-           
         }
     }
 }

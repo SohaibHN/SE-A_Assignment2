@@ -62,10 +62,10 @@ namespace SE_A_Assignment2
                         {
                             //login
                             LoggedInUser = username;
-                            LoggedInCategory = reader.GetString(2);
-                            return true;
+                            LoggedInCategory = reader.GetString(2);                    
                             DialogResult = System.Windows.Forms.DialogResult.OK;
-                            
+                            return true;
+
                         }
                         else
                         {

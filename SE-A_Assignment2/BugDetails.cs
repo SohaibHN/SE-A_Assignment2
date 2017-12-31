@@ -545,7 +545,7 @@ namespace SE_A_Assignment2
 
         private void Commit_Click(object sender, EventArgs e)
         {
-            username = "9f2c4ef23777765951e109defbaa98ef07a50864";
+            username = "";
             // auth code in username
             // need to be removed whenever committing to github
             password = string.Empty;
@@ -599,23 +599,26 @@ namespace SE_A_Assignment2
             checker = true;
             using (var repo = new Repository(_localFolder.FullName))
             {
-                // Write content to file system
-                //var content = "Final TEST!!";
-
+               
                 Uri uri = new Uri(BugSource.Text);
 
-                string filename = System.IO.Path.GetFileName(uri.LocalPath);
+                //String filename = "123.txt"; // used during unit tests
+                //TextArea.Text = "1231"; // used during unit tests
+                string filename = System.IO.Path.GetFileName(uri.LocalPath); // gets file name from URL source in ticket info
                 File.WriteAllText(Path.Combine(repo.Info.WorkingDirectory, filename), TextArea.Text);
+                // Write content to file system
+
 
                 // Stage the file
                 repo.Stage(filename);
 
                 string CommitMessage = Interaction.InputBox("Enter Commit Message", "Enter Commit Message", "Commit Message Here", 50, 50);
+                // visual basic commit message box popping up for user.
 
                 if (CommitMessage.Length == 0) { MessageBox.Show("Commit Cancelled"); checker = false;  return; }
 
                 // Create the committer's signature and commit
-                Signature author = new Signature("Sohaib", "@SohaibHN", DateTime.Now);
+                Signature author = new Signature("Sohaib", "@SohaibHN", DateTime.Now); //default user with commit access is me
                 Signature committer = author;
 
                 // Commit to the repository
@@ -638,7 +641,7 @@ namespace SE_A_Assignment2
         /// <param name="remoteName">Name of the remote server.</param>
         /// <param name="branchName">Name of the remote branch.</param>
         /// <exception cref="System.Exception"></exception>
-        public void PushCommits(string remoteName, string branchName)
+        public bool PushCommits(string remoteName, string branchName)
         {
             using (var repo = new Repository(_localFolder.FullName))
             {
@@ -653,8 +656,6 @@ namespace SE_A_Assignment2
                 {
                     CredentialsProvider = (url, usernameFromUrl, types) => _credentials
                 };
-                //repo.Network.Push(remote, branchName, options);
-                // repo.Network.Push(repo.Branches[branchName], options);
 
                 PushOptions po = new PushOptions();
 
@@ -664,10 +665,12 @@ namespace SE_A_Assignment2
                 {
                     repo.Network.Push(remote, @"refs/heads/master", options);
                     MessageBox.Show("Commit Succesfully Pushed");
+                    return true;
                 }
                 catch (Exception p)
                 {
                     MessageBox.Show(p.Message);
+                    return false;
                 }
             }
         }

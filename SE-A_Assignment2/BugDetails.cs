@@ -510,7 +510,7 @@ namespace SE_A_Assignment2
 
             mySqlConnection = new SqlConnection(connectionString);
            // cmd = new SqlCommand("INSERT INTO tickets ([user], description, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-            cmd = new SqlCommand("UPDATE tickets SET [description] = @description, [project] = @project, [status] = @status, [severity] = @severity, [deadline] = @deadline WHERE [ID]=@BUGID", mySqlConnection);
+            cmd = new SqlCommand("UPDATE tickets SET [description] = @description, [project] = @project, [status] = @status, [assigned] = @assigned, [severity] = @severity, [deadline] = @deadline WHERE [ID]=@BUGID", mySqlConnection);
 
 
             cmd.Parameters.AddWithValue("@description", BugDesc.Text);
@@ -518,8 +518,8 @@ namespace SE_A_Assignment2
             cmd.Parameters.AddWithValue("@status", Status.Text);
             cmd.Parameters.AddWithValue("@severity", BugSeverity.Text);
             //cmd.Parameters.AddWithValue("@deadline", DeadlineDate.Text);
-            cmd.Parameters.AddWithValue("@deadline", DateTime.Now.ToString("yyyy-MM-dd"));
-
+            cmd.Parameters.AddWithValue("@deadline", DeadlineDate.Value.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@assigned", BugAssigned.Text);
             cmd.Parameters.AddWithValue("@BUGID", BugIDTest.Text);
 
 
@@ -542,6 +542,8 @@ namespace SE_A_Assignment2
 
             mySqlConnection.Close();
         }
+
+        #region CommitFromApp
 
         private void Commit_Click(object sender, EventArgs e)
         {
@@ -611,6 +613,7 @@ namespace SE_A_Assignment2
 
                 // Stage the file
                 repo.Stage(filename);
+               // repo.LibGit2Sharp.Commands.Stage(filename);
 
                 string CommitMessage = Interaction.InputBox("Enter Commit Message", "Enter Commit Message", "Commit Message Here", 50, 50);
                 // visual basic commit message box popping up for user.
@@ -674,5 +677,6 @@ namespace SE_A_Assignment2
                 }
             }
         }
+        #endregion
     }
 }

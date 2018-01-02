@@ -68,8 +68,9 @@ namespace SE_A_Assignment2
                 MessageBox.Show("User exists, please choose another");
                 return false;
             }
-            return false;
+            
             mySqlConnection.Close();
+            return false;
         }
 
     }

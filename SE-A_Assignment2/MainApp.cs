@@ -33,12 +33,15 @@ namespace SE_A_Assignment2
             this.Text = "Bug Tracker";
             tabPage1.Text = @"View Bugs";
             tabPage2.Text = @"Add New Bug";
+            tabPage4.Text = @"Change Password";
+            tabPage5.Text = @"Admin";
             this.tabControl1.SelectedTab = tabPage1;
 
             MainLoggedInUser = loginform.LoggedInUser;
             MainLoggedInCategory = loginform.LoggedInCategory;
             
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+
         }
 
         private void tabControl1_SelectedIndexChanged(Object sender, EventArgs e)
@@ -47,6 +50,31 @@ namespace SE_A_Assignment2
             {
                 BugDataInital();
             }
+
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])//your specific tabname
+            {
+                GridViewDataAdmin();
+                dataGridViewAdmin.CurrentCell.Selected = false;
+            }
+
+        }
+
+        public int GridViewDataAdmin()
+        {
+            DataSet ds = new DataSet();
+            SqlDataAdapter daUsers = new SqlDataAdapter();
+            mySqlConnection = new SqlConnection(connectionString);
+            SqlCommand selUsers = new SqlCommand("SELECT ID, Username, Category FROM USERS", mySqlConnection);
+            daUsers.SelectCommand = selUsers;
+            daUsers.Fill(ds, "users");
+
+            BindingSource bsusers = new BindingSource();
+            bsusers.DataSource = ds.Tables["users"];
+            dataGridViewAdmin.DataSource = ds.Tables["users"];
+
+            int count = ds.Tables["users"].Rows.Count;
+            return count;
+
         }
 
         private void BugDataInital()
@@ -102,11 +130,16 @@ namespace SE_A_Assignment2
             //this.ticketsTableAdapter2.Fill(this.bugTrackerDataSetMain.tickets);
             // 
             if (MainLoggedInCategory != "Admin") { tabControl1.TabPages.Remove(tabPage5); }
+            tabControl1.TabPages.Remove(tabPage3);
             GridViewData();
             //this.dataGridView1.Columns["Id"].Visible = false;
             dataGridView1.Columns[3].Visible = false;
             dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridView1_RowPrePaint);
+            dataGridView1.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridView1_RowPrePaint);
+          //  FilterSeverity.Text = "All Tickets";
+            AssignedFilter.Text = "All Tickets";
+            dataGridView1.CurrentCell.Selected = false;
+            ClearTextBoxes();
 
         }
 
@@ -258,7 +291,8 @@ namespace SE_A_Assignment2
                         if (BCrypt.Net.BCrypt.Verify(CurrentPass.Text, reader.GetString(1))) //verify password hash with bycrypt
                         {
                             verifyeduser = true;
-                            MessageBox.Show(reader.GetString(1));
+                            //MessageBox.Show(reader.GetString(1));
+                            UpdatePassword(MainLoggedInUser, NewPass1.Text, NewPass2.Text);
                         }
                         else
                         {
@@ -268,51 +302,52 @@ namespace SE_A_Assignment2
                     }
                     mySqlConnection.Close();
 
-                    if (verifyeduser)
-                    {
-
-                        if (NewPass1.Text == NewPass2.Text)
-                        {
-
-
-                            SqlCommand cmd2 = new SqlCommand("UPDATE users SET passwordhash =@password WHERE username = @usernamesearch", mySqlConnection);
-                            string myPassword = NewPass1.Text;
-
-
-                            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(myPassword);
-                            MessageBox.Show(hashedPassword);
-                            bool validPassword = BCrypt.Net.BCrypt.Verify(myPassword, hashedPassword); // sets password to hash with bcrypt
-
-                            cmd2.Parameters.AddWithValue("@usernamesearch", MainLoggedInUser);
-                            cmd2.Parameters.AddWithValue("@password", hashedPassword);
-                            if (verifyeduser)
-                            {
-                                mySqlConnection.Open();
-                                try
-                                {
-                                    int i = cmd2.ExecuteNonQuery();
-
-                                    if (i != 0)
-                                    {
-                                        MessageBox.Show("Password Updated");
-                                        
-                                    }
-                                }
-                                catch (SqlException f)
-                                {
-                                    MessageBox.Show(f.Message);
-                                }
-
-                                mySqlConnection.Close();
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("New Passwords do not Match");
-                        }
-                    }
                 }
             }
+        }
+
+        private void UpdatePassword(String username, String password1, String password2)
+        {
+            if (password1 == password2)
+            {
+
+                mySqlConnection = new SqlConnection(connectionString); //sql connection
+                SqlCommand cmd2 = new SqlCommand("UPDATE users SET passwordhash =@password WHERE username = @usernamesearch", mySqlConnection);
+                string myPassword = password1;
+
+
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(myPassword);
+                bool validPassword = BCrypt.Net.BCrypt.Verify(myPassword, hashedPassword); // sets password to hash with bcrypt
+
+                cmd2.Parameters.AddWithValue("@usernamesearch", username);
+                cmd2.Parameters.AddWithValue("@password", hashedPassword);
+                mySqlConnection.Open();
+                try
+                {
+                    int i = cmd2.ExecuteNonQuery();
+
+                    if (i != 0)
+                    {
+                        MessageBox.Show("Password Updated");
+                        GridViewDataAdmin();
+                        ClearTextBoxes();
+
+                    }
+                }
+                catch (SqlException f)
+                {
+                    MessageBox.Show(f.Message);
+                }
+
+                mySqlConnection.Close();
+
+            }
+            else
+            {
+                MessageBox.Show("New Passwords do not Match");
+            }
+
+
         }
 
         private void SaveBug_Click(object sender, EventArgs e)
@@ -397,10 +432,45 @@ namespace SE_A_Assignment2
 
         private void SearchData_TextChanged(object sender, EventArgs e)
         {
-             (this.dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Description] LIKE '%{0}%' OR [Severity] LIKE '%{0}%' OR [Project] LIKE '%{0}%'", SearchData.Text);
+             (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Description] LIKE '%{0}%' OR [Severity] LIKE '%{0}%' OR [Project] LIKE '%{0}%' OR [Assigned] LIKE '%{0}%'", SearchData.Text);
             
         }
 
+        private void AssignedFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String filter;
+            if (AssignedFilter.Text == "Me")
+            {
+                filter = MainLoggedInUser;
+            }
+            else if (AssignedFilter.Text == "Unassigned")
+            {
+                filter = "Unassigned";
+            }
+            else
+            {
+                filter = "";
+            }
+             (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Assigned] LIKE '%{0}%' ", filter);
+
+        }
+         /*
+        private void FilterSeverity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           String filter;
+            if (FilterSeverity.Text == "All Tickets")
+            {
+                filter = "";
+            }
+            else
+            {
+                filter = FilterSeverity.Text;
+            }
+
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Severity] LIKE '%{0}%' ", filter);
+        }
+
+    */
         private void InitColors()
         {
             TextArea.SetSelectionBackColor(true, IntToColor(0x114D9C));
@@ -709,6 +779,156 @@ namespace SE_A_Assignment2
                         MessageBox.Show(w.Message);
                         TextArea.Clear();
                     }
+            }
+        }
+
+        private void dataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            // For any other operation except, StateChanged, do nothing
+            if (e.StateChanged != DataGridViewElementStates.Selected) return; 
+
+           //MessageBox.Show("Selected row is=" + e.Row.Index);
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            mySqlConnection = new SqlConnection(connectionString);
+            if (dataGridView1.SelectedCells.Count > 0)
+            {
+
+                string str = null;
+                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                {
+                    str = row.Cells[0].Value.ToString(); // gets bug ID and uses it for the bug details form
+                }
+
+
+                SqlCommand cmd = new SqlCommand("SELECT * FROM tickets WHERE [ID] = @BUGID", mySqlConnection);
+
+                cmd.Parameters.AddWithValue("@BUGID", str);
+
+                mySqlConnection.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TicketCreated.Text = reader["user"].ToString();
+                        TicketDesc.Text = reader["description"].ToString();
+                       // DeadlineDate.Value = Convert.ToDateTime(reader["deadline"]);
+                        TicketRepo.Text = reader["ReproductionSteps"].ToString();
+                       // Status.Text = reader["status"].ToString();
+                        TicketProject.Text = reader["project"].ToString();
+                        TicketAssigned.Text = reader["assigned"].ToString();
+                        TicketSeverity.Text = reader["severity"].ToString();
+                    }
+
+                }
+                mySqlConnection.Close();
+            }
+            
+        }
+
+        private void ClearTextBoxes()
+        {
+            Action<Control.ControlCollection> func = null;
+
+            func = (controls) =>
+            {
+                foreach (Control control in controls)
+                    if (control is TextBox)
+                        (control as TextBox).Clear();
+                    else
+                        func(control.Controls);
+            };
+
+            func(Controls);
+        }
+
+        private void ClearAllButton_Click(object sender, EventArgs e)
+        {
+            ClearTextBoxes();
+            BugDataInital();
+        }
+
+        private void UpdateUser_Click(object sender, EventArgs e)
+        {
+
+            mySqlConnection = new SqlConnection(connectionString); //sql connection
+
+            if (string.IsNullOrWhiteSpace(ManageCategory.Text)) // values required
+            {
+                MessageBox.Show("Fields cannot be left blank");
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(ManagePassword1.Text) || string.IsNullOrEmpty(ManagePassword2.Text)) // values required
+                {
+                    mySqlConnection = new SqlConnection(connectionString); //sql connection
+                    SqlCommand cmd = new SqlCommand("UPDATE users SET category =@category WHERE username = @usernamesearch", mySqlConnection);
+
+                    cmd.Parameters.AddWithValue("@category", ManageCategory.Text);
+                    cmd.Parameters.AddWithValue("@usernamesearch", ManageUsername.Text);
+
+                    mySqlConnection.Open();
+                    try
+                    {
+                        int i = cmd.ExecuteNonQuery();
+
+                        if (i != 0)
+                        {
+                            MessageBox.Show("Category Updated");
+                            ClearTextBoxes();
+                            GridViewDataAdmin();
+                        }
+                    }
+                    catch (SqlException f)
+                    {
+                        MessageBox.Show(f.Message);
+                    }
+
+                    mySqlConnection.Close();
+
+                }
+                else
+                {
+
+                    UpdatePassword(ManageUsername.Text, ManagePassword1.Text, ManagePassword2.Text);
+                }
+
+            }
+
+        }
+
+        private void dataGridViewAdmin_SelectionChanged(object sender, EventArgs e)
+        {
+            mySqlConnection = new SqlConnection(connectionString);
+            if (dataGridViewAdmin.SelectedCells.Count > 0)
+            {
+
+                string str = null;
+                foreach (DataGridViewRow row in dataGridViewAdmin.SelectedRows)
+                {
+                    str = row.Cells[0].Value.ToString(); // gets bug ID and uses it for the bug details form
+                }
+
+
+                SqlCommand cmd = new SqlCommand("SELECT * FROM USERS WHERE [ID] = @ID", mySqlConnection);
+
+                cmd.Parameters.AddWithValue("@ID", str);
+
+                mySqlConnection.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ManageUsername.Text = reader["username"].ToString();
+                        ManageCategory.Text = reader["category"].ToString();
+                    }
+
+                }
+                mySqlConnection.Close();
             }
         }
     }

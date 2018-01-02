@@ -86,21 +86,6 @@
     <Compile Include="BugDetails.Designer.cs">
       <DependentUpon>BugDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="BugTrackerDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BugTrackerDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="BugTrackerDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BugTrackerDataSet1.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="BugTrackerDataSetMain.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BugTrackerDataSetMain.xsd</DependentUpon>
-    </Compile>
     <Compile Include="CodeDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,39 +134,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="BugTrackerDataSet.xsc">
-      <DependentUpon>BugTrackerDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="BugTrackerDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BugTrackerDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="BugTrackerDataSet.xss">
-      <DependentUpon>BugTrackerDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="BugTrackerDataSet1.xsc">
-      <DependentUpon>BugTrackerDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="BugTrackerDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BugTrackerDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="BugTrackerDataSet1.xss">
-      <DependentUpon>BugTrackerDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="BugTrackerDataSetMain.xsc">
-      <DependentUpon>BugTrackerDataSetMain.xsd</DependentUpon>
-    </None>
-    <None Include="BugTrackerDataSetMain.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BugTrackerDataSetMain.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="BugTrackerDataSetMain.xss">
-      <DependentUpon>BugTrackerDataSetMain.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -15,6 +15,13 @@ using ScintillaNET.Demo.Utils;
 
 namespace SE_A_Assignment2
 {
+    /// <summary>  
+    ///  This class is the main page for the application, uses tab control instead of multiple different windows forms linking to whatever
+    ///  Allows new bug to be submitted
+    ///  Admins to manage user details
+    ///  Changing password
+    ///  Links to bugdetails/codedetails.cs to update ticket info
+    /// </summary>  
     public partial class MainApp : Form
     {
         public String MainLoggedInUser;
@@ -30,7 +37,8 @@ namespace SE_A_Assignment2
 
             InitializeComponent();
 
-            this.Text = "Bug Tracker";
+            this.Text = "Bug Tracker - Home";
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             tabPage1.Text = @"View Bugs";
             tabPage2.Text = @"Add New Bug";
             tabPage4.Text = @"Change Password";
@@ -40,21 +48,23 @@ namespace SE_A_Assignment2
             MainLoggedInUser = loginform.LoggedInUser;
             MainLoggedInCategory = loginform.LoggedInCategory;
             
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged; // used whenever a tab is changed
 
         }
 
-        private void tabControl1_SelectedIndexChanged(Object sender, EventArgs e)
+        private void tabControl1_SelectedIndexChanged(Object sender, EventArgs e) // used whenever a tab is changed
         {
-            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])//your specific tabname
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])//insert ticket tab
             {
                 BugDataInital();
             }
 
-            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])//your specific tabname
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])//admin tab
             {
-                GridViewDataAdmin();
+                GridViewDataAdmin(); //populate admin grid based on user table
                 dataGridViewAdmin.CurrentCell.Selected = false;
+                dataGridViewAdmin.RowHeadersVisible = false;
+                //grid visual features
             }
 
         }
@@ -68,9 +78,9 @@ namespace SE_A_Assignment2
             daUsers.SelectCommand = selUsers;
             daUsers.Fill(ds, "users");
 
-            BindingSource bsusers = new BindingSource();
+            BindingSource bsusers = new BindingSource(); 
             bsusers.DataSource = ds.Tables["users"];
-            dataGridViewAdmin.DataSource = ds.Tables["users"];
+            dataGridViewAdmin.DataSource = ds.Tables["users"]; //binds users dataset to admin grid datasource
 
             int count = ds.Tables["users"].Rows.Count;
             return count;
@@ -85,14 +95,14 @@ namespace SE_A_Assignment2
                     new SqlCommand("Select IDENT_CURRENT('tickets')", mySqlConnection))
             {
               mySqlConnection.Open();
-              maxId = 1 + Convert.ToInt32(dataCommand.ExecuteScalar());
+              maxId = 1 + Convert.ToInt32(dataCommand.ExecuteScalar()); //displays "newest" ticket ID value for visual purpose only
 
             }
 
             mySqlConnection.Close();
-            BugID.Text = maxId.ToString();
-            BugDeadlineDate.Text = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
-            Severity.SelectedIndex = 1;
+            BugID.Text = maxId.ToString(); //displays "newest" ticket ID value for user
+            BugDeadlineDate.Text = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"); //todays date + 1 = default deadline
+            Severity.SelectedIndex = 1; //defaults to Medium
 
             // Custom formats for date picker
             this.BugDeadlineDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -102,23 +112,23 @@ namespace SE_A_Assignment2
             // Sets default for drop down to unassigned instead of first user in table
             BugAssigned.SelectedItem = null;
             BugAssigned.Text = "";
-            BugAssigned.SelectedText = "Unassigned";
+            BugAssigned.SelectedText = "Unassigned"; //defaults to unassigned
 
 
             // BASIC CONFIG FOR CODE BOX
             TextArea.Dock = System.Windows.Forms.DockStyle.Fill;
             CodeBox.Controls.Add(TextArea);
 
-            // INITIAL VIEW CONFIG
+            // INITIAL VIEW CONFIG FOR CODE BOX
             TextArea.WrapMode = WrapMode.None;
             TextArea.IndentationGuides = IndentView.LookBoth;
 
-            // STYLING
+            // STYLING FOR CODE BOX
             InitColors();
             InitSyntaxColoring();
             InitNumberMargin();
 
-            // INIT HOTKEYS
+            // INIT HOTKEYS FOR CODE BOX
             InitHotkeys();
 
 
@@ -129,17 +139,16 @@ namespace SE_A_Assignment2
             // TODO: This line of code loads data into the 'bugTrackerDataSetMain.tickets' table. You can move, or remove it, as needed.
             //this.ticketsTableAdapter2.Fill(this.bugTrackerDataSetMain.tickets);
             // 
-            if (MainLoggedInCategory != "Admin") { tabControl1.TabPages.Remove(tabPage5); }
+            if (MainLoggedInCategory != "Admin") { tabControl1.TabPages.Remove(tabPage5); } //removes admin tab if not admin
             tabControl1.TabPages.Remove(tabPage3);
-            GridViewData();
-            //this.dataGridView1.Columns["Id"].Visible = false;
-            dataGridView1.Columns[3].Visible = false;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridView1_RowPrePaint);
-          //  FilterSeverity.Text = "All Tickets";
-            AssignedFilter.Text = "All Tickets";
+            GridViewData(); //loads ticket data into grid
+            dataGridView1.Columns[3].Visible = false; //hides column because its too long and displayed in text box instead
+            dataGridView1.RowHeadersVisible = false; //removes top area
+            dataGridView1.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dataGridView1_RowPrePaint); //painting method to colour rows
+
+            AssignedFilter.Text = "All Tickets"; //defaults filter to all tickets
             dataGridView1.CurrentCell.Selected = false;
-            ClearTextBoxes();
+            ClearTextBoxes(); //clears text boxes
 
         }
 
@@ -154,7 +163,7 @@ namespace SE_A_Assignment2
 
             BindingSource bs = new BindingSource();
             bs.DataSource = ds.Tables["tickets"];
-            dataGridView1.DataSource = ds.Tables["tickets"];
+            dataGridView1.DataSource = ds.Tables["tickets"]; //binds user dataset into grids datasource
 
             SqlDataAdapter daUsers = new SqlDataAdapter();
             mySqlConnection = new SqlConnection(connectionString);
@@ -165,21 +174,18 @@ namespace SE_A_Assignment2
 
             BindingSource bs2 = new BindingSource();
             bs2.DataSource = ds.Tables["users"];
-            BugAssigned.DataSource = ds.Tables["users"];
+            BugAssigned.DataSource = ds.Tables["users"]; //binds user dataset to combo box datasource
             BugAssigned.DisplayMember = "username"; // This is text displayed
             BugAssigned.ValueMember = "username"; // This is the value returned
 
             int count = ds.Tables["tickets"].Rows.Count;
-            return count;
+            return count; //used for unit tests to see if data is pulled
 
         }
 
         private void dataGridView1_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
-            if (dataGridView1.Rows[e.RowIndex].Cells[4].Value == dataGridView1.Rows[e.RowIndex].Cells[4].Value)
-            {
-              // dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Beige;
-            }
+
 
             if (e.RowIndex < 0 )
                 return;
@@ -188,64 +194,64 @@ namespace SE_A_Assignment2
             DateTime date = DateTime.Now.Date;
             DateTime deadline = (DateTime)dataGridView1.Rows[e.RowIndex].Cells[9].Value;
             String value = cell.Value == null ? string.Empty : cell.Value.ToString();
-            if (deadline < date)
+            if (deadline < date && value.Equals("Fixed") != true && value.Equals("On Hold") != true)
             {
-                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Tomato;
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Tomato; //expired date
             }
             else if (value.Equals("Broken") == true)
             {
-                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Orange; //broken
             }
             else if (value.Equals("Fixed") == true)
             {
-                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Green;
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Green; //fixed
             }
             else
             {
-                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightBlue;
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightBlue; // on hold
             }
         }
 
         private void ViewBugs_Click(object sender, EventArgs e)
         {
 
-            // int rowindex = dataGridView1.CurrentCell.RowIndex;
-            // int columnindex = dataGridView1.CurrentCell.ColumnIndex;
-            //string str = dataGridView1.Rows[rowindex].Cells[columnindex].Value.ToString();
-            string str = null;
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            if (dataGridView1.SelectedCells.Count > 0)
             {
-                str = row.Cells[0].Value.ToString(); // gets bug ID and uses it for the bug details form
-            }
-
-            mySqlConnection = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT * FROM code_data WHERE [FK_Ticket_ID] = @BUGID", mySqlConnection);
-
-            cmd.Parameters.AddWithValue("@BUGID", str);
-            mySqlConnection.Open();
-
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                if (reader.HasRows)
+                string str = null;
+                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                 {
-                    BugDetails BugDetails = new BugDetails();
-                    BugDetails.TheValue = str;
-                    BugDetails.FormClosed += BugDetails_FormClosed;
-                    BugDetails.Show();
+                    str = row.Cells[0].Value.ToString(); // gets bug ID and uses it for the bug details form
                 }
-                else
+
+                mySqlConnection = new SqlConnection(connectionString);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM code_data WHERE [FK_Ticket_ID] = @BUGID", mySqlConnection);
+
+                cmd.Parameters.AddWithValue("@BUGID", str);
+                mySqlConnection.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    DialogResult dialogResult = MessageBox.Show("There is no extra details, would you like to add some?", "Code Details", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
+                    if (reader.HasRows) //if there is any rows in code data relating to ticket, full bug detail window opens.
                     {
-                        //do something
-                        CodeDetails CodeDetails = new CodeDetails();
-                        CodeDetails.TheValue = str;
-                        CodeDetails.Show();
+                        BugDetails BugDetails = new BugDetails();
+                        BugDetails.TheValue = str; //uses bug id in bug details class
+                        BugDetails.FormClosed += BugDetails_FormClosed;
+                        BugDetails.Show();
                     }
-                    else if (dialogResult == DialogResult.No)
+                    else //user is required to enter code details to view page
                     {
-                        return;
+                        DialogResult dialogResult = MessageBox.Show("There is no extra details, would you like to add some?", "Code Details", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            //do something
+                            CodeDetails CodeDetails = new CodeDetails();
+                            CodeDetails.TheValue = str; // uses bug id in code details class
+                            CodeDetails.Show();
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
                     }
                 }
             }
@@ -254,6 +260,7 @@ namespace SE_A_Assignment2
         void BugDetails_FormClosed(object sender, FormClosedEventArgs e)
         {
             GridViewData();
+            // on closing of bug details grid data refreshes to reflect any updates
         }
 
         private void ManageUsers_Click(object sender, EventArgs e)
@@ -261,7 +268,7 @@ namespace SE_A_Assignment2
 
         }
 
-        private void Logout_Click(object sender, EventArgs e)
+        private void Logout_Click(object sender, EventArgs e) //logout
         {
             Application.Restart();
             this.Visible = false;
@@ -270,7 +277,6 @@ namespace SE_A_Assignment2
 
         private void ChangePass_Click(object sender, EventArgs e)
         {
-            bool verifyeduser = false; // forces user to login again for verification
             mySqlConnection = new SqlConnection(connectionString); //sql connection
             SqlCommand cmd = new SqlCommand("select username, passwordhash, category from users where username=@username", mySqlConnection);
             cmd.Parameters.AddWithValue("@username", MainLoggedInUser); // adds username from the login variable set previously
@@ -290,8 +296,7 @@ namespace SE_A_Assignment2
 
                         if (BCrypt.Net.BCrypt.Verify(CurrentPass.Text, reader.GetString(1))) //verify password hash with bycrypt
                         {
-                            verifyeduser = true;
-                            //MessageBox.Show(reader.GetString(1));
+                            // if user has authenticated, update password method is ran
                             UpdatePassword(MainLoggedInUser, NewPass1.Text, NewPass2.Text);
                         }
                         else
@@ -306,9 +311,13 @@ namespace SE_A_Assignment2
             }
         }
 
-        private void UpdatePassword(String username, String password1, String password2)
+        // Multiple parameters.
+        /// <param name="username">Used to indicate username to change password against</param>
+        /// <param name="password">Authenticate against username later on</param>
+        /// <param name="password2">Checks against password one if its the same</param>
+        public bool UpdatePassword(String username, String password1, String password2)
         {
-            if (password1 == password2)
+            if (password1 == password2) //checks same password entered
             {
 
                 mySqlConnection = new SqlConnection(connectionString); //sql connection
@@ -329,8 +338,9 @@ namespace SE_A_Assignment2
                     if (i != 0)
                     {
                         MessageBox.Show("Password Updated");
-                        GridViewDataAdmin();
+                        GridViewDataAdmin(); 
                         ClearTextBoxes();
+                        return true;
 
                     }
                 }
@@ -345,101 +355,127 @@ namespace SE_A_Assignment2
             else
             {
                 MessageBox.Show("New Passwords do not Match");
+                
+            }
+            return false;
+
+        }
+
+        public int InsertTicketData()
+        {
+            mySqlConnection = new SqlConnection(connectionString); //sql connection
+            // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
+            SqlCommand cmd = new SqlCommand("INSERT INTO tickets ([user], description, reproductionsteps, project, status, severity, datelogged, deadline, assigned) OUTPUT INSERTED.ID VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline, @assigned)", mySqlConnection);
+            //String Severity;
+            int newId = 0;
+            cmd.Parameters.AddWithValue("@username", MainLoggedInUser);
+            cmd.Parameters.AddWithValue("@description", BugDesc.Text);
+            cmd.Parameters.AddWithValue("@reproductionsteps", BugSteps.Text);
+            cmd.Parameters.AddWithValue("@project", BugProject.Text);
+            cmd.Parameters.AddWithValue("@status", "Broken");
+            cmd.Parameters.AddWithValue("@severity", Severity.Text);
+            cmd.Parameters.AddWithValue("@datelogged", DateTime.Now.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@deadline", BugDeadlineDate.Value.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@assigned", BugAssigned.Text);
+
+            mySqlConnection.Open();
+            try
+            {
+                //int i = cmd.ExecuteNonQuery();
+                newId = (Int32)cmd.ExecuteScalar(); // GETS BUGID THAT IS JUST INSERTED USED FOR INSERTING INTO CODE TABLE
+                if (newId != 0)
+                {
+                    MessageBox.Show("New Bug reported");
+
+                }
+            }
+            catch (SqlException f)
+            {
+                MessageBox.Show(f.Message);
             }
 
+            mySqlConnection.Close();
+            return newId; //returns bug ID to insert code into the code table if needed
+        }
 
+        // Single parameter.
+        /// <param name="TicketID">takes ID from previous method to use as foreign key in code table.</param>
+        private void InsertCodeData(int TicketID) //takes ID from previous method to use as foreign key
+        {
+            mySqlConnection = new SqlConnection(connectionString); //sql connection
+            SqlCommand cmd = new SqlCommand("INSERT INTO code_data (FK_Ticket_ID, [Code], [Version], [Class], [Methods], [Lines], [URL], [Author], [Date]) VALUES (@BUGID, @Code, @Version, @Class, @Methods, @Lines, @Source, @Author, @Date)", mySqlConnection);
+
+            cmd.Parameters.AddWithValue("@Code", TextArea.Text);
+            cmd.Parameters.AddWithValue("@Version", BugVersion.Text);
+            cmd.Parameters.AddWithValue("@Methods", BugMethods.Text);
+            cmd.Parameters.AddWithValue("@Class", BugClass.Text);
+            cmd.Parameters.AddWithValue("@Lines", BugLines.Text);
+            cmd.Parameters.AddWithValue("@Source", URL.Text);
+            cmd.Parameters.AddWithValue("@Author", BugAuthor.Text);
+            cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@BUGID", TicketID);
+
+            mySqlConnection.Open();
+            try
+            {
+                int i = cmd.ExecuteNonQuery();
+
+                if (i != 0)
+                {
+                    //this.Close();
+                }
+            }
+            catch (SqlException f)
+            {
+                MessageBox.Show(f.Message);
+            }
+
+            mySqlConnection.Close();
         }
 
         private void SaveBug_Click(object sender, EventArgs e)
         {
-            mySqlConnection = new SqlConnection(connectionString);
-            Int32 newId  = 0; 
+            int BUGID;
             if (!string.IsNullOrWhiteSpace(BugDesc.Text) && !string.IsNullOrWhiteSpace(BugSteps.Text) && !string.IsNullOrWhiteSpace(BugProject.Text))
             {
-                // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-                SqlCommand cmd = new SqlCommand("INSERT INTO tickets ([user], description, reproductionsteps, project, status, severity, datelogged, deadline, assigned) OUTPUT INSERTED.ID VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline, @assigned)", mySqlConnection);
-                //String Severity;
 
-                cmd.Parameters.AddWithValue("@username", MainLoggedInUser);
-                cmd.Parameters.AddWithValue("@description", BugDesc.Text);
-                cmd.Parameters.AddWithValue("@reproductionsteps", BugSteps.Text);
-                cmd.Parameters.AddWithValue("@project", BugProject.Text);
-                cmd.Parameters.AddWithValue("@status", "Broken");
-                cmd.Parameters.AddWithValue("@severity", Severity.Text);
-                cmd.Parameters.AddWithValue("@datelogged", DateTime.Now.ToString("yyyy-MM-dd"));
-                cmd.Parameters.AddWithValue("@deadline", BugDeadlineDate.Value.ToString("yyyy-MM-dd"));
-                cmd.Parameters.AddWithValue("@assigned", BugAssigned.Text); 
-
-                mySqlConnection.Open();
-                try
-                {
-                    //int i = cmd.ExecuteNonQuery();
-                    newId = (Int32)cmd.ExecuteScalar(); // GETS BUGID THAT IS JUST INSERTED USED FOR INSERTING INTO CODE TABLE
-                    if (newId != 0)
-                    {
-                        MessageBox.Show("New Bug reported");
-
-                    }
-                }
-                catch (SqlException f)
-                {
-                    MessageBox.Show(f.Message);
-                }
-
-                mySqlConnection.Close();
-
-                if (newId != 0 && !string.IsNullOrWhiteSpace(TextArea.Text))
+                if (!string.IsNullOrWhiteSpace(TextArea.Text))
                 {
                     // INSERT INTO CODE TABLE
-                    cmd = new SqlCommand("INSERT INTO code_data (FK_Ticket_ID, [Code], [Version], [Class], [Methods], [Lines], [URL], [Author], [Date]) VALUES (@BUGID, @Code, @Version, @Class, @Methods, @Lines, @Source, @Author, @Date)", mySqlConnection);
-
-                    cmd.Parameters.AddWithValue("@Code", TextArea.Text);
-                    cmd.Parameters.AddWithValue("@Version", BugVersion.Text);
-                    cmd.Parameters.AddWithValue("@Methods", BugMethods.Text);
-                    cmd.Parameters.AddWithValue("@Class", BugClass.Text);
-                    cmd.Parameters.AddWithValue("@Lines", BugLines.Text);
-                    cmd.Parameters.AddWithValue("@Source", URL.Text);
-                    cmd.Parameters.AddWithValue("@Author", BugAuthor.Text);
-                    cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
-                    cmd.Parameters.AddWithValue("@BUGID", newId);
-
-                    mySqlConnection.Open();
-                    try
+                    if (!string.IsNullOrWhiteSpace(BugLines.Text) && !string.IsNullOrWhiteSpace(BugVersion.Text) && !string.IsNullOrWhiteSpace(BugMethods.Text) && !string.IsNullOrWhiteSpace(BugClass.Text) && !string.IsNullOrWhiteSpace(URL.Text))
                     {
-                        int i = cmd.ExecuteNonQuery();
-
-                        if (i != 0)
-                        {
-                            //this.Close();
-                        }
+                        BUGID = InsertTicketData();
+                        InsertCodeData(BUGID);
                     }
-                    catch (SqlException f)
+                    else
                     {
-                        MessageBox.Show(f.Message);
+                        MessageBox.Show("All code fields require a value");
                     }
-
-                    mySqlConnection.Close();
+                }
+                else
+                {
+                    InsertTicketData();
                 }
             }
             else
             {
-                MessageBox.Show("Fields cannot be left blank");
+                MessageBox.Show("Ticket data cannot be left blank");
             }
             GridViewData();
             dataGridView1.Refresh();
             BugDataInital();
         }
 
-        private void SearchData_TextChanged(object sender, EventArgs e)
+        private void SearchData_TextChanged(object sender, EventArgs e) // filter options for ticket data grid on typing
         {
              (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Description] LIKE '%{0}%' OR [Severity] LIKE '%{0}%' OR [Project] LIKE '%{0}%' OR [Assigned] LIKE '%{0}%'", SearchData.Text);
-            
+            // filters through datasource with sql like statements
         }
 
-        private void AssignedFilter_SelectedIndexChanged(object sender, EventArgs e)
+        private void AssignedFilter_SelectedIndexChanged(object sender, EventArgs e)// filter options for ticket data grid on drop down
         {
             String filter;
-            if (AssignedFilter.Text == "Me")
+            if (AssignedFilter.Text == "Me") //custom assignments for values
             {
                 filter = MainLoggedInUser;
             }
@@ -452,25 +488,27 @@ namespace SE_A_Assignment2
                 filter = "";
             }
              (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Assigned] LIKE '%{0}%' ", filter);
+            // filters through datasource with sql like statements
 
         }
-         /*
-        private void FilterSeverity_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           String filter;
-            if (FilterSeverity.Text == "All Tickets")
-            {
-                filter = "";
-            }
-            else
-            {
-                filter = FilterSeverity.Text;
-            }
+        /*
+       private void FilterSeverity_SelectedIndexChanged(object sender, EventArgs e)
+       {
+          String filter;
+           if (FilterSeverity.Text == "All Tickets")
+           {
+               filter = "";
+           }
+           else
+           {
+               filter = FilterSeverity.Text;
+           }
 
-            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Severity] LIKE '%{0}%' ", filter);
-        }
+           (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("[Severity] LIKE '%{0}%' ", filter);
+       }
 
-    */
+   */
+        #region codebox
         private void InitColors()
         {
             TextArea.SetSelectionBackColor(true, IntToColor(0x114D9C));
@@ -762,6 +800,8 @@ namespace SE_A_Assignment2
 
         #endregion
 
+        #endregion
+
         private void GenerateCode_Click(object sender, EventArgs e)
         {
             string contents;
@@ -782,15 +822,7 @@ namespace SE_A_Assignment2
             }
         }
 
-        private void dataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
-        {
-            // For any other operation except, StateChanged, do nothing
-            if (e.StateChanged != DataGridViewElementStates.Selected) return; 
-
-           //MessageBox.Show("Selected row is=" + e.Row.Index);
-        }
-
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e) //updates text boxes depending on what is selected in datagrid for tickets
         {
             mySqlConnection = new SqlConnection(connectionString);
             if (dataGridView1.SelectedCells.Count > 0)
@@ -799,7 +831,7 @@ namespace SE_A_Assignment2
                 string str = null;
                 foreach (DataGridViewRow row in dataGridView1.SelectedRows)
                 {
-                    str = row.Cells[0].Value.ToString(); // gets bug ID and uses it for the bug details form
+                    str = row.Cells[0].Value.ToString(); // gets bug ID and uses it for sql
                 }
 
 
@@ -811,7 +843,7 @@ namespace SE_A_Assignment2
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (reader.Read()) //populates text boxes
                     {
                         TicketCreated.Text = reader["user"].ToString();
                         TicketDesc.Text = reader["description"].ToString();
@@ -821,6 +853,7 @@ namespace SE_A_Assignment2
                         TicketProject.Text = reader["project"].ToString();
                         TicketAssigned.Text = reader["assigned"].ToString();
                         TicketSeverity.Text = reader["severity"].ToString();
+
                     }
 
                 }
@@ -829,7 +862,7 @@ namespace SE_A_Assignment2
             
         }
 
-        private void ClearTextBoxes()
+        private void ClearTextBoxes() //code function to clear all text boxes in form
         {
             Action<Control.ControlCollection> func = null;
 
@@ -862,7 +895,7 @@ namespace SE_A_Assignment2
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(ManagePassword1.Text) || string.IsNullOrEmpty(ManagePassword2.Text)) // values required
+                if (string.IsNullOrWhiteSpace(ManagePassword1.Text) || string.IsNullOrEmpty(ManagePassword2.Text)) // only updates category if no passwords entered
                 {
                     mySqlConnection = new SqlConnection(connectionString); //sql connection
                     SqlCommand cmd = new SqlCommand("UPDATE users SET category =@category WHERE username = @usernamesearch", mySqlConnection);
@@ -893,14 +926,14 @@ namespace SE_A_Assignment2
                 else
                 {
 
-                    UpdatePassword(ManageUsername.Text, ManagePassword1.Text, ManagePassword2.Text);
+                    UpdatePassword(ManageUsername.Text, ManagePassword1.Text, ManagePassword2.Text); //password update method is ran with username and two new passwords
                 }
 
             }
 
         }
 
-        private void dataGridViewAdmin_SelectionChanged(object sender, EventArgs e)
+        private void dataGridViewAdmin_SelectionChanged(object sender, EventArgs e) //populates text boxes dependign on what row is selected in admin grid
         {
             mySqlConnection = new SqlConnection(connectionString);
             if (dataGridViewAdmin.SelectedCells.Count > 0)

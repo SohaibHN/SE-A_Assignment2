@@ -18,6 +18,11 @@ using Microsoft.VisualBasic;
 
 namespace SE_A_Assignment2
 {
+    /// <summary>  
+    ///  This class displays all bug/ticket data in one window, allows updating the ticket and displays audit information of said ticket
+    ///  On closing will return to main app and refresh ticket data on doing so.
+    ///  Links to VersionCompare.cs with compare version button
+    /// </summary>  
     public partial class BugDetails : Form
     {
         ScintillaNET.Scintilla TextArea;
@@ -29,11 +34,16 @@ namespace SE_A_Assignment2
         private string username;
         private string password;
         private string sourceurl;
+        private string VersionCheck;
+        private string OriginalCode;
+        private string codeid;
         public bool checker;
 
         public BugDetails()
         {
             InitializeComponent();
+            this.Text = "Bug Tracker - Ticket Details";
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             TextArea = new ScintillaNET.Scintilla();
             CodeBox.Controls.Add(TextArea);
             //TextArea.Text = contents;
@@ -92,20 +102,21 @@ namespace SE_A_Assignment2
 
         private void BugDetails_Load(object sender, EventArgs e)
         {
-            GridViewData();
-            LoadTicketData();
-            LoadCodeData();
+            GridViewData(); //runs grid view to get audit data for ticket
+            LoadTicketData(); //loads ticket data
+            LoadCodeData(); //loads code data relating to this ticket
             //BugSeverity.SelectedIndex = 1;
             //Status.SelectedIndex = 0;
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[1].Visible = false;
             dataGridView1.RowHeadersVisible = false;
+            //grid visual features
         }
 
-        private void LoadTicketData()
+        private void LoadTicketData() //load ticket info to populate text boxes
         {
             mySqlConnection = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT * FROM tickets WHERE [ID] = @BUGID", mySqlConnection);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM tickets WHERE [ID] = @BUGID", mySqlConnection); 
 
             cmd.Parameters.AddWithValue("@BUGID", _theValue);
 
@@ -129,10 +140,10 @@ namespace SE_A_Assignment2
             mySqlConnection.Close();
         }
 
-        private void LoadCodeData()
+        private void LoadCodeData() //loads code data to populate fields
         {
             mySqlConnection = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("SELECT TOP(1) * FROM code_data WHERE [FK_TICKET_ID] = @BUGID ORDER BY ID DESC", mySqlConnection);
+            SqlCommand cmd = new SqlCommand("SELECT TOP(1) * FROM code_data WHERE [FK_TICKET_ID] = @BUGID ORDER BY ID DESC", mySqlConnection); // loads newest code if multiple exist
 
             cmd.Parameters.AddWithValue("@BUGID", _theValue);
 
@@ -141,7 +152,7 @@ namespace SE_A_Assignment2
 
             using (SqlDataReader reader = cmd.ExecuteReader())
             {
-                while (reader.Read())
+                while (reader.Read()) //populate text boxes
                 {
                     TextArea.Text = reader["code"].ToString();
                     BugVersion.Text = reader["version"].ToString();
@@ -150,30 +161,295 @@ namespace SE_A_Assignment2
                     BugSource.Text = reader["URL"].ToString();
                     BugLines.Text = reader["Lines"].ToString();
                     CodeAuthor.Text = reader["Author"].ToString();
+                    codeid = reader["Id"].ToString();
                 }
 
             }
             mySqlConnection.Close();
+
+            VersionCheck = BugVersion.Text;
+            OriginalCode = TextArea.Text;
         }
 
 
-        private string _theValue;
+        private string _theValue; // Ticket ID value from main app that will be used in this class
         public string TheValue
         {
             get
             {
-                return _theValue;
+                return _theValue; // Ticket ID value from main app 
             }
             set
             {
                 _theValue = value;
-                BugIDTest.Text = value;
-                // do something with _theValue so that it
-                // appears in the UI
+                BugIDTest.Text = value; // Assign BUG ID to textbox
 
             }
-
         }
+
+       
+
+        private void UpdateButton_Click(object sender, EventArgs e)
+        {
+
+            if (TextArea.Text != OriginalCode && VersionCheck == BugVersion.Text)
+            {
+                MessageBox.Show("Code has changed but the version recorded is the same");
+                return;
+            }
+            // if code has changed but version hasn't, inform user
+
+
+            if (TextArea.Text == OriginalCode && VersionCheck != BugVersion.Text)
+            {
+                MessageBox.Show("Version has changed but the code is the same");
+                return;
+            }
+            // if code has changed but version hasn't, inform user
+
+            UpdateCodeData();
+            UpdateTicketData();
+           
+        }
+
+        public void UpdateCodeData()
+        {
+
+            mySqlConnection = new SqlConnection(connectionString);
+            // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
+            //SqlCommand cmd = new SqlCommand("UPDATE code_data SET [Code] = @Code, [Version] = @Version, [Class] = @Class, [Methods] = @Methods, [Lines] = @Lines, [URL] = @Source, [Date] = @Date WHERE [FK_Ticket_ID]=@BUGID", mySqlConnection);
+            SqlCommand cmd = new SqlCommand("INSERT INTO code_data (FK_Ticket_ID, [Code], [Version], [Class], [Methods], [Lines], [URL], [Author], [Date]) VALUES (@BUGID, @Code, @Version, @Class, @Methods, @Lines, @Source, @Author, @Date)", mySqlConnection);
+
+
+            if (TextArea.Text == OriginalCode && VersionCheck == BugVersion.Text)
+            {
+                cmd = new SqlCommand("UPDATE code_data SET [Class] = @Class, [Methods] = @Methods, [Lines] = @Lines, [URL] = @Source, [Author] = @Author WHERE [ID]=@CODEID", mySqlConnection);
+                // if code & version is the same, an update is fine not another row
+            }
+
+            // UPDATE DATA IN CODE TABLE
+            cmd.Parameters.AddWithValue("@Code", TextArea.Text);
+            cmd.Parameters.AddWithValue("@Version", BugVersion.Text);
+            cmd.Parameters.AddWithValue("@Methods", BugMethods.Text);
+            cmd.Parameters.AddWithValue("@Class", BugClass.Text);
+            cmd.Parameters.AddWithValue("@Lines", BugLines.Text);
+            cmd.Parameters.AddWithValue("@Source", BugSource.Text);
+            cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@BUGID", BugIDTest.Text);
+            cmd.Parameters.AddWithValue("@CODEID", codeid);
+            cmd.Parameters.AddWithValue("@Author", CodeAuthor.Text);
+
+
+            mySqlConnection.Open();
+            try
+            {
+                int i = cmd.ExecuteNonQuery();
+
+                if (i != 0)
+                {
+                    //MessageBox.Show("Bug has been updated");
+                    //this.Close();
+                }
+            }
+            catch (SqlException f)
+            {
+                MessageBox.Show(f.Message);
+            }
+
+            mySqlConnection.Close();
+        }
+
+        public void UpdateTicketData()
+        {
+            // UPDATE DATA IN TICKETS TABLE
+
+            mySqlConnection = new SqlConnection(connectionString);
+            // cmd = new SqlCommand("INSERT INTO tickets ([user], description, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
+            SqlCommand cmd = new SqlCommand("UPDATE tickets SET [description] = @description, [project] = @project, [status] = @status, [assigned] = @assigned, [severity] = @severity, [deadline] = @deadline WHERE [ID]=@BUGID", mySqlConnection);
+
+
+            cmd.Parameters.AddWithValue("@description", BugDesc.Text);
+            cmd.Parameters.AddWithValue("@project", BugProject.Text);
+            cmd.Parameters.AddWithValue("@status", Status.Text);
+            cmd.Parameters.AddWithValue("@severity", BugSeverity.Text);
+            //cmd.Parameters.AddWithValue("@deadline", DeadlineDate.Text);
+            cmd.Parameters.AddWithValue("@deadline", DeadlineDate.Value.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@assigned", BugAssigned.Text);
+            cmd.Parameters.AddWithValue("@BUGID", BugIDTest.Text);
+
+
+            mySqlConnection.Open();
+            try
+            {
+                int i = cmd.ExecuteNonQuery();
+
+                if (i != 0)
+                {
+                    MessageBox.Show("Ticket info has been updated");
+                    // mainapp.GridViewData();
+                    this.Close(); //on close gridviewdata is ran to update the grid
+                }
+            }
+            catch (SqlException f)
+            {
+                MessageBox.Show(f.Message);
+            }
+
+            mySqlConnection.Close();
+        }
+
+        private void Compare_Click(object sender, EventArgs e)
+        {
+            VersionCompare VersionCompare = new VersionCompare();
+            VersionCompare.TheValue = BugIDTest.Text; // uses bug id in code details class
+            VersionCompare.Show();
+        }
+
+
+        #region CommitFromApp
+
+        private void Commit_Click(object sender, EventArgs e)
+        {
+            username = "";
+            // auth code in username
+            // need to be removed whenever committing to github
+            password = string.Empty;
+            String gitRepoUrl = "https://github.com/SohaibHN/Test.git";
+            String localFolder = "C:\\Users\\Admin\\source\\repos\\Test";
+            string path = Directory.GetCurrentDirectory();
+            localFolder = Path.GetFullPath(Path.Combine(path, @"..\..\..\..\Test"));
+
+            if (!string.IsNullOrWhiteSpace(TextArea.Text))
+            {
+                var folder = new DirectoryInfo(localFolder);
+                GitDeploy2(username, password, gitRepoUrl, localFolder);
+                CommitAllChanges();
+                if (checker)
+                {
+                    PushCommits("origin", "master"); //specifies commit info
+                }
+            }
+        }
+
+        public void GitDeploy2(string username, string password, string gitRepoUrl, string localFolder)
+        {
+            var folder = new DirectoryInfo(localFolder);
+            gitRepoUrl = "https://github.com/SohaibHN/Test.git";
+
+            if (!folder.Exists)
+            {
+                throw new Exception(string.Format("Source folder '{0}' does not exist.", _localFolder));
+            }
+
+            _localFolder = folder;
+
+
+            _credentials = new UsernamePasswordCredentials
+            {
+                Username = username,
+                Password = password
+            };
+
+            _repoSource = gitRepoUrl;
+        }
+
+        /// <summary>
+        /// Commits all changes.
+        /// </summary>
+        /// <param name="message">Commit message.</param>
+        /// <exception cref="System.Exception"></exception>
+        /// 
+        public void CommitAllChanges()
+        {
+            checker = true;
+            using (var repo = new Repository(_localFolder.FullName))
+            {
+                Uri uri;
+                if (Uri.TryCreate(BugSource.Text, UriKind.RelativeOrAbsolute, out uri)) { MessageBox.Show(uri.ToString()); }
+                else
+                {
+                    MessageBox.Show("Not a Valid URL");
+                    checker = false;
+                    return;
+
+                }
+
+                //String filename = "123.txt"; // used during unit tests
+                //TextArea.Text = "1231"; // used during unit tests
+                string filename = System.IO.Path.GetFileName(uri.LocalPath); // gets file name from URL source in ticket info
+                File.WriteAllText(Path.Combine(repo.Info.WorkingDirectory, filename), TextArea.Text);
+                // Write content to file system
+
+
+                // Stage the file
+                repo.Stage(filename);
+               // repo.LibGit2Sharp.Commands.Stage(filename);
+
+                string CommitMessage = Interaction.InputBox("Enter Commit Message", "Enter Commit Message", "Commit Message Here", 50, 50);
+                // visual basic commit message box popping up for user.
+
+                if (CommitMessage.Length == 0) { MessageBox.Show("Commit Cancelled"); checker = false;  return; }
+
+                // Create the committer's signature and commit
+                Signature author = new Signature("Sohaib", "@SohaibHN", DateTime.Now); //default user with commit access is me
+                Signature committer = author;
+
+                // Commit to the repository
+                try
+                {
+                    Commit commit = repo.Commit(CommitMessage, author, committer);
+                    checker = true;
+                }
+                catch (Exception c)
+                {
+                    MessageBox.Show(c.Message);
+                    checker = false;
+                }
+
+            }
+        }
+        /// <summary>
+        /// Pushes all commits.
+        /// </summary>
+        /// <param name="remoteName">Name of the remote server.</param>
+        /// <param name="branchName">Name of the remote branch.</param>
+        /// <exception cref="System.Exception"></exception>
+        public bool PushCommits(string remoteName, string branchName)
+        {
+            using (var repo = new Repository(_localFolder.FullName))
+            {
+                var remote = repo.Network.Remotes.FirstOrDefault(r => r.Name == remoteName);
+                if (remote == null)
+                {
+                    repo.Network.Remotes.Add(remoteName, _repoSource);
+                    remote = repo.Network.Remotes.FirstOrDefault(r => r.Name == remoteName);
+                }
+
+                var options = new PushOptions
+                {
+                    CredentialsProvider = (url, usernameFromUrl, types) => _credentials
+                };
+
+                PushOptions po = new PushOptions();
+
+                po.CredentialsProvider = (_url, usernameFromUrl, _cred) => _credentials;
+
+                try 
+                {
+                    repo.Network.Push(remote, @"refs/heads/master", options);
+                    MessageBox.Show("Commit Succesfully Pushed"); 
+                    return true;
+                }
+                catch (Exception p)
+                {
+                    MessageBox.Show(p.Message);
+                    return false;
+                }
+            }
+        }
+        #endregion
+
+        #region code box
 
         private void InitColors()
         {
@@ -466,217 +742,6 @@ namespace SE_A_Assignment2
 
         #endregion
 
-        private void UpdateButton_Click(object sender, EventArgs e)
-        {
-
-            // UPDATES DATA IN CODE TABLE
-
-            mySqlConnection = new SqlConnection(connectionString);
-            // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-            //SqlCommand cmd = new SqlCommand("UPDATE code_data SET [Code] = @Code, [Version] = @Version, [Class] = @Class, [Methods] = @Methods, [Lines] = @Lines, [URL] = @Source, [Date] = @Date WHERE [FK_Ticket_ID]=@BUGID", mySqlConnection);
-            SqlCommand cmd = new SqlCommand("INSERT INTO code_data (FK_Ticket_ID, [Code], [Version], [Class], [Methods], [Lines], [URL], [Author], [Date]) VALUES (@BUGID, @Code, @Version, @Class, @Methods, @Lines, @Source, @Author, @Date)", mySqlConnection);
-
-            cmd.Parameters.AddWithValue("@Code", TextArea.Text);
-            cmd.Parameters.AddWithValue("@Version", BugVersion.Text);
-            cmd.Parameters.AddWithValue("@Methods", BugMethods.Text);
-            cmd.Parameters.AddWithValue("@Class", BugClass.Text);
-            cmd.Parameters.AddWithValue("@Lines", BugLines.Text);
-            cmd.Parameters.AddWithValue("@Source", BugSource.Text);
-            cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
-            cmd.Parameters.AddWithValue("@BUGID", BugIDTest.Text);
-            cmd.Parameters.AddWithValue("@Author", CodeAuthor.Text);
-
-
-            mySqlConnection.Open();
-            try
-            {
-                int i = cmd.ExecuteNonQuery();
-
-                if (i != 0)
-                {
-                    //MessageBox.Show("Bug has been updated");
-                    //this.Close();
-                }
-            }
-            catch (SqlException f)
-            {
-                MessageBox.Show(f.Message);
-            }
-
-            mySqlConnection.Close();
-
-
-            // UPDATE DATA IN TICKETS TABLE
-
-            mySqlConnection = new SqlConnection(connectionString);
-           // cmd = new SqlCommand("INSERT INTO tickets ([user], description, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-            cmd = new SqlCommand("UPDATE tickets SET [description] = @description, [project] = @project, [status] = @status, [assigned] = @assigned, [severity] = @severity, [deadline] = @deadline WHERE [ID]=@BUGID", mySqlConnection);
-
-
-            cmd.Parameters.AddWithValue("@description", BugDesc.Text);
-            cmd.Parameters.AddWithValue("@project", BugProject.Text);
-            cmd.Parameters.AddWithValue("@status", Status.Text);
-            cmd.Parameters.AddWithValue("@severity", BugSeverity.Text);
-            //cmd.Parameters.AddWithValue("@deadline", DeadlineDate.Text);
-            cmd.Parameters.AddWithValue("@deadline", DeadlineDate.Value.ToString("yyyy-MM-dd"));
-            cmd.Parameters.AddWithValue("@assigned", BugAssigned.Text);
-            cmd.Parameters.AddWithValue("@BUGID", BugIDTest.Text);
-
-
-            mySqlConnection.Open();
-            try
-            {
-                int i = cmd.ExecuteNonQuery();
-
-                if (i != 0)
-                {
-                    MessageBox.Show("Ticket info has been updated");
-                    // mainapp.GridViewData();
-                    this.Close();
-                }
-            }
-            catch (SqlException f)
-            {
-                MessageBox.Show(f.Message);
-            }
-
-            mySqlConnection.Close();
-        }
-
-        #region CommitFromApp
-
-        private void Commit_Click(object sender, EventArgs e)
-        {
-            username = "";
-            // auth code in username
-            // need to be removed whenever committing to github
-            password = string.Empty;
-            String gitRepoUrl = "https://github.com/SohaibHN/Test.git";
-            String localFolder = "C:\\Users\\Admin\\source\\repos\\Test";
-            string path = Directory.GetCurrentDirectory();
-            localFolder = Path.GetFullPath(Path.Combine(path, @"..\..\..\..\Test"));
-
-            if (!string.IsNullOrWhiteSpace(TextArea.Text))
-            {
-                var folder = new DirectoryInfo(localFolder);
-                GitDeploy2(username, password, gitRepoUrl, localFolder);
-                CommitAllChanges();
-                if (checker)
-                {
-                    PushCommits("origin", "master");
-                }
-            }
-        }
-
-        public void GitDeploy2(string username, string password, string gitRepoUrl, string localFolder)
-        {
-            var folder = new DirectoryInfo(localFolder);
-            gitRepoUrl = "https://github.com/SohaibHN/Test.git";
-
-            if (!folder.Exists)
-            {
-                throw new Exception(string.Format("Source folder '{0}' does not exist.", _localFolder));
-            }
-
-            _localFolder = folder;
-
-
-            _credentials = new UsernamePasswordCredentials
-            {
-                Username = username,
-                Password = password
-            };
-
-            _repoSource = gitRepoUrl;
-        }
-
-        /// <summary>
-        /// Commits all changes.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <exception cref="System.Exception"></exception>
-        /// 
-        public void CommitAllChanges()
-        {
-            checker = true;
-            using (var repo = new Repository(_localFolder.FullName))
-            {
-               
-                Uri uri = new Uri(BugSource.Text);
-
-                //String filename = "123.txt"; // used during unit tests
-                //TextArea.Text = "1231"; // used during unit tests
-                string filename = System.IO.Path.GetFileName(uri.LocalPath); // gets file name from URL source in ticket info
-                File.WriteAllText(Path.Combine(repo.Info.WorkingDirectory, filename), TextArea.Text);
-                // Write content to file system
-
-
-                // Stage the file
-                repo.Stage(filename);
-               // repo.LibGit2Sharp.Commands.Stage(filename);
-
-                string CommitMessage = Interaction.InputBox("Enter Commit Message", "Enter Commit Message", "Commit Message Here", 50, 50);
-                // visual basic commit message box popping up for user.
-
-                if (CommitMessage.Length == 0) { MessageBox.Show("Commit Cancelled"); checker = false;  return; }
-
-                // Create the committer's signature and commit
-                Signature author = new Signature("Sohaib", "@SohaibHN", DateTime.Now); //default user with commit access is me
-                Signature committer = author;
-
-                // Commit to the repository
-                try
-                {
-                    Commit commit = repo.Commit(CommitMessage, author, committer);
-                    checker = true;
-                }
-                catch (Exception c)
-                {
-                    MessageBox.Show(c.Message);
-                    checker = false;
-                }
-
-            }
-        }
-        /// <summary>
-        /// Pushes all commits.
-        /// </summary>
-        /// <param name="remoteName">Name of the remote server.</param>
-        /// <param name="branchName">Name of the remote branch.</param>
-        /// <exception cref="System.Exception"></exception>
-        public bool PushCommits(string remoteName, string branchName)
-        {
-            using (var repo = new Repository(_localFolder.FullName))
-            {
-                var remote = repo.Network.Remotes.FirstOrDefault(r => r.Name == remoteName);
-                if (remote == null)
-                {
-                    repo.Network.Remotes.Add(remoteName, _repoSource);
-                    remote = repo.Network.Remotes.FirstOrDefault(r => r.Name == remoteName);
-                }
-
-                var options = new PushOptions
-                {
-                    CredentialsProvider = (url, usernameFromUrl, types) => _credentials
-                };
-
-                PushOptions po = new PushOptions();
-
-                po.CredentialsProvider = (_url, usernameFromUrl, _cred) => _credentials;
-
-                try 
-                {
-                    repo.Network.Push(remote, @"refs/heads/master", options);
-                    MessageBox.Show("Commit Succesfully Pushed");
-                    return true;
-                }
-                catch (Exception p)
-                {
-                    MessageBox.Show(p.Message);
-                    return false;
-                }
-            }
-        }
         #endregion
     }
 }

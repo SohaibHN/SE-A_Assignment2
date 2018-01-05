@@ -42,10 +42,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.CodeBox = new System.Windows.Forms.Panel();
             this.PanelSearch = new System.Windows.Forms.Panel();
-            this.BtnNextSearch = new System.Windows.Forms.Button();
             this.TxtSearch = new System.Windows.Forms.TextBox();
-            this.BtnPrevSearch = new System.Windows.Forms.Button();
-            this.BtnClearSearch = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.BugProject = new System.Windows.Forms.TextBox();
@@ -72,6 +69,10 @@
             this.Commit = new System.Windows.Forms.Button();
             this.Audit = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.Compare = new System.Windows.Forms.Button();
+            this.BtnNextSearch = new System.Windows.Forms.Button();
+            this.BtnPrevSearch = new System.Windows.Forms.Button();
+            this.BtnClearSearch = new System.Windows.Forms.Button();
             this.CodeBox.SuspendLayout();
             this.PanelSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -170,9 +171,9 @@
             // CodeBox
             // 
             this.CodeBox.Controls.Add(this.PanelSearch);
-            this.CodeBox.Location = new System.Drawing.Point(23, 341);
+            this.CodeBox.Location = new System.Drawing.Point(23, 354);
             this.CodeBox.Name = "CodeBox";
-            this.CodeBox.Size = new System.Drawing.Size(637, 308);
+            this.CodeBox.Size = new System.Drawing.Size(637, 295);
             this.CodeBox.TabIndex = 8;
             // 
             // PanelSearch
@@ -190,21 +191,6 @@
             this.PanelSearch.TabIndex = 1018;
             this.PanelSearch.Visible = false;
             // 
-            // BtnNextSearch
-            // 
-            this.BtnNextSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnNextSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnNextSearch.ForeColor = System.Drawing.Color.White;
-            this.BtnNextSearch.Image = ((System.Drawing.Image)(resources.GetObject("BtnNextSearch.Image")));
-            this.BtnNextSearch.Location = new System.Drawing.Point(233, 4);
-            this.BtnNextSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.BtnNextSearch.Name = "BtnNextSearch";
-            this.BtnNextSearch.Size = new System.Drawing.Size(25, 30);
-            this.BtnNextSearch.TabIndex = 9;
-            this.BtnNextSearch.Tag = "Find next (Enter)";
-            this.BtnNextSearch.UseVisualStyleBackColor = true;
-            this.BtnNextSearch.Click += new System.EventHandler(this.BtnNextSearch_Click);
-            // 
             // TxtSearch
             // 
             this.TxtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -217,36 +203,6 @@
             this.TxtSearch.Size = new System.Drawing.Size(189, 25);
             this.TxtSearch.TabIndex = 6;
             this.TxtSearch.Enter += new System.EventHandler(this.BtnNextSearch_Click);
-            // 
-            // BtnPrevSearch
-            // 
-            this.BtnPrevSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnPrevSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnPrevSearch.ForeColor = System.Drawing.Color.White;
-            this.BtnPrevSearch.Image = ((System.Drawing.Image)(resources.GetObject("BtnPrevSearch.Image")));
-            this.BtnPrevSearch.Location = new System.Drawing.Point(205, 4);
-            this.BtnPrevSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.BtnPrevSearch.Name = "BtnPrevSearch";
-            this.BtnPrevSearch.Size = new System.Drawing.Size(25, 30);
-            this.BtnPrevSearch.TabIndex = 8;
-            this.BtnPrevSearch.Tag = "Find previous (Shift+Enter)";
-            this.BtnPrevSearch.UseVisualStyleBackColor = true;
-            this.BtnPrevSearch.Click += new System.EventHandler(this.BtnPrevSearch_Click);
-            // 
-            // BtnClearSearch
-            // 
-            this.BtnClearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnClearSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnClearSearch.ForeColor = System.Drawing.Color.White;
-            this.BtnClearSearch.Image = ((System.Drawing.Image)(resources.GetObject("BtnClearSearch.Image")));
-            this.BtnClearSearch.Location = new System.Drawing.Point(261, 4);
-            this.BtnClearSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.BtnClearSearch.Name = "BtnClearSearch";
-            this.BtnClearSearch.Size = new System.Drawing.Size(25, 30);
-            this.BtnClearSearch.TabIndex = 7;
-            this.BtnClearSearch.Tag = "Close (Esc)";
-            this.BtnClearSearch.UseVisualStyleBackColor = true;
-            this.BtnClearSearch.Click += new System.EventHandler(this.BtnClearSearch_Click);
             // 
             // label8
             // 
@@ -276,7 +232,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(20, 313);
+            this.label10.Location = new System.Drawing.Point(27, 333);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(222, 13);
             this.label10.TabIndex = 1038;
@@ -356,7 +312,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(443, 316);
+            this.label14.Location = new System.Drawing.Point(443, 296);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(45, 13);
             this.label14.TabIndex = 1052;
@@ -364,7 +320,7 @@
             // 
             // BugVersion
             // 
-            this.BugVersion.Location = new System.Drawing.Point(507, 313);
+            this.BugVersion.Location = new System.Drawing.Point(507, 293);
             this.BugVersion.Name = "BugVersion";
             this.BugVersion.Size = new System.Drawing.Size(153, 20);
             this.BugVersion.TabIndex = 7;
@@ -490,11 +446,67 @@
             this.label18.Size = new System.Drawing.Size(3, 666);
             this.label18.TabIndex = 1068;
             // 
+            // Compare
+            // 
+            this.Compare.Location = new System.Drawing.Point(506, 325);
+            this.Compare.Name = "Compare";
+            this.Compare.Size = new System.Drawing.Size(152, 23);
+            this.Compare.TabIndex = 1069;
+            this.Compare.Text = "Compare Versions";
+            this.Compare.UseVisualStyleBackColor = true;
+            this.Compare.Click += new System.EventHandler(this.Compare_Click);
+            // 
+            // BtnNextSearch
+            // 
+            this.BtnNextSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnNextSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnNextSearch.ForeColor = System.Drawing.Color.White;
+            this.BtnNextSearch.Image = ((System.Drawing.Image)(resources.GetObject("BtnNextSearch.Image")));
+            this.BtnNextSearch.Location = new System.Drawing.Point(233, 4);
+            this.BtnNextSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.BtnNextSearch.Name = "BtnNextSearch";
+            this.BtnNextSearch.Size = new System.Drawing.Size(25, 30);
+            this.BtnNextSearch.TabIndex = 9;
+            this.BtnNextSearch.Tag = "Find next (Enter)";
+            this.BtnNextSearch.UseVisualStyleBackColor = true;
+            this.BtnNextSearch.Click += new System.EventHandler(this.BtnNextSearch_Click);
+            // 
+            // BtnPrevSearch
+            // 
+            this.BtnPrevSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnPrevSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnPrevSearch.ForeColor = System.Drawing.Color.White;
+            this.BtnPrevSearch.Image = ((System.Drawing.Image)(resources.GetObject("BtnPrevSearch.Image")));
+            this.BtnPrevSearch.Location = new System.Drawing.Point(205, 4);
+            this.BtnPrevSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.BtnPrevSearch.Name = "BtnPrevSearch";
+            this.BtnPrevSearch.Size = new System.Drawing.Size(25, 30);
+            this.BtnPrevSearch.TabIndex = 8;
+            this.BtnPrevSearch.Tag = "Find previous (Shift+Enter)";
+            this.BtnPrevSearch.UseVisualStyleBackColor = true;
+            this.BtnPrevSearch.Click += new System.EventHandler(this.BtnPrevSearch_Click);
+            // 
+            // BtnClearSearch
+            // 
+            this.BtnClearSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnClearSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnClearSearch.ForeColor = System.Drawing.Color.White;
+            this.BtnClearSearch.Image = ((System.Drawing.Image)(resources.GetObject("BtnClearSearch.Image")));
+            this.BtnClearSearch.Location = new System.Drawing.Point(261, 4);
+            this.BtnClearSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.BtnClearSearch.Name = "BtnClearSearch";
+            this.BtnClearSearch.Size = new System.Drawing.Size(25, 30);
+            this.BtnClearSearch.TabIndex = 7;
+            this.BtnClearSearch.Tag = "Close (Esc)";
+            this.BtnClearSearch.UseVisualStyleBackColor = true;
+            this.BtnClearSearch.Click += new System.EventHandler(this.BtnClearSearch_Click);
+            // 
             // BugDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1223, 698);
+            this.Controls.Add(this.Compare);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.Audit);
@@ -590,5 +602,6 @@
         private System.Windows.Forms.Button Commit;
         private System.Windows.Forms.Label Audit;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button Compare;
     }
 }

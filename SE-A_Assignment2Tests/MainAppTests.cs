@@ -17,10 +17,22 @@ namespace SE_A_Assignment2.Tests
 
             var mainapp = new MainApp();
             int count = mainapp.GridViewData(); // gets amount of rows in ticket table
-            
+
             Assert.IsTrue(count > 0, "Row count is not greater than 0");
 
 
+        }
+
+        [TestMethod()]
+        public void UpdatePasswordTest()
+        {
+
+            var mainapp = new MainApp();
+            String password = "1";
+            String password2 = "1";
+            String username = "dev";
+
+            Assert.IsTrue(mainapp.UpdatePassword(username, password, password2));
         }
     }
 }

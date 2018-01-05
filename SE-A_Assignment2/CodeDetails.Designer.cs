@@ -53,6 +53,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.BugVersion = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.PanelSearch.SuspendLayout();
             this.CodeBox.SuspendLayout();
             this.SuspendLayout();
@@ -123,18 +124,18 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(22, 44);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 1010;
-            this.label2.Text = "URL";
+            this.label2.Text = "URL:*";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(22, 127);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 13);
+            this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 1011;
-            this.label3.Text = "Methods:";
+            this.label3.Text = "Methods:*";
             // 
             // label4
             // 
@@ -150,9 +151,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(22, 101);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.Size = new System.Drawing.Size(39, 13);
             this.label5.TabIndex = 1013;
-            this.label5.Text = "Class:";
+            this.label5.Text = "Class:*";
             // 
             // label6
             // 
@@ -168,9 +169,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(365, 98);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.Size = new System.Drawing.Size(39, 13);
             this.label7.TabIndex = 1015;
-            this.label7.Text = "Lines:";
+            this.label7.Text = "Lines:*";
             // 
             // label8
             // 
@@ -276,9 +277,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(365, 127);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(45, 13);
+            this.label9.Size = new System.Drawing.Size(49, 13);
             this.label9.TabIndex = 1022;
-            this.label9.Text = "Version:";
+            this.label9.Text = "Version:*";
             // 
             // BugVersion
             // 
@@ -287,11 +288,23 @@
             this.BugVersion.Size = new System.Drawing.Size(153, 20);
             this.BugVersion.TabIndex = 7;
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.Red;
+            this.label15.Location = new System.Drawing.Point(5, 5);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(220, 13);
+            this.label15.TabIndex = 1055;
+            this.label15.Text = "Fields marked with an asterisk (*) are required";
+            // 
             // CodeDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(601, 492);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.BugMethods);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.BugVersion);
             this.Controls.Add(this.SaveButton);
@@ -304,7 +317,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.GenerateCode);
             this.Controls.Add(this.BugLines);
-            this.Controls.Add(this.BugMethods);
             this.Controls.Add(this.BugClass);
             this.Controls.Add(this.BugAuthor);
             this.Controls.Add(this.BugID);
@@ -348,5 +360,6 @@
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox BugVersion;
+        private System.Windows.Forms.Label label15;
     }
 }

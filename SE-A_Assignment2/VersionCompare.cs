@@ -15,25 +15,26 @@ using ScintillaNET.Demo.Utils;
 
 namespace SE_A_Assignment2
 {
+
     /// <summary>  
-    ///  This class is ran when there is no code saved for a ticket
-    ///  Data is inserted into code_table
+    ///  This class allows two rich text boxes to compare, uses google-diff-match-patchs https://code.google.com/archive/p/google-diff-match-patch/
+    ///  uses version stored in code table to compare different versions of code, differences highlighted in green
     /// </summary>  
-    public partial class CodeDetails : Form
+    public partial class VersionCompare : Form
     {
         ScintillaNET.Scintilla TextArea;
+        ScintillaNET.Scintilla TextArea2;
         SqlConnection mySqlConnection;
         public String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BugTrackerDB"].ConnectionString;
-        
-        public CodeDetails()
+        public string bugid;
+        public VersionCompare()
         {
             InitializeComponent();
-
-            this.Text = "Bug Tracker - Submit Code Details";
+            this.Text = "Bug Tracker - Compare Code";
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             TextArea = new ScintillaNET.Scintilla(); //CODEBOX 
-            CodeBox.Controls.Add(TextArea);
+            //RTB3.Controls.Add(TextArea);
             //TextArea.Text = contents;
 
             // BASIC CONFIG FOR CODEBOX
@@ -44,6 +45,18 @@ namespace SE_A_Assignment2
             TextArea.WrapMode = WrapMode.None;
             TextArea.IndentationGuides = IndentView.LookBoth;
 
+            TextArea2 = new ScintillaNET.Scintilla(); //CODEBOX 
+            RTB1.Controls.Add(TextArea2);
+            //TextArea.Text = contents;
+
+            // BASIC CONFIG FOR CODEBOX
+            TextArea2.Dock = System.Windows.Forms.DockStyle.Fill;
+            //TextArea.TextChanged += (this.OnTextChanged);
+
+            // INITIAL VIEW CONFIG FOR CODEBOX
+            TextArea2.WrapMode = WrapMode.None;
+            TextArea2.IndentationGuides = IndentView.LookBoth;
+
             // STYLING FOR CODEBOX
             InitColors();
             InitSyntaxColoring();
@@ -51,31 +64,82 @@ namespace SE_A_Assignment2
 
             // INIT HOTKEYS FOR CODEBOX
             InitHotkeys();
+
+           // ComboBoxData();
         }
 
-        private void CodeDetails_Load(object sender, EventArgs e)
-        {
+        // this is the diff object;
+        diff_match_patch DIFF = new diff_match_patch();
 
+        // these are the diffs
+        List<Diff> diffs;
+
+        // chunks for formatting the two RTBs:
+        List<Chunk> chunklist1;
+        List<Chunk> chunklist2;
+
+        // two color lists:
+        Color[] colors1 = new Color[3] { Color.LightGreen, Color.LightSalmon, Color.White };
+        Color[] colors2 = new Color[3] { Color.LightSalmon, Color.LightGreen, Color.White };
+
+
+        public struct Chunk
+        {
+            public int startpos;
+            public int length;
+            public Color BackColor;
         }
 
-        private void GenerateCode_Click(object sender, EventArgs e) // DOWNLOADS URL TO TEXT
+        List<Chunk> collectChunks(RichTextBox RTB)
         {
-            string contents;
-            TextArea.Clear();
-            if (!string.IsNullOrWhiteSpace(URL.Text)) // checks if url is entered
+            RTB.Text = "";
+            List<Chunk> chunkList = new List<Chunk>();
+            foreach (Diff d in diffs)
             {
-                using (var wc1 = new System.Net.WebClient())
-                    try // checks for valid urls/404 errors etc and gives suitable error message to user
-                    {
-                        contents = wc1.DownloadString(URL.Text);
-                        TextArea.Text = contents;
-                    }
-                    catch (System.Net.WebException w)
-                    {
-                        MessageBox.Show(w.Message);
-                        TextArea.Clear();
-                    }
+                if (RTB == RTB2 && d.operation == Operation.DELETE) continue;  // **
+                if (RTB == RTB3 && d.operation == Operation.INSERT) continue;  // **
+
+                Chunk ch = new Chunk();
+                int length = RTB.TextLength;
+                RTB.AppendText(d.text);
+                ch.startpos = length;
+                ch.length = d.text.Length;
+                ch.BackColor = RTB == RTB3 ? colors1[(int)d.operation]
+                                           : colors2[(int)d.operation];
+                chunkList.Add(ch);
             }
+            return chunkList;
+
+        }
+
+        void paintChunks(RichTextBox RTB, List<Chunk> theChunks)
+        {
+            foreach (Chunk ch in theChunks)
+            {
+                RTB.Select(ch.startpos, ch.length);
+                RTB.SelectionBackColor = ch.BackColor;
+            }
+
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        void paintboxes()
+        {
+            diffs = DIFF.diff_main(RTB3.Text, RTB2.Text);
+            DIFF.diff_cleanupSemanticLossless(diffs);    
+
+            chunklist1 = collectChunks(RTB3);
+            chunklist2 = collectChunks(RTB2);
+
+            paintChunks(RTB3, chunklist1);
+            paintChunks(RTB2, chunklist2);
+
+            RTB3.SelectionLength = 0;
+            RTB2.SelectionLength = 0;
         }
 
         private string _theValue; // Ticket ID value from main app that will be used in this class
@@ -88,54 +152,85 @@ namespace SE_A_Assignment2
             set
             {
                 _theValue = value;
-                BugID.Text = value; // Assign BUG ID to textbox
-
+                bugid = value;
             }
         }
 
-        private void SaveButton_Click(object sender, EventArgs e)
+        public void ComboBoxData()
         {
+            DataSet ds = new DataSet();
+            mySqlConnection = new SqlConnection(connectionString);
+            SqlDataAdapter daVersion = new SqlDataAdapter();
+            SqlCommand selversion = new SqlCommand("SELECT version FROM code_data WHERE FK_TICKET_ID=@ID ", mySqlConnection);
+            selversion.Parameters.AddWithValue("@ID", bugid);
+            daVersion.SelectCommand = selversion;
+            daVersion.Fill(ds, "code_data");
 
-            if (!string.IsNullOrWhiteSpace(TextArea.Text) && !string.IsNullOrWhiteSpace(BugLines.Text) && !string.IsNullOrWhiteSpace(BugVersion.Text) && !string.IsNullOrWhiteSpace(BugMethods.Text) && !string.IsNullOrWhiteSpace(BugClass.Text) && !string.IsNullOrWhiteSpace(URL.Text)) // checks for null fields
+            BindingSource bs = new BindingSource();
+            bs.DataSource = ds.Tables["code_data"];
+            Version1.DataSource = ds.Tables["code_data"]; //binds version dataset to combo box datasource
+            Version1.DisplayMember = "version"; // This is text displayed
+            Version1.ValueMember = "version"; // This is the value returned
+
+            Version2.BindingContext = new BindingContext();
+            Version2.DataSource = ds.Tables["code_data"]; //binds version dataset to combo box datasource
+            Version2.DisplayMember = "version"; // This is text displayed
+            Version2.ValueMember = "version"; // This is the value returned
+
+        }
+
+        private void VersionCompare_Load(object sender, EventArgs e)
+        {
+            ComboBoxData();
+        }
+
+        private void Version1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mySqlConnection = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("SELECT TOP(1) CODE FROM code_data WHERE [FK_TICKET_ID] = @BUGID AND [VERSION] = @Version ORDER BY ID DESC", mySqlConnection); // loads newest code if multiple exist
+
+            cmd.Parameters.AddWithValue("@BUGID", _theValue);
+            cmd.Parameters.AddWithValue("@Version", Version1.Text);
+
+
+            mySqlConnection.Open();
+
+            using (SqlDataReader reader = cmd.ExecuteReader())
             {
-
-                mySqlConnection = new SqlConnection(connectionString);
-                // SqlCommand cmd = new SqlCommand("INSERT INTO tickets (user, description, reproductionsteps, project, status, severity, datelogged, deadline) VALUES (@username, @description, @reproductionsteps, @project, @status, @severity, @datelogged, @deadline)", mySqlConnection);
-                SqlCommand cmd = new SqlCommand("INSERT INTO code_data (FK_Ticket_ID, [Code], [Version], [Class], [Methods], [Lines], [URL], [Author], [Date]) VALUES (@BUGID, @Code, @Version, @Class, @Methods, @Lines, @Source, @Author, @Date)", mySqlConnection);
-
-                cmd.Parameters.AddWithValue("@Code", TextArea.Text);
-                cmd.Parameters.AddWithValue("@Version", BugVersion.Text);
-                cmd.Parameters.AddWithValue("@Methods", BugMethods.Text);
-                cmd.Parameters.AddWithValue("@Class", BugClass.Text);
-                cmd.Parameters.AddWithValue("@Lines", BugLines.Text);
-                cmd.Parameters.AddWithValue("@Source", URL.Text);
-                cmd.Parameters.AddWithValue("@Author", BugAuthor.Text);
-                cmd.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
-                cmd.Parameters.AddWithValue("@BUGID", _theValue);
-                // param assignment
-
-                mySqlConnection.Open();
-                try
+                while (reader.Read()) //populate text boxes
                 {
-                    int i = cmd.ExecuteNonQuery();
-
-                    if (i != 0)
-                    {
-                        MessageBox.Show("Extra Details have been added");
-                        this.Close();
-                    }
-                }
-                catch (SqlException f)
-                {
-                    MessageBox.Show(f.Message); //sql errors
+                    TextArea.Text = reader["code"].ToString();
+                    RTB3.Text = reader["code"].ToString();
                 }
 
-                mySqlConnection.Close();
             }
-            else
+            mySqlConnection.Close();
+            paintboxes();
+
+        }
+
+        private void Version2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mySqlConnection = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("SELECT TOP(1) CODE FROM code_data WHERE [FK_TICKET_ID] = @BUGID AND [VERSION] = @Version ORDER BY ID DESC", mySqlConnection); // loads newest code if multiple exist
+
+            cmd.Parameters.AddWithValue("@BUGID", _theValue);
+            cmd.Parameters.AddWithValue("@Version", Version2.Text);
+
+
+            mySqlConnection.Open();
+
+            using (SqlDataReader reader = cmd.ExecuteReader())
             {
-                MessageBox.Show("Fields cannot be left blank");
+                while (reader.Read()) //populate text boxes
+                {
+                    TextArea2.Text = reader["code"].ToString();
+                    RTB2.Text = reader["code"].ToString();
+                }
+
             }
+            mySqlConnection.Close();
+            paintboxes();
         }
 
         #region codebox
@@ -178,6 +273,9 @@ namespace SE_A_Assignment2
             TextArea.Styles[Style.Default].ForeColor = IntToColor(0xFFFFFF);
             TextArea.StyleClearAll();
 
+            TextArea2.Styles[Style.Default].Font = "Consolas";
+
+
             // Configure the CPP (C#) lexer styles
             TextArea.Styles[Style.Cpp.Identifier].ForeColor = IntToColor(0xD0DAE2);
             TextArea.Styles[Style.Cpp.Comment].ForeColor = IntToColor(0xBD758B);
@@ -197,6 +295,7 @@ namespace SE_A_Assignment2
             TextArea.Styles[Style.Cpp.GlobalClass].ForeColor = IntToColor(0x48A8EE);
 
             TextArea.Lexer = Lexer.Cpp;
+            TextArea2.Lexer = Lexer.Cpp;
 
 
             TextArea.SetKeywords(0, "abstract as base break case catch checked continue default delegate do else event explicit extern false finally fixed for foreach goto if implicit in interface internal is lock namespace new null object operator out override params private protected public readonly ref return sealed sizeof stackalloc switch this throw true try typeof unchecked unsafe using virtual while class extends implements import interface new case do while else if for in switch throw get set function var try catch finally while with default break continue delete return each const namespace package include use is as instanceof typeof author copy default deprecated eventType example exampleText exception haxe inheritDoc internal link mtasc mxmlc param private return see serial serialData serialField since throws usage version langversion playerversion productversion dynamic private public partial static intrinsic internal native override protected AS3 final super this arguments null Infinity NaN undefined true false abstract as base bool break by byte case catch char checked class const continue decimal default delegate do double descending explicit event extern else enum false finally fixed float for foreach from goto group if implicit in int interface internal into is lock long new null namespace object operator out override orderby params private protected public readonly ref return switch struct sbyte sealed short sizeof stackalloc static string select this throw true try typeof uint ulong unchecked unsafe ushort using var virtual volatile void while where yield");
@@ -235,11 +334,22 @@ namespace SE_A_Assignment2
             TextArea.Styles[Style.IndentGuide].ForeColor = IntToColor(FORE_COLOR);
             TextArea.Styles[Style.IndentGuide].BackColor = IntToColor(BACK_COLOR);
 
+            TextArea2.Styles[Style.LineNumber].BackColor = IntToColor(BACK_COLOR);
+            TextArea2.Styles[Style.LineNumber].ForeColor = IntToColor(FORE_COLOR);
+            TextArea2.Styles[Style.IndentGuide].ForeColor = IntToColor(FORE_COLOR);
+            TextArea2.Styles[Style.IndentGuide].BackColor = IntToColor(BACK_COLOR);
+
             var nums = TextArea.Margins[NUMBER_MARGIN];
             nums.Width = 30;
             nums.Type = MarginType.Number;
             nums.Sensitive = true;
             nums.Mask = 0;
+            var nums2 = TextArea.Margins[NUMBER_MARGIN];
+            nums2.Width = 30;
+            nums2.Type = MarginType.Number;
+            nums2.Sensitive = true;
+            nums2.Mask = 0;
+
 
         }
 
@@ -430,7 +540,7 @@ namespace SE_A_Assignment2
         }
 
         #endregion
-        #endregion
 
+        #endregion
     }
 }

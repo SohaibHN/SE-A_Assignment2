@@ -34,7 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.Category = new System.Windows.Forms.TextBox();
+            this.Category = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button1
@@ -92,10 +92,14 @@
             // 
             // Category
             // 
+            this.Category.FormattingEnabled = true;
+            this.Category.Items.AddRange(new object[] {
+            "Tester",
+            "Developer"});
             this.Category.Location = new System.Drawing.Point(132, 164);
             this.Category.Name = "Category";
-            this.Category.Size = new System.Drawing.Size(100, 20);
-            this.Category.TabIndex = 2;
+            this.Category.Size = new System.Drawing.Size(100, 21);
+            this.Category.TabIndex = 1061;
             // 
             // AddUser
             // 
@@ -125,6 +129,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox Category;
+        private System.Windows.Forms.ComboBox Category;
     }
 }

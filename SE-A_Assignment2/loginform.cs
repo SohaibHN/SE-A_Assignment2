@@ -12,21 +12,25 @@ using System.Windows.Forms;
 
 namespace SE_A_Assignment2
 {
+    /// <summary>  
+    ///  basic login form with links to AddUser.cs 
+    ///  password uses bcrypt for encryption
+    /// </summary>  
     public partial class loginform : Form
     {
         SqlConnection mySqlConnection;
-        public static String LoggedInUser;
-        public static String LoggedInCategory;
+        public static String LoggedInUser; //used in main app
+        public static String LoggedInCategory; //used in main app
         public String connectionString = ConfigurationManager.ConnectionStrings["BugTrackerDB"].ConnectionString;
-       // String connectionString = (@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\source\repos\SE-A_Assignment2\SE-A_Assignment2\database\BugTracker.mdf;Integrated Security=True;Connect Timeout=30");
         public loginform()
         {
             InitializeComponent();
-            this.Text = "Login - Bug Tracker";
+            this.Text = "Bug Tracker - Login";
 
             CodeDetails CodeDetails = new CodeDetails();
             //this.Visible = false;
             //CodeDetails.Show();
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
         }
 
@@ -35,10 +39,13 @@ namespace SE_A_Assignment2
 
             String username = textBox1.Text;
             String password = textBox2.Text;
-            Login(username, password);
+            Login(username, password); //login method with values added
 
         }
 
+        // Multiple parameters.
+        /// <param name="username">Used to indicate username to attempt login with</param>
+        /// <param name="password">Authenticate against username.</param>
         public bool Login(string username, string password)
         {
             mySqlConnection = new SqlConnection(connectionString);
@@ -58,12 +65,12 @@ namespace SE_A_Assignment2
                     while (reader.Read())
                     {
 
-                        if (BCrypt.Net.BCrypt.Verify(password, reader.GetString(1)))
+                        if (BCrypt.Net.BCrypt.Verify(password, reader.GetString(1))) //checks salt stored in db with user entered pass
                         {
                             //login
                             LoggedInUser = username;
                             LoggedInCategory = reader.GetString(2);                    
-                            DialogResult = System.Windows.Forms.DialogResult.OK;
+                            DialogResult = System.Windows.Forms.DialogResult.OK; //used to run main app class 
                             return true;
 
                         }

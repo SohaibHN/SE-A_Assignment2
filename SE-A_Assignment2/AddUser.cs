@@ -11,6 +11,10 @@ using System.Windows.Forms;
 
 namespace SE_A_Assignment2
 {
+    /// <summary>  
+    ///  Allows user to register
+    ///  Inserts into user table
+    /// </summary>  
     public partial class AddUser : Form
     {
         SqlConnection mySqlConnection;
@@ -19,7 +23,8 @@ namespace SE_A_Assignment2
         public AddUser()
         {
             InitializeComponent();
-            this.Text = "Add New User - Bug Tracker";
+            this.Text = "Bug Tracker - Register";
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
         }
 
@@ -35,18 +40,22 @@ namespace SE_A_Assignment2
                 string OrigPassword = Password.Text;
                 string User = Username.Text;
                 string Cate = Category.Text;
-                register(User, OrigPassword, Cate);
+                register(User, OrigPassword, Cate); //runs method with user fields
             }
         }
+
+        // Multiple parameters.
+        /// <param name="username">Used to indicate username to create account</param>
+        /// <param name="password">Authenticate against username</param>
+        /// <param name="Category">Type/privliges of user</param>
         public bool register(String Username, String Password, String Category)
         {
-            //SqlConnection con = new SqlConnection("Data Source=NiluNilesh;Integrated Security=True");  
             mySqlConnection = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand("INSERT INTO users (username, passwordhash, category) VALUES (@username, @password, @category)", mySqlConnection);
             string myPassword = this.Password.Text;
 
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(myPassword);
-            bool validPassword = BCrypt.Net.BCrypt.Verify(myPassword, hashedPassword);
+            bool validPassword = BCrypt.Net.BCrypt.Verify(myPassword, hashedPassword); //hashes password with bcrypt
 
             cmd.Parameters.AddWithValue("@username", Username);
             cmd.Parameters.AddWithValue("@password", hashedPassword);
@@ -65,7 +74,7 @@ namespace SE_A_Assignment2
             }
             catch
             {
-                MessageBox.Show("User exists, please choose another");
+                MessageBox.Show("Username exists, please choose another");
                 return false;
             }
             
